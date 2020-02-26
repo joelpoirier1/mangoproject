@@ -10,31 +10,30 @@ package model;
 import java.util.UUID;
 
 public class UserModel {
-    private UUID id;
+    private UUID ID;
     private String username; 
     private String password; 
     
-    //Constructor
+    //Constructor. Generates a random ID
     public UserModel(String username,String password) {
     	this.username = username;
     	this.password = password;
-    	id = UUID.randomUUID();
+    	ID = UUID.randomUUID();
     }
 
-    public UserModel(String username,String password, UUID id)
+    //Constructor. Assigns the ID
+    public UserModel(String username,String password, UUID ID)
     {
         this.username = username;
         this.password = password;
-        this.id = id;
+        this.ID = ID;
     }
-    
+
     //Returns the username
-    public String getUsername()  { 
-        return username; 
-    } 
-     
+    public String getUsername()  { return username; }
+
     //Sets a new username
-    public void setUsername(String username)  { 
+    public void setUsername(String username)  {
         this.username = username; 
     } 
      
@@ -44,19 +43,13 @@ public class UserModel {
     } 
      
     //Sets a new password
-    public void setPassword(String password)  { 
+    public void setPassword(String password)  {
         this.password = password; 
     }
 
+    //Returns the ID
     public UUID getId()
     {
-        return id;
-    }
-
-    public String toString()
-    {
-        return "User " + username;
+        return ID;
     }
 }
-
-//Test: Updated on Feb 26, 3:36 pm
