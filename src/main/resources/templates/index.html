@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+    <style>
+        h1 {
+            font-size: 55px;
+        }
+    </style>
+
+    <style>
+        body {
+
+            background-image: url('http://getwallpapers.com/wallpaper/full/c/1/e/457020.jpg');
+        }
+    </style>
+
+    <style>
+        input[type=submit]{
+            background-color: orangered;
+            color: white;
+            padding: 10px 100px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        input[type=submit]:hover, input[type=submit]:active {
+            background-color: crimson;
+        }
+    </style>
+
+</head>
+<body  text="white">
+
+      <!-- <p> <img src="https://i.imgur.com/2Wak56Z.jpg" style="float:right;width:100px;height:100px;"> -->
+
+        <h3 style="text-align:center;border-color:black;border-radius: 25px;border-style: ridge;background: crimson;"
+            th:text="'WELCOME TO...'" />
+
+    </p>
+      <p>
+    <h1 style="text-align:center;border-color:black;border-radius: 25px;border-style: ridge;
+    margin-right:auto; margin-left: auto; width:300px; background: orangered"
+        th:text="'MANGO'"/>
+
+      </p>
+<br>
+<br>
+<i><p> Please enter your <b>username</b> and <b>password:</b></i></p>
+
+<!--
+<form action="#" th:action="@{/click}" method="post">
+    <p><input type= "submit" th:value="${clickCount} + ' clicks'"></p>
+</form>
+-->
+
+      <form action="/verify">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username"><br><br>
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password"><br><br><br>
+          <input type="submit" value="Submit!">
+      </form>
+      <br><br><br><br><br><br><br><br>
+      <p> <img src="https://i.imgur.com/TRK7HTF.png" style="width:118px;height:118px;margin-left: 0;margin-right: fill">
+</body>
+</html>
