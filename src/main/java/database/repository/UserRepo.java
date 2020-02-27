@@ -33,9 +33,9 @@ public class UserRepo implements InterfaceUserDatabase
     }
 
     @Override
-    public Optional<UserModel> login(String username, String password)
+    public Optional<UserModel> validateUser(String username, String password)
     {
-        return userTable.login(username, password);
+        return userTable.validateUser(username, password);
     }
 
     @Override
@@ -61,10 +61,10 @@ public class UserRepo implements InterfaceUserDatabase
 
         //System.out.println(db.addUser(user));
 
-        if(db.login("alyssa", "lee").isPresent())
+        if(db.validateUser("alyssa", "lee").isPresent())
         {
             System.out.println("Login successful\n");
-            System.out.println(db.login("alyssa", "lee").get().getUsername());
+            System.out.println(db.validateUser("alyssa", "lee").get().getUsername());
         }
         else
         {

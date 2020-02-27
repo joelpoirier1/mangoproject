@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Database user table storing information on
+ * Database user table storing information on the application users
  */
 public class UserTable extends SQLDatabase implements InterfaceUserDatabase
 {
@@ -23,7 +23,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
     }
 
     /**
-     * Creates a user table in the database if it does not exist
+     * Creates a user table in the database if it does not exist upon startup
      */
     private void createUserTable()
     {
@@ -123,11 +123,11 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
     }
 
     /**
-     * Validates if a user is in the database.
+     * Validates if a user is in the database when a username and password is entered.
      * Returns an Optional UserModel
      */
     @Override
-    public Optional<UserModel> login(String username, String password)
+    public Optional<UserModel> validateUser(String username, String password)
     {
         UserModel user = null;
         try
@@ -171,6 +171,10 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
         }
     }
 
+    /**
+     * Changes a user's password.
+     * Returns true if change was successful, returns false otherwise.
+     */
     @Override
     public boolean changePassword(UserModel user, String newPassword)
     {
