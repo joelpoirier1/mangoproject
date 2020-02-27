@@ -52,15 +52,23 @@
 </form>
 -->
 
-<p th:if="${invalidInput}" class="error">One of the fields is empty. Please try again</p>
-<p th:if="${alreadyExists}" class="error">The username you entered already exists</p>
+<p th:if="${alreadyExists}" class="error">Username already exists</p>
+<p th:if="${passwordMatch}" class="error">Password and re-typed password must match</p>
+<p th:if="${invalidInput}" class="error">Username and password must not be blank</p>
+<p th:if="${invalidLength}" class="error">Username and password must be less than 11 characters</p>
+<p th:if="${containsSpace}" class="error">Username and password must not contain spaces</p>
+
 <form action="/register" method="post" name="register">
-    <label for="username">Username:</label>
+    <label for="username">Username:</label><br>
     <input type="text" id="username" name="username"><br><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <label for="verifyPassword">Re-enter Password:</label><br>
+    <input type="password" id="verifyPassword" name="verifyPassword"><br><br><br>
     <input type="submit" value="Submit!">
 </form>
-
+<form th:action="@{/return}" method="post"><br>
+    <input type="submit" value="Back to login">
+</form>
 </body>
 </html>

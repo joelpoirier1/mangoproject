@@ -4,6 +4,7 @@ public class RegisterForm {
 
     private String username;
     private String password;
+    private String verifyPassword;
 
     public RegisterForm() {
         super();
@@ -25,4 +26,11 @@ public class RegisterForm {
         this.password = password;
     }
 
+    public String getVerifyPassword() {
+        return verifyPassword;
+    }
+
+    public void setVerifyPassword(String verifyPassword) {
+        this.verifyPassword = verifyPassword;
+    }
 }

@@ -12,35 +12,46 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @Controller
 public class LoginController
 {
     private UserRepo userRepo;
+    private Model myModel;
 
     //to get login page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginForm() {
-        return "login";
+        return "index";
     }
 
     //checking for login credentials
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model)
     {
+        myModel = model;
         userRepo = new UserRepo();
 
-        String username = loginForm.getUsername();
-        String password = loginForm.getPassword();
-
-        if(userRepo.validateUser(username, password).isPresent())
-        {
-            //return the html for home
+        if(validate(loginForm)) {
+            model = myModel;
+            return "index";
+        }
+        else {
+            model = myModel;
             return "home";
         }
-        model.addAttribute("invalidCredentials", true);
-        //return html for login
-        return "login";
+    }
+
+    public boolean validate(LoginForm loginForm){
+        if(loginForm.getUsername().equals("") || loginForm.getPassword().equals("")){
+            myModel.addAttribute("invalidInput", true);
+            return true;
+        } else if(!userRepo.validateUsernameExistence(loginForm.getUsername())) {
+            myModel.addAttribute("usernameExistence", true);
+            return true;
+        } else if(!userRepo.validateUser(loginForm.getUsername(), loginForm.getPassword()).isPresent()) {
+            myModel.addAttribute("incorrectPassword", true);
+            return true;
+        } else return false;
     }
 
     //checking for login credentials
