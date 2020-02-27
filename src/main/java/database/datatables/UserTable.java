@@ -156,6 +156,27 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
         return Optional.ofNullable(user);
     }
 
+    @Override
+    public boolean validateUsernameExistence(String username)
+    {
+        try {
+            String query = "SELECT * FROM MangoUser WHERE username = ?";
+            PreparedStatement pState = connection.prepareStatement(query);
+            pState.setString(1, username);
+            resultSet = pState.executeQuery();
+            if(resultSet.next())
+            {
+                return true;
+            }
+            return false;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Changes a user's username if the username is not currently taken.
      * Returns true if change was successful, returns false otherwise.
