@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+    <style>
+        h1 {
+            font-size: 55px;
+        }
+    </style>
+
+    <style>
+        body {
+
+            background-image: url('http://getwallpapers.com/wallpaper/full/c/1/e/457020.jpg');
+        }
+    </style>
+
+    <style>
+        input[type=submit]{
+            background-color: orangered;
+            color: white;
+            padding: 10px 100px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        input[type=submit]:hover, input[type=submit]:active {
+            background-color: crimson;
+        }
+    </style>
+
+</head>
+<body  text="white">
+
+<h2> Register </h2>
+
+<i><p> Please enter your desired <b>username</b> and <b>password:</b></i></p>
+
+<!--
+<form action="#" th:action="@{/click}" method="post">
+    <p><input type= "submit" th:value="${clickCount} + ' clicks'"></p>
+</form>
+-->
+
+<form action="/register.php" method="post" name="register">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password"><br><br><br>
+    <input type="submit" value="Submit!">
+</form>
+
+</body>
+</html>
