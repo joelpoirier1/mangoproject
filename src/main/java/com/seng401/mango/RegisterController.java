@@ -28,12 +28,15 @@ public class RegisterController {
                 return "register";
             }
 
-            /*
-            Need to check if username already exists
-             */
 
 
             userRepo = new UserRepo();
+
+            if (userRepo.validateUsernameExistence(registerForm.getUsername())) {
+                model.addAttribute("alreadyExists", true);
+                return "register";
+            }
+
             UserModel user = new UserModel(registerForm.getUsername(), registerForm.getPassword());
 
             //add user to the database

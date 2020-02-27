@@ -53,6 +53,7 @@
 -->
 
 <p th:if="${invalidInput}" class="error">One of the fields is empty. Please try again</p>
+<p th:if="${alreadyExists}" class="error">The username you entered already exists</p>
 <form action="/register" method="post" name="register">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username"><br><br>
