@@ -30,6 +30,12 @@ public interface InterfaceUserDatabase
     public Optional<UserModel> validateUser(String username, String password);
 
     /**
+     * Validates if a username is in the database.
+     * Returns true if the username already exists and false if otherwise
+     */
+    public boolean validateUsernameExistence(String username);
+
+    /**
      * Changes a user's username if the username is not currently taken.
      * Returns true if change was successful, returns false otherwise.
      */
