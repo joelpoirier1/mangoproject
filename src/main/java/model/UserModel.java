@@ -1,11 +1,4 @@
 package model;
-/*
- * To do:
- * 1) Connect to database
- * 		-Have a method to store a new username and password
- * 		-Have a method to modify an existing username and password
- * 		-Have a method to retrieve username and password
- */
 
 import java.util.UUID;
 
