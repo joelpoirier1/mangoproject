@@ -57,31 +57,10 @@ public class UserRepo implements InterfaceUserDatabase
     public static void main(String args[])
     {
         UserRepo db = new UserRepo();
-        UserModel user = new UserModel("alyssa", "lee");
 
-        //System.out.println(db.addUser(user));
-
-        if(db.validateUser("alyssa", "lee").isPresent())
-        {
-            System.out.println("Login successful\n");
-            System.out.println(db.validateUser("alyssa", "lee").get().getUsername());
-        }
-        else
-        {
-            System.out.println("Login unsuccessful\n");
-        }
-
-        UserModel alyssa = db.getUser("alyssa").get();
-        System.out.println(alyssa);
-
-        //db.changePassword(alyssa, "whooooo");
-        //db.changeUsername(alyssa, "Whoooooo");
-
-        db.removeUser(alyssa);
-
-
-
-
-
+        //populate DB upon startup... comment out after db is created and delete when db is running on a server...
+        db.addUser(new UserModel("alyssa", "lee"));
+        db.addUser(new UserModel("admin", "admin"));
+        db.addUser(new UserModel("username", "password"));
     }
 }

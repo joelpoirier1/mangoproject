@@ -28,13 +28,12 @@ public class LoginController
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model)
     {
-        //userRepo = new UserRepo();
+        userRepo = new UserRepo();
 
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
 
-        //if(userRepo.validateUser(username, password).isPresent())
-        if(username.equals("admin") && password.equals("admin"))
+        if(userRepo.validateUser(username, password).isPresent())
         {
             //return the html for home
             return "home";

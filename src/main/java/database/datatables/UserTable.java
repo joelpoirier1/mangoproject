@@ -49,6 +49,13 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
     }
 
     /**
+     * Drops the user table
+     */
+    private void dropUserTable() throws SQLException {
+        statement.executeUpdate("DELETE FROM Appointment;");
+    }
+
+    /**
      * Retrieves a user from the database
      */
     @Override
