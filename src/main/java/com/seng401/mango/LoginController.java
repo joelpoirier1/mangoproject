@@ -42,4 +42,10 @@ public class LoginController
         //return html for login
         return "login";
     }
+
+    //checking for login credentials
+    @RequestMapping(value="/submit", method = RequestMethod.POST)
+    public String submit() {
+        return "register";
+    }
 }

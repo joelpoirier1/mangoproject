@@ -52,7 +52,6 @@
 <h1 style="text-align:center;border-color:black;border-radius: 25px;border-style: ridge;
     margin-right:auto; margin-left: auto; width:300px; background: orangered"
     th:text="'MANGO'"/>
-
 </p>
 <br>
 <br>
@@ -71,6 +70,9 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" /><br><br><br>
     <input type="submit" value="Submit!">
+</form>
+<form th:action="@{/submit}" method="post"><br>
+<input type="submit" value="Register as a new user!">
 </form>
 <br><br><br><br><br><br><br><br>
 <p> <img src="https://i.imgur.com/TRK7HTF.png" style="width:118px;height:118px;margin-left: 0;margin-right: fill">
