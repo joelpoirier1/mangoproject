@@ -3,46 +3,43 @@ package model;
 import java.util.UUID;
 
 public class UserModel {
-    private UUID ID;
+    private UUID userID;
     private String username; 
     private String password; 
     
-    //Constructor. Generates a random ID
+    //Constructor. Generates a random userID
     public UserModel(String username,String password) {
     	this.username = username;
     	this.password = password;
-    	ID = UUID.randomUUID();
+    	userID = UUID.randomUUID();
     }
 
-    //Constructor. Assigns the ID
-    public UserModel(String username,String password, UUID ID)
-    {
-        this.username = username;
-        this.password = password;
-        this.ID = ID;
-    }
+//    //Constructor. Assigns the userID
+//    public UserModel(String username,String password, UUID userID)
+//    {
+//        this.username = username;
+//        this.password = password;
+//        this.userID = userID;
+//    }
 
-    //Returns the username
+    //Getters and setters
     public String getUsername()  { return username; }
-
-    //Sets a new username
     public void setUsername(String username)  {
         this.username = username; 
-    } 
-     
-    //Returns the password
-    public String getPassword()  { 
+    }
+
+    public String getPassword()  {
         return password; 
-    } 
-     
-    //Sets a new password
+    }
     public void setPassword(String password)  {
         this.password = password; 
     }
 
-    //Returns the ID
     public UUID getId()
     {
-        return ID;
+        return userID;
+    }
+    public void setUserID(UUID userID)  {
+        this.userID = userID;
     }
 }
