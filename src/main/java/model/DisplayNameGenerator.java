@@ -1,7 +1,7 @@
 package model;
 import java.util.Random;
 
-//This class is used in Comments and Posts classes
+//This class is used for generating display names in the  Comments and Posts classes
 
 public class DisplayNameGenerator {
 
@@ -13,9 +13,9 @@ public class DisplayNameGenerator {
     //Generates a random display name and returns it. For example "Red_Apple"
     public String generateDisplayName(){
         Random rand = new Random();
-        int colorNumber = rand.nextInt(colors.length) - 1;
-        int fruitNumber = rand.nextInt(colors.length) - 1;
-        String generatedDisplayName = colors[colorNumber] + SPACE + fruitNames[fruitNumber];
+        int colorIndex = rand.nextInt(colors.length) - 1;
+        int fruitIndex = rand.nextInt(colors.length) - 1;
+        String generatedDisplayName = colors[colorIndex] + SPACE + fruitNames[fruitIndex];
         return generatedDisplayName;
     }
 }

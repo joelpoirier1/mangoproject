@@ -2,25 +2,25 @@ package model;
 
 import java.util.UUID;
 
-public class UserModel {
+public class User {
     private UUID userID;
     private String username; 
     private String password; 
     
     //Constructor. Generates a random userID
-    public UserModel(String username,String password) {
+    public User(String username,String password) {
     	this.username = username;
     	this.password = password;
     	userID = UUID.randomUUID();
     }
 
-//    //Constructor. Assigns the userID
-//    public UserModel(String username,String password, UUID userID)
-//    {
-//        this.username = username;
-//        this.password = password;
-//        this.userID = userID;
-//    }
+    //Constructor. Assigns the userID
+    public User(String username,String password, UUID userID)
+    {
+        this.username = username;
+        this.password = password;
+        this.userID = userID;
+    }
 
     //Getters and setters
     public String getUsername()  { return username; }
