@@ -1,7 +1,7 @@
 package model;
 import java.util.Random;
 
-//This class is used for generating display names in the  Comments and Posts classes
+//This class is used for generating display names in the Comments and Posts classes
 
 public class DisplayNameGenerator {
 

@@ -66,8 +66,3 @@ public class Comment {
     public String getDisplayName()  { return displayName; }
     public void setDisplayName(String displayName)  { this.displayName= displayName; }
 }
-
-//When commiting to gitHub:
-//UserModel: changed ID to userID
-//Comment: Created Comment class
-//DisplayNameGenerator: Created DisplayNameGenerator class

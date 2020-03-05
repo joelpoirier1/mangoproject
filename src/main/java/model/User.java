@@ -14,14 +14,6 @@ public class User {
     	userID = UUID.randomUUID();
     }
 
-    //Constructor. Assigns the userID
-    public User(String username,String password, UUID userID)
-    {
-        this.username = username;
-        this.password = password;
-        this.userID = userID;
-    }
-
     //Getters and setters
     public String getUsername()  { return username; }
     public void setUsername(String username)  {
