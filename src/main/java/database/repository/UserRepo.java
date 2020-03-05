@@ -1,7 +1,7 @@
 package database.repository;
 import database.InterfaceUserDatabase;
 import database.datatables.*;
-import model.UserModel;
+import model.User;
 
 import java.util.Optional;
 
@@ -15,37 +15,37 @@ public class UserRepo implements InterfaceUserDatabase
     }
 
     @Override
-    public Optional<UserModel> getUser(String username)
+    public Optional<User> getUser(String username)
     {
         return userTable.getUser(username);
     }
 
     @Override
-    public boolean addUser(UserModel user)
+    public boolean addUser(User user)
     {
         return userTable.addUser(user);
     }
 
     @Override
-    public boolean removeUser(UserModel user)
+    public boolean removeUser(User user)
     {
         return userTable.removeUser(user);
     }
 
     @Override
-    public Optional<UserModel> login(String username, String password)
+    public Optional<User> login(String username, String password)
     {
         return userTable.login(username, password);
     }
 
     @Override
-    public boolean changeUsername(UserModel user, String newUsername)
+    public boolean changeUsername(User user, String newUsername)
     {
         return userTable.changeUsername(user, newUsername);
     }
 
     @Override
-    public boolean changePassword(UserModel user, String newPassword)
+    public boolean changePassword(User user, String newPassword)
     {
         return userTable.changePassword(user, newPassword);
     }
@@ -54,10 +54,10 @@ public class UserRepo implements InterfaceUserDatabase
 
     //Tests
     // TODO: ...Delete main later
-    public static void main(String args[])
+    public static void main(String [] args)
     {
         UserRepo db = new UserRepo();
-        UserModel user = new UserModel("alyssa", "lee");
+        User user = new User("alyssa", "lee");
 
         //System.out.println(db.addUser(user));
 
@@ -71,7 +71,7 @@ public class UserRepo implements InterfaceUserDatabase
             System.out.println("Login unsuccessful\n");
         }
 
-        UserModel alyssa = db.getUser("alyssa").get();
+        User alyssa = db.getUser("alyssa").get();
         System.out.println(alyssa);
 
         //db.changePassword(alyssa, "whooooo");
