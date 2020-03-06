@@ -134,7 +134,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Returns an Optional User
      */
     @Override
-    public Optional<User> login(String username, String password)
+    public Optional<User> validateUser(String username, String password)
     {
         User user = null;
         try
