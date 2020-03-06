@@ -2,7 +2,7 @@ package database.datatables;
 
 import database.InterfaceUserDatabase;
 import database.SQLDatabase;
-import model.UserModel;
+import model.User;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -59,9 +59,9 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Retrieves a user from the database
      */
     @Override
-    public Optional<UserModel> getUser(String username)
+    public Optional<User> getUser(String username)
     {
-        UserModel user = null;
+        User user = null;
         try
         {
             String query = "SELECT * FROM MangoUser WHERE Username = ?";
@@ -74,7 +74,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
                 String password = resultSet.getString("Password");
                 UUID id = UUID.fromString(resultSet.getString("IDNum"));
 
-                user = new UserModel(username, password, id);
+                user = new User(username, password, id);
             }
 
         } catch (SQLException e)
@@ -89,7 +89,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Adds a user to the database.
      * Returns true if user is successfully added, false if otherwise.
      */
-    public boolean addUser(UserModel user)
+    public boolean addUser(User user)
     {
         try
         {
@@ -113,7 +113,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Returns true if user is successfully added, false if otherwise.
      */
     @Override
-    public boolean removeUser(UserModel user)
+    public boolean removeUser(User user)
     {
         try
         {
@@ -130,13 +130,13 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
     }
 
     /**
-     * Validates if a user is in the database when a username and password is entered.
-     * Returns an Optional UserModel
+     * Validates if a user is in the database.
+     * Returns an Optional User
      */
     @Override
-    public Optional<UserModel> validateUser(String username, String password)
+    public Optional<User> login(String username, String password)
     {
-        UserModel user = null;
+        User user = null;
         try
         {
             String query = "SELECT * FROM MangoUser WHERE username = ? AND password = ?";
@@ -147,7 +147,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
 
             if(resultSet.next())
             {
-                user = new UserModel(username, password);
+                user = new User(username, password);
             }
         } catch (SQLException e)
         {
@@ -182,14 +182,14 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Returns true if change was successful, returns false otherwise.
      */
     @Override
-    public boolean changeUsername(UserModel user, String newUsername)
+    public boolean changeUsername(User user, String newUsername)
     {
         try
         {
             String query = "UPDATE MangoUser SET Username = ? WHERE IDNum = ?";
             PreparedStatement pState = connection.prepareStatement(query);
             pState.setString(1, newUsername);
-            pState.setString(2, user.getId().toString());
+            pState.setString(2, user.getId().toString());                          //TODO: Change to User id getter function
             pState.execute();
             return true;
         } catch (SQLException e)
@@ -204,14 +204,14 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
      * Returns true if change was successful, returns false otherwise.
      */
     @Override
-    public boolean changePassword(UserModel user, String newPassword)
+    public boolean changePassword(User user, String newPassword)
     {
         try
         {
             String query = "UPDATE MangoUser SET Password = ? WHERE IDNum = ?";
             PreparedStatement pState = connection.prepareStatement(query);
             pState.setString(1, newPassword);
-            pState.setString(2, user.getId().toString());
+            pState.setString(2, user.getId().toString());                          //TODO: Change to User id getter function
             pState.execute();
             return true;
         } catch (SQLException e)
