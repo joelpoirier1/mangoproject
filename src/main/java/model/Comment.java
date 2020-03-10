@@ -13,8 +13,13 @@ public class Comment {
     private int likes;
     private String date;
     private UUID commentID;
-    private String message;
+    private UUID postID;
+    private UUID userID;
+    private String comment;
     private String displayName;
+
+
+    public Comment(){};
 
     //Constructor
     public Comment(String message) {
@@ -22,8 +27,8 @@ public class Comment {
         displayNameFontSize = DISPLAY_NAME_FONT_SIZE;
         likes = INITIAL_LIKES;
         date = getCurrentDate();
-        UUID commentID = UUID.randomUUID();
-        this.message = message;
+        commentID = UUID.randomUUID();
+        comment = message;
         displayName = generateDisplayName();
     }
 
@@ -60,9 +65,31 @@ public class Comment {
     public UUID getCommentID()  { return commentID; }
     public void setCommentID(UUID commentID)  { this.commentID = commentID; }
 
-    public String getMessage()  { return message; }
-    public void setMessage(String message)  { this.message = message; }
+    public String getMessage()  { return comment; }
+    public void setMessage(String message)  { this.comment = message; }
 
     public String getDisplayName()  { return displayName; }
     public void setDisplayName(String displayName)  { this.displayName= displayName; }
+
+    public UUID getUserID() { return userID;  }
+    public void setUserID(UUID userID) {        this.userID = userID;     }
+
+    public UUID getPostID() {        return postID;     }
+    public void setPostID(UUID postID) {        this.postID = postID;    }
+
+    public String getComment() {         return comment;     }
+    public void setComment(String comment) {        this.comment = comment;    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "likes=" + likes +
+                ", date='" + date + '\'' +
+                ", commentID=" + commentID +
+                ", postID=" + postID +
+                ", userID=" + userID +
+                ", comment='" + comment + '\'' +
+                ", displayName='" + displayName + '\'' +
+                '}';
+    }
 }
