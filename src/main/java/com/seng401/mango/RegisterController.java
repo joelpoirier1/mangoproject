@@ -1,7 +1,7 @@
 package com.seng401.mango;
 
 import database.repository.UserRepo;
-import model.UserModel;
+import model.User;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +40,7 @@ public class RegisterController {
             }
 
             //Add user to database
-            UserModel user = new UserModel(registerForm.getUsername(), registerForm.getPassword());
+            User user = new User(registerForm.getUsername(), registerForm.getPassword());
             userRepo.addUser(user);
 
             model = myModel;
