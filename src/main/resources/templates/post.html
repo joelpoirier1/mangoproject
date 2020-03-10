@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post View</title>
+</head>
+<body>
+
+<form action="@{/comment}" object="${commentForm}" method="post">
+    <label for="comment">Comment</label>
+    <input type="text" id="comment" name="comment" placeholder="Comment" autofocus="autofocus" /><br><br>
+    <input type="submit" value="Submit!">
+</form>
+<form action="@{/submit}" method="post"><br>
+    <input type="submit" value="Comment">
+</form>
+
+</body>
+</html>
