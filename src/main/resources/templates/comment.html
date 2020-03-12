@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post View</title>
+</head>
+<style>
+    body {
+        background-color: #ffe361;
+        background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    label{
+        color: #a80000;
+    }
+
+    input[type="submit"]{
+        background-color: #a80000;
+        color: white;
+        width: 150px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    input[type="submit"]:hover, input[type="submit"]:active {
+        background-color: #c2350a;
+    }
+</style>
+<body>
+<br><br><br>
+<form th:action="@{/comment}" object="${commentForm}" method="post">
+    <label for="comment">Comment</label>
+    <input type="text" id="comment" name="comment"/><br><br>
+    <input type="submit" value="Submit">
+</form>
+<form th:action="@{/comment/cancel}" method="post"><br>
+    <input type="submit" value="Cancel">
+</form>
+
+
+</body>
+</html>

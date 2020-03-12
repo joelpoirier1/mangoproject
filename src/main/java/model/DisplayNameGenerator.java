@@ -13,8 +13,8 @@ public class DisplayNameGenerator {
     //Generates a random display name and returns it. For example "Red_Apple"
     public String generateDisplayName(){
         Random rand = new Random();
-        int colorIndex = rand.nextInt(colors.length) - 1;
-        int fruitIndex = rand.nextInt(colors.length) - 1;
+        int colorIndex = rand.nextInt(colors.length - 1);
+        int fruitIndex = rand.nextInt(colors.length - 1);
         String generatedDisplayName = colors[colorIndex] + SPACE + fruitNames[fruitIndex];
         return generatedDisplayName;
     }
