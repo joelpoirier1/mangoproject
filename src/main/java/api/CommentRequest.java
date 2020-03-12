@@ -18,7 +18,7 @@ public class CommentRequest {
 
     public static void main(String[] args) {
         CommentRequest r = new CommentRequest();
-        System.out.println(r.getCommentsForUserID(UUID.fromString("1f32a4d2-61f4-4341-b9a8-69085f0bb5d0")));
+        System.out.println(r.getCommentsForUserID(UUID.fromString("90b9ce7f-93d7-4623-98c4-a961c20bac7c")));
     }
 
 
