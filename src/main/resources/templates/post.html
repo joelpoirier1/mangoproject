@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <title>Post View</title>
-</head>
+    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
 <style>
     body {
         background-color: #ffe361;
@@ -28,14 +28,16 @@
         background-color: #c2350a;
     }
 </style>
+</head>
 <body>
 <br><br><br>
-<form th:action="@{/post}" object="${postForm}" method="post">
-    <label for="post">Post</label>
-    <input type="text" id="post" name="post" placeholder="Post" autofocus="autofocus" /><br><br>
+<!--/*@thymesVar id="postForm" type=""*/-->
+<form th:action="@{/post}" th:object="${postForm}" method="post">
+    <label for="message">Post</label>
+    <input type="text" id="message" name="message" placeholder="Post" autofocus="autofocus" /><br><br>
     <input type="submit" value="Submit">
 </form>
-<form th:action="@{/cancel}" method="post"><br>
+<form th:action="@{/post/cancel}" method="post"><br>
     <input type="submit" value="Cancel">
 </form>
 

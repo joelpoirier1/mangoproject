@@ -1,7 +1,6 @@
 package com.seng401.mango;
 
 
-import database.repository.UserRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String addPost() {
-        return "addPost";
+        return "post";
     }
 
     @RequestMapping(value="/addComment", method = RequestMethod.POST)
-    public String addComment() {
+    public String addComment(Model model) {
+
         return "comment";
     }
 }

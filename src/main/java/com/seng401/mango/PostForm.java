@@ -7,7 +7,7 @@ public class PostForm {
         super();
     }
 
-    public String getMessaget() {
+    public String getMessage() {
         return message;
     }
 
