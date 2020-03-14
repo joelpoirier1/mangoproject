@@ -24,4 +24,8 @@ public class CommentList {
         }
         return s;
     }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
 }

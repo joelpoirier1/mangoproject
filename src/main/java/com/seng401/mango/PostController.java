@@ -1,5 +1,6 @@
 package com.seng401.mango;
 
+import api.CommentRequest;
 import model.Comment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 
 @Controller
 public class PostController {
+
+    private CommentRequest request = new CommentRequest();
     //checking for login credentials
     @RequestMapping(value = "/post", method = RequestMethod.GET)
     public String getPostForm(){
@@ -22,23 +25,13 @@ public class PostController {
 
         //add posts to the system
 
-        model.addAttribute("posts", getComments());
+        model.addAttribute("posts", request.getAllComments().getComments());
             return "home";
     }
 
     @RequestMapping(value="/post/cancel", method = RequestMethod.POST)
     public String cancel(Model model){
-        model.addAttribute("posts", getComments());
+        model.addAttribute("posts", request.getAllComments().getComments());
         return "home";
     }
-
-    public ArrayList<Comment> getComments(){
-        ArrayList<Comment> comments = new ArrayList<>();
-        Comment comment = new Comment("hey man. Im doing so great");
-        Comment comm = new Comment("bro Im awesome");
-        comments.add(comment);
-        comments.add(comm);
-        return comments;
-    }
-
 }

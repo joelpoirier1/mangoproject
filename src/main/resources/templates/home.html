@@ -60,6 +60,7 @@
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
             th:text="${post.getMessage()}"></h1>
         <form th:action="@{/addComment}" method="post">
+<!--            <input th:name="id" th:text="${post.getCommentID()}">-->
             <p align="right"><input type="submit" value="Add a Comment"></p>
         </form>
     </tr>
