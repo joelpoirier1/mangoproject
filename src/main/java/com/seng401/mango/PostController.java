@@ -13,6 +13,15 @@ import java.util.ArrayList;
 @Controller
 public class PostController {
 
+    ArrayList<Comment> comments = new ArrayList<>();
+
+    PostController(){
+        Comment comment = new Comment("hey man. Im doing so great");
+        Comment comm = new Comment("bro Im awesome");
+        comments.add(comment);
+        comments.add(comm);
+    }
+
     private CommentRequest request = new CommentRequest();
     //checking for login credentials
     @RequestMapping(value = "/post", method = RequestMethod.GET)
@@ -24,14 +33,25 @@ public class PostController {
     public String login(@ModelAttribute("postForm") PostForm PostForm, Model model) {
 
         //add posts to the system
+        Comment newComment = new Comment(PostForm.getMessage());
+        comments.add(newComment);
 
-        model.addAttribute("posts", request.getAllComments().getComments());
+        model.addAttribute("posts", getComments());
+        //model.addAttribute("posts", request.getAllComments().getComments());
             return "home";
     }
 
     @RequestMapping(value="/post/cancel", method = RequestMethod.POST)
     public String cancel(Model model){
-        model.addAttribute("posts", request.getAllComments().getComments());
+        model.addAttribute("posts", getComments());
+       // model.addAttribute("posts", request.getAllComments().getComments());
         return "home";
+    }
+
+ /*
+ This function is temporary
+  */
+    public ArrayList<Comment> getComments(){
+        return comments;
     }
 }

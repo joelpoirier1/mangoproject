@@ -32,6 +32,10 @@
 <body>
 <br><br><br>
 <!--/*@thymesVar id="commentForm" type=""*/-->
+
+<p th:if="${myPost}" class="error" th:text="${myPost}"></p>
+
+
 <form th:action="@{/comment}" th:object="${commentForm}" method="post">
     <label for="comment">Comment</label>
     <input type="text" id="comment" name="comment"/><br><br>

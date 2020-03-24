@@ -54,16 +54,16 @@
 <table>
     <tbody>
     <tr th:each="post : ${posts}">
-       <!--/*@thymesVar id="getDisplayName" type=""*/-->
+
        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
                             th:text="${post.getDisplayName()}"></h1>
-        <!--/*@thymesVar id="getMessage" type=""*/-->
         <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
             th:text="${post.getMessage()}"></h1>
-        <form th:action="@{/addComment}" method="post">
-<!--            <input th:name="id" th:text="${post.getCommentID()}">-->
-            <p align="right"><input type="submit" value="Add a Comment"></p>
+        <form th:action="@{/addComment}" th:object="${homeForm}" method="post">
+            <p id="parentID" th:text="${post.getCommentID()}" th:data="${post.getCommentID()}"></p>
+            <p align="center">Add a comment<input type="comment" id="comment"></p>
+            <p align="center"><input type="submit" value="Submit comment"></p>
         </form>
     </tr>
     </tbody>

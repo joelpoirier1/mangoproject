@@ -38,7 +38,8 @@ public class LoginController
         }
         else {
             model = myModel;
-            model.addAttribute("posts", request.getAllComments().getComments());
+            model.addAttribute("posts", getComments());
+           // model.addAttribute("posts", request.getAllComments().getComments());
             return "home";
         }
     }
@@ -60,5 +61,17 @@ public class LoginController
     @RequestMapping(value="/submit", method = RequestMethod.POST)
     public String submit() {
         return "register";
+    }
+
+    /*
+This function is temporary
+ */
+    public ArrayList<Comment> getComments(){
+        ArrayList<Comment> comments = new ArrayList<>();
+        Comment comment = new Comment("hey man. Im doing so great");
+        Comment comm = new Comment("bro Im awesome");
+        comments.add(comment);
+        comments.add(comm);
+        return comments;
     }
 }
