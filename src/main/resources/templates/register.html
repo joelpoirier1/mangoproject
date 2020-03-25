@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-size: 55px;
+        }
+
+
+        h2{
+            color: #a80000;
+        }
+
+        body {
+            background-color: #ffe361;
+            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        input[type=submit]{
+            background-color: #a80000;
+            color: white;
+            padding: 10px 100px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        input[type=submit]:hover, input[type=submit]:active {
+            background-color: #c2350a;
+        }
+    </style>
+
+</head>
+<body  text="white">
+
+<h2> Register </h2>
+
+<i><p> Please enter your desired <b>username</b> and <b>password:</b></i></p>
+
+<!--
+<form action="#" th:action="@{/click}" method="post">
+    <p><input type= "submit" th:value="${clickCount} + ' clicks'"></p>
+</form>
+-->
+
+<p th:if="${alreadyExists}" class="error">Username already exists</p>
+<p th:if="${passwordMatch}" class="error">Password and re-typed password must match</p>
+<p th:if="${invalidInput}" class="error">Username and password must not be blank</p>
+<p th:if="${invalidLength}" class="error">Username and password must be less than 11 characters</p>
+<p th:if="${containsSpace}" class="error">Username and password must not contain spaces</p>
+
+<form action="/register" method="post" name="register">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <label for="verifyPassword">Re-enter Password:</label><br>
+    <input type="password" id="verifyPassword" name="verifyPassword"><br><br><br>
+    <input type="submit" value="Submit!">
+</form>
+<form th:action="@{/return}" method="post"><br>
+    <input type="submit" value="Back to login">
+</form>
+</body>
+</html>
