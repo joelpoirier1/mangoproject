@@ -1,7 +1,6 @@
-package EventSourcing.Model.Aggregate;
+package EventSourcing.Model;
 import EventSourcing.BasicClasses.CreateCommentCommand;
 import EventSourcing.BasicClasses.CommentCreatedEvent;
-import EventSourcing.BasicClasses.Status;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
@@ -37,7 +36,7 @@ public class CommentAggregate {
         this.commentID = commentCreatedEvent.commentID;
         this.parentID = commentCreatedEvent.parentID;
         this.message = commentCreatedEvent.message;
-        this.status = String.valueOf(Status.CREATED);
+        this.status = "CREATED";
     }
 }
 

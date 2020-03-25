@@ -1,4 +1,4 @@
-package EventSourcing.Model.services.queries;
+package EventSourcing.CommentMicroservice.Query;
 import java.util.List;
 import java.util.UUID;
 

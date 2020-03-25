@@ -1,12 +1,12 @@
 package EventSourcing.Controller;
 
-import EventSourcing.Model.services.queries.CommentQueryService;
+import EventSourcing.CommentMicroservice.Query.CommentQueryService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
+
 import java.util.UUID;
 
 /*Controller class to expose one end-point to list the events on an Aggregate*/

@@ -1,4 +1,4 @@
-package EventSourcing.Model.services.commands;
+package EventSourcing.CommentMicroservice.Command;
 
 import EventSourcing.BasicClasses.CommentCreateDTO;
 import EventSourcing.BasicClasses.CreateCommentCommand;

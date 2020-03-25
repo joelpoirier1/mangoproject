@@ -1,7 +1,7 @@
 package EventSourcing.Controller;
 
 import EventSourcing.BasicClasses.CommentCreateDTO;
-import EventSourcing.Model.services.commands.CommentCommandService;
+import EventSourcing.CommentMicroservice.Command.CommentCommandService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package EventSourcing.Model.services.queries;
+package EventSourcing.CommentMicroservice.Query;
 
 import EventSourcing.BasicClasses.CommentCreatedEvent;
 import org.axonframework.eventsourcing.eventstore.EventStore;

@@ -2,7 +2,6 @@ Currently:
 -Wait for Alyssa to check the code
 -Store commentID into the database immeidately when a comment is created. Retrieve comment events one by one from the event store
 -Function that retrieves all the comments in the model
--What is a comment microservce?
 
 After event sourcing merged and comments can be created on mango:
 -Add ArrayList of childComments to implement nested comments
