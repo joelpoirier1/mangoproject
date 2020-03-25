@@ -1,0 +1,27 @@
+Setting up:
+1. At the top right, click 'Edit configurations' > Add New Configuration > Maven
+2. Working directory: Browse >  Path that leads to the project. For example: C:/Users/Farrukh/IdeaProjects/Test
+3. Command line should be: clean package spring-boot:run
+4. Profiles should be: Run
+5. Click Apply > OK
+
+Running it:
+1. Press Run
+2. Wait about a minute and then go to the website called "http://localhost:8080/swagger-ui.html"
+3. Click on "Command Api tags goes here" > Post > Try it out
+4. Type in a message in the message field and an ID in the parentID field
+5. Click "Execute"
+6. Scroll down and under "Response Body", there will be a UUID generated. Copy that
+7. Click on "Query Api tags goes here" > GET > Try it out
+8. In the commentID field, paste the UUID
+9. Click "Execute"
+10. If you've done this correctly, then under "Response Body", there will be the message displayed for that particular commentID
+
+Continue further if you'd like to see the event store:
+1. After completing step 9 in the above, go to this website: "http://localhost:8080/h2-console"
+2. In the JDBC URL field, put in "jdbc:h2:mem:testdb"
+3. Click Connect
+4. In the SQL statement field, put in "SELECT PAYLOAD_TYPE , AGGREGATE_IDENTIFIER, SEQUENCE_NUMBER , PAYLOAD   FROM DOMAIN_EVENT_ENTRY"
+5. Click Run
+6. If you've done this correctly, then you'll see the comment event stored
+7. Additionally, you can do this for multiple comments. So, do steps 3 to 5 in "Running it". Do step 5 in this set of instructions, you should see multiple comments displayed in the event store
