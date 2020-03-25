@@ -44,6 +44,9 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <form th:action="@{/logout}" method="post">
+                <p align="right"><input type="submit" value="Logout"></p>
+            </form>
 
             <div class="col-md-6">
                 <form th:action="@{/addPost}" th:object="${postForm}" method="post">

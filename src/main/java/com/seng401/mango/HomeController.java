@@ -14,26 +14,28 @@ public class HomeController {
 
     private CommentRequest request = new CommentRequest();
 
+    @RequestMapping(value="/logout", method = RequestMethod.POST)
+    public String logout() {
+        return "index";
+    }
+
     @RequestMapping(value="/addComment", method = RequestMethod.POST)
     public String addComment(@ModelAttribute("homeForm") CommentForm commentForm, Model model) {
 
-            //homeForm.getParentID();
+        //Add nested comment - will uncomment once functions are implemented
 
-        Comment newComment = new Comment(commentForm.getComment());
-//        Comment comment = new Comment(id);
-        model.addAttribute("myPost", commentForm.getParentID().toString());
-
-       // model.addAttribute("myPost", request.getCommentByCommentID(UUID.fromString(id)));
+//        Comment newComment = new Comment(commentForm.getComment());
+//        model.addAttribute("posts", request.getAllComments().getComments());
         return "home";
     }
 
     @RequestMapping(value="/addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostForm postForm, Model model) {
 
-        //Create comment
+        //Add comment - will uncomment once functions are implemented
 
-        Comment newComment = new Comment(postForm.getComment());
-        model.addAttribute("posts", request.getAllComments().getComments());
+//        Comment newComment = new Comment(postForm.getComment());
+//        model.addAttribute("posts", request.getAllComments().getComments());
 
         return "home";
     }
