@@ -3,6 +3,7 @@ package database;
 import model.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface InterfaceUserDatabase
 {
@@ -10,6 +11,11 @@ public interface InterfaceUserDatabase
      * Retrieves a user from the database
      */
     public Optional<User> getUser(String username);
+
+    /**
+     * Retrieves a user from the database
+     */
+    public Optional<User> getUserByID(UUID userID);
 
     /**
      * Adds a user to the database.

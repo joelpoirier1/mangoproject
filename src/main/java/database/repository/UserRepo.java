@@ -7,6 +7,7 @@ import model.PostCategory;
 import model.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserRepo implements InterfaceUserDatabase
 {
@@ -21,6 +22,11 @@ public class UserRepo implements InterfaceUserDatabase
     public Optional<User> getUser(String username)
     {
         return userTable.getUser(username);
+    }
+
+    @Override
+    public Optional<User> getUserByID(UUID userID) {
+        return userTable.getUserByID(userID);
     }
 
     @Override
@@ -72,6 +78,8 @@ public class UserRepo implements InterfaceUserDatabase
         User user1 = new User("admin", "admin");
         db.addUser(user);
         db.addUser(user1);
+        System.out.println(" WHOOOO" + db.getUserByID(user.getId()));
+
         Post post = new Post("YO", "TITLE", PostCategory.Miscellaneous, user.getId());
         System.out.println(pt.addPost(post));
         System.out.println(pt.addPost(new Post("Hello", "TITLE", PostCategory.Lifestyle, user1.getId())));
