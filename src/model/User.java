@@ -1,7 +1,5 @@
 package com.seng401.mango.model;
 
-import java.util.UUID;
-
 public class User {
     private String username; 
     private String password; 
