@@ -1,6 +1,6 @@
 package EventSourcing.Controller;
 
-import EventSourcing.BasicClasses.CommentCreateDTO;
+import EventSourcing.BasicClasses.Comment;
 import EventSourcing.CommentMicroservice.Command.CommentCommandService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +26,8 @@ public class CommentCommandController {
 
     //Called when clicking 'Add comment'. Stores comment event into the data base.
     @PostMapping("PostMapping stuff goes here")
-    public CompletableFuture<String> createComment(@RequestBody CommentCreateDTO commentCreateDTO) {
+    public CompletableFuture<String> createComment(@RequestBody Comment comment) {
         System.out.println("Inside createComment(@RequestBody CommentCreateDTO commentCreateDTO)");
-        return commentCommandService.createComment(commentCreateDTO);
+        return commentCommandService.createComment(comment);
     }
 }
