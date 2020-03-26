@@ -69,6 +69,20 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+<!-- Stuff below added by  Farrukh -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+<!-- This is for seeing the comment events inside the event store. Visit  http://localhost:8080/h2-console/ when running the program  -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+<!-- Stuff above added by Farrukh -->
     </dependencies>
 
     <dependencyManagement>
