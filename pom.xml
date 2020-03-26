@@ -76,6 +76,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-spring-boot-starter</artifactId>
+            <version>3.2</version>
+        </dependency>
+
 <!-- This is for seeing the comment events inside the event store. To see it, visit http://localhost:8080/h2-console/ when running the program  -->
         <dependency>
             <groupId>com.h2database</groupId>
