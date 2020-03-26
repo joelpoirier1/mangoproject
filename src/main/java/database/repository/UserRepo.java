@@ -1,6 +1,10 @@
 package database.repository;
+
 import database.InterfaceUserDatabase;
-import database.datatables.*;
+import database.datatables.PostTable;
+import database.datatables.UserTable;
+import model.Post;
+import model.PostCategory;
 import model.User;
 
 import java.util.Optional;
@@ -62,12 +66,22 @@ public class UserRepo implements InterfaceUserDatabase
     public static void main(String args[])
     {
         UserRepo db = new UserRepo();
+        PostTable pt = new PostTable();
 
         //populate DB upon startup... comment out after db is created and delete when db is running on a server...
-        /*db.addUser(new User("alyssa", "lee"));
-        db.addUser(new User("admin", "admin"));
-        db.addUser(new User("username", "password"));
+        User user = new User("alyssa", "lee");
+        db.addUser(user);
+        Post post = new Post("YO", PostCategory.Miscellaneous, user.getId());
+        System.out.println(pt.addPost(post));
+        System.out.println(pt.addPost(new Post("Hello", PostCategory.Lifestyle, user.getId())));
+        System.out.println(pt.getPostByUUID(post.getPostID()));
+        System.out.println(pt.getAllPosts());
+        post.incrementLikes();
+        System.out.println(pt.updatePost(post));
 
-        System.out.println(db.validateUsernameExistence("alyssa"));*/
+        //db.addUser(new User("admin", "admin"));
+        //db.addUser(new User("username", "password"));
+
+        //System.out.println(db.validateUsernameExistence("alyssa"));
     }
 }
