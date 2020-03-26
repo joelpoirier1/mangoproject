@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
 
-/*Class to allow end user to interact with the application
-* and to handle the commands*/
+//Used for calling functions responsible for storing comments in the event store
 @RestController
 @RequestMapping(value = "/comments")
 @Api(value = "Command API value goes here", description = "Command Api Description goes here", tags = "Command Api tags goes here")
@@ -27,7 +26,7 @@ public class CommentCommandController {
     //Called when clicking 'Add comment'. Stores comment event into the data base.
     @PostMapping("PostMapping stuff goes here")
     public CompletableFuture<String> createComment(@RequestBody Comment comment) {
-        System.out.println("Inside createComment(@RequestBody CommentCreateDTO commentCreateDTO)");
+        System.out.println("Inside createComment(@RequestBody Comment comment");
         return commentCommandService.createComment(comment);
     }
 }

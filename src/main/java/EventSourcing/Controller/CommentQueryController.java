@@ -1,6 +1,5 @@
 package EventSourcing.Controller;
 
-import EventSourcing.BasicClasses.CommentList;
 import EventSourcing.CommentMicroservice.Query.CommentQueryService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
-/*Controller class to expose one end-point to list the events on an Aggregate*/
+//Used for calling functions responsible for retrieving comments in the event store
 @RestController
 @RequestMapping(value = "/comments")/*See note below*/
 @Api(value = "Query Api value goes here", description = "Query Api description goes here", tags = "Query Api tags goes here")
@@ -24,17 +23,11 @@ public class CommentQueryController {
         System.out.println("Inside Constructor CommentQueryController(CommentQueryService commentQueryService)");
     }
 
-//    Returns the serialized version of the comment. Meaning, turns a sequence of bytes that holds comment info
+    // Returns the comment event in Byte form.
     @GetMapping("/{commentID}/events")/*See note below*/
      public List<Object> getCommentBytesFromEventStore(@PathVariable(value = "commentID") UUID commentID){
          System.out.println("Inside listEventsForComment(@PathVariable(value = \"commentID\") String commentID)");
          return  commentQueryService.getCommentBytesFromEventStore(commentID);
-    }
-
-    //Retrieves all comments from the event store
-    public CommentList getAllCommentsFromEventStore(){
-        System.out.println("Inside listEventsForComment(@PathVariable(value = \"commentID\") UUID commentID)");
-        return commentQueryService.getAllCommentsFromEventStore();
     }
 
     /*Note: @RequestMapping(value = "/comments") specifies the first path. @GetMapping("/{commentID}/events") specifies the second path.
