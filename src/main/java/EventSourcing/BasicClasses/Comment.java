@@ -6,6 +6,7 @@ public class Comment {
     private UUID commentID;
     private UUID parentID;
     private UUID userID;
+    private UUID postID; /*TODO: Add this stuff*/
     private String message;
 
     //Empty constructor
