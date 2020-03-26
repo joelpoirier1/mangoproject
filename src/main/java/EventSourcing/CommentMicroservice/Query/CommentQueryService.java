@@ -10,5 +10,6 @@ import java.util.UUID;
 public interface CommentQueryService {
     public List<Object> getCommentBytesFromEventStore(UUID commentID);
     public Comment getCommentCreatedEventClassFromEventStore(UUID commentID);
+    public String getCommentMessageFromEventStore(UUID commentID);
     public CommentList getAllCommentsFromEventStore();
 }

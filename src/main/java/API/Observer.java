@@ -4,5 +4,5 @@ import EventSourcing.BasicClasses.CreateCommentCommand;
 
 public interface Observer
 {
-    public void update(CreateCommentCommand event);
+    public void updateCreationEvent(CreateCommentCommand event);
 }
