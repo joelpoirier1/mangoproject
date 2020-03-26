@@ -33,7 +33,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" +
+        return "Model.Comment{" +
                 ", commentID=" + commentID +
                 ", postID=" + parentID +
                 ", userID=" + userID +

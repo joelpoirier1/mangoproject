@@ -1,7 +1,7 @@
 package EventSourcing.BasicClasses;
 
 /*Data Transfer Class for associated objects*/
-/*The entirety of Aggregate "Comment" is our resource,
+/*The entirety of Aggregate "Model.Comment" is our resource,
 * however, different commands require different payloads,
 * giving the necessity of having DTO objects*/
 
