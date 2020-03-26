@@ -1,6 +1,6 @@
 Currently:
--Wait for Alyssa to check the code
--Retrieve comment events one by one from the event store
+-Utilize Kacper's microservice
+-Merge Farrukh's and Annelyse's code
 -Function that retrieves all the comments in the model
 
 After event sourcing merged and comments can be created on mango:
