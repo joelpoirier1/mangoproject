@@ -2,6 +2,7 @@ package EventSourcing.CommentMicroservice.Command;
 
 import EventSourcing.BasicClasses.CommentCreateDTO;
 import EventSourcing.BasicClasses.CreateCommentCommand;
+import EventSourcing.Database.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,12 @@ public class CommentCommandServiceImpl implements CommentCommandService {
 
     /*Convenience interface provided by Axon used to dispatch commands*/
     private final CommandGateway commandGateway;
+    private CommentTable localComment;
 
     //This constructor is called immediately when the application is run
     public CommentCommandServiceImpl(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
+        localComment = new CommentTable();
         System.out.println("Inside Constructor CommentCommandServiceImpl(CommandGateway commandGateway");
     }
 
@@ -26,8 +29,17 @@ public class CommentCommandServiceImpl implements CommentCommandService {
     @Override
     public CompletableFuture<String> createComment(CommentCreateDTO commentCreateDTO) {
         System.out.println("Inside createComment(CommentCreateDTO commentCreateDTO)");
-        /*TODO create local UUID variable*/
-        return commandGateway.send(new CreateCommentCommand(UUID.randomUUID(), commentCreateDTO.getParentID(), commentCreateDTO.getMessage()));
+
+        UUID localCommentID = UUID.randomUUID();
+        String localCommentIDString = localCommentID.toString();
+
+        boolean bool = false;
+        while(!bool) {
+            bool = localComment.addComment(localCommentIDString);
+        }
+
+        System.out.println("Comment UUID store success");
+        return commandGateway.send(new CreateCommentCommand(localCommentID, commentCreateDTO.getParentID(), commentCreateDTO.getMessage()));
     }
 }
 
