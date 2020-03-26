@@ -1,7 +1,6 @@
 package database.repository;
 
 import database.InterfaceUserDatabase;
-import database.datatables.PostTable;
 import database.datatables.UserTable;
 import model.Post;
 import model.PostCategory;
@@ -66,16 +65,16 @@ public class UserRepo implements InterfaceUserDatabase
     public static void main(String args[])
     {
         UserRepo db = new UserRepo();
-        PostTable pt = new PostTable();
+        PostRepo pt = new PostRepo();
 
         //populate DB upon startup... comment out after db is created and delete when db is running on a server...
         User user = new User("alyssa", "lee");
         User user1 = new User("admin", "admin");
         db.addUser(user);
         db.addUser(user1);
-        Post post = new Post("YO", PostCategory.Miscellaneous, user.getId());
+        Post post = new Post("YO", "TITLE", PostCategory.Miscellaneous, user.getId());
         System.out.println(pt.addPost(post));
-        System.out.println(pt.addPost(new Post("Hello", PostCategory.Lifestyle, user1.getId())));
+        System.out.println(pt.addPost(new Post("Hello", "TITLE", PostCategory.Lifestyle, user1.getId())));
         System.out.println(pt.getPostByUUID(post.getPostID()));
         System.out.println(pt.getAllPosts());
         post.incrementLikes();
