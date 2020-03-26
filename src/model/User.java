@@ -1,5 +1,6 @@
 package com.seng401.mango.model;
 
+//This class is used for storing user info in the database
 public class User {
     private String username; 
     private String password; 

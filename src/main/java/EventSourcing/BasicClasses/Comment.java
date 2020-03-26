@@ -2,39 +2,45 @@ package EventSourcing.BasicClasses;
 
 import java.util.UUID;
 
+//This class is used for storing the details of a comment. Used by controller and GUI
 public class Comment {
+    private UUID postID;
     private UUID commentID;
-    private UUID parentID;      //parent comment id for nested comment
-    private UUID postID; /*TODO: Add this stuff*/
+    private UUID parentCommentID;
     private String message;
 
     //Empty constructor
     public Comment(){};
 
     //Constructor
-    public Comment(UUID commentID, UUID parentID, String message) {
+    public Comment( UUID postID, UUID commentID, UUID parentCommentID, String message) {
+        this.postID = postID;
         this.commentID = commentID;
-        this.parentID = parentID;
+        this.parentCommentID = parentCommentID;
         this.message = message;
-
     }
 
     //Getters and setters
+    public UUID getPostID()  { return postID; }
+    public void setPostID(UUID postID)  { this.postID = postID; }
+
     public UUID getCommentID()  { return commentID; }
     public void setCommentID(UUID commentID)  { this.commentID = commentID; }
 
-    public UUID getParentID()  { return parentID; }
-    public void getParentID(UUID parentID)  { this.parentID = parentID; }
+    public UUID getParentCommentID()  { return parentCommentID; }
+    public void getParentCommentID(UUID parentCommentID)  { this.parentCommentID = parentCommentID; }
 
     public String getMessage()  { return message; }
     public void setMessage(String message)  { this.message = message; }
 
+    //Returns the postID, commentID, parentCommentID, and the message in string format
     @Override
     public String toString() {
         return "Comment{" +
+                ", postID=" + postID +
                 ", commentID=" + commentID +
-                ", postID=" + parentID +
-                ", comment='" + message + '\'' +
+                ", parentCommentID=" + parentCommentID +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

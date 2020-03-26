@@ -1,14 +1,8 @@
 Currently:
--Wait for Alyssa to check the code
--Retrieve comment events one by one from the event store
--Function that retrieves all the comments in the model
--Remove getAllComments in event sorucing
--Add postID
 
 After event sourcing merged and comments can be created on mango:
 -Add ArrayList of childComments to implement nested comments
-
--Take care of the parentID stuff in CommentCreateDTO
+-Take care of the parentCommentID and postID parameters in CommentCommandServiceImpl file
 
 After:
 -Search function will be using category to search

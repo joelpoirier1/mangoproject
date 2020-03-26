@@ -9,7 +9,7 @@ Running it:
 1. Press Run
 2. Wait about a minute and then go to the website called "http://localhost:8080/swagger-ui.html"
 3. Click on "Command Api tags goes here" > Post > Try it out
-4. Type in a message in the message field and an ID in the parentID field
+4. Type in a message in the message field and an ID in the parentCommentID field
 5. Click "Execute"
 6. Scroll down and under "Response Body", there will be a UUID generated. Copy that
 7. Click on "Query Api tags goes here" > GET > Try it out
