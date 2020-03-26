@@ -1,6 +1,6 @@
 package EventSourcing.CommentMicroservice.Command;
 
-import EventSourcing.BasicClasses.CommentCreateDTO;
+import EventSourcing.BasicClasses.Comment;
 import EventSourcing.BasicClasses.CreateCommentCommand;
 import EventSourcing.Database.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -25,13 +25,13 @@ public class CommentCommandServiceImpl implements CommentCommandService {
 
     /*send() method here will send a command and wait for a response*/
     @Override
-    public CompletableFuture<String> createComment(CommentCreateDTO commentCreateDTO) {
+    public CompletableFuture<String> createComment(Comment comment) {
         System.out.println("Inside createComment(CommentCreateDTO commentCreateDTO)");
 
         UUID localCommentID = UUID.randomUUID();
 
         System.out.println("Comment UUID store success");
-        return commandGateway.send(new CreateCommentCommand(localCommentID, commentCreateDTO.getParentID(), commentCreateDTO.getMessage()));
+        return commandGateway.send(new CreateCommentCommand(localCommentID, comment.getParentID(), comment.getMessage()));
     }
 }
 
