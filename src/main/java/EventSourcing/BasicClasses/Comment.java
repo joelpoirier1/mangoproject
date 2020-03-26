@@ -28,7 +28,7 @@ public class Comment {
     public void setCommentID(UUID commentID)  { this.commentID = commentID; }
 
     public UUID getParentCommentID()  { return parentCommentID; }
-    public void getParentCommentID(UUID parentCommentID)  { this.parentCommentID = parentCommentID; }
+    public void setParentCommentID(UUID parentCommentID)  { this.parentCommentID = parentCommentID; }
 
     public String getMessage()  { return message; }
     public void setMessage(String message)  { this.message = message; }
