@@ -27,6 +27,7 @@ public class PostTable extends SQLDatabase {
             if (rs.next() == false) {
                 String query = "CREATE TABLE Post " +
                         "(IDNum VARCHAR(255) NOT NULL," +
+                        "Title VARCHAR(255) NOT NULL," +
                         "PostContent VARCHAR(255) NOT NULL," +
                         "GeneratedName VARCHAR(255) NOT NULL," +
                         "Category VARCHAR(255) NOT NULL," +
@@ -57,12 +58,13 @@ public class PostTable extends SQLDatabase {
             if (resultSet.next()) {
                 Date date = resultSet.getDate("date");
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
+                String title = resultSet.getString("Title");
                 String content = resultSet.getString("PostContent");
                 String displayName = resultSet.getString("GeneratedName");
                 int likes = resultSet.getInt("likes");
                 PostCategory category = PostCategory.valueOf(resultSet.getString("category"));
 
-                post = new Post(postID, date, content, displayName, userID, likes, category);
+                post = new Post(postID, date, title, content, displayName, userID, likes, category);
             }
 
         } catch (SQLException e) {
@@ -86,12 +88,13 @@ public class PostTable extends SQLDatabase {
                 Date date = resultSet.getDate("date");
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
+                String title = resultSet.getString("Title");
                 String content = resultSet.getString("PostContent");
                 String displayName = resultSet.getString("GeneratedName");
                 int likes = resultSet.getInt("likes");
                 PostCategory category = PostCategory.valueOf(resultSet.getString("category"));
 
-                posts.add(new Post(postID, date, content, displayName, userID, likes, category));
+                posts.add(new Post(postID, date, title, content, displayName, userID, likes, category));
             }
 
         } catch (SQLException e) {
@@ -115,11 +118,13 @@ public class PostTable extends SQLDatabase {
                 Date date = resultSet.getDate("date");
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
+                String title = resultSet.getString("Title");
+
                 String content = resultSet.getString("PostContent");
                 String displayName = resultSet.getString("GeneratedName");
                 int likes = resultSet.getInt("likes");
 
-                posts.add(new Post(postID, date, content, displayName, userID, likes, category));
+                posts.add(new Post(postID, date, title, content, displayName, userID, likes, category));
             }
 
         } catch (SQLException e) {
@@ -142,12 +147,13 @@ public class PostTable extends SQLDatabase {
             while (resultSet.next()) {
                 Date date = resultSet.getDate("date");
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
+                String title = resultSet.getString("Title");
                 String content = resultSet.getString("PostContent");
                 String displayName = resultSet.getString("GeneratedName");
                 int likes = resultSet.getInt("likes");
                 PostCategory category = PostCategory.valueOf(resultSet.getString("category"));
 
-                posts.add(new Post(postID, date, content, displayName, userID, likes, category));
+                posts.add(new Post(postID, date, title, content, displayName, userID, likes, category));
             }
 
         } catch (SQLException e) {
@@ -165,16 +171,17 @@ public class PostTable extends SQLDatabase {
     {
         try
         {
-            String query = "INSERT INTO Post (IDNum, PostContent, GeneratedName, Category, Likes, Date, UserID)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String query = "INSERT INTO Post (IDNum, Title, PostContent, GeneratedName, Category, Likes, Date, UserID)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement pState = connection.prepareStatement(query);
             pState.setString(1, post.getPostID().toString());
-            pState.setString(2, post.getContent());
-            pState.setString(3, post.getDisplayName());
-            pState.setString(4, post.getCategory().toString());
-            pState.setInt(5, post.getLikes());
-            pState.setDate(6, new java.sql.Date(post.getDate().getTime()));
-            pState.setString(7, post.getUserID().toString());
+            pState.setString(2, post.getTitle());
+            pState.setString(3, post.getContent());
+            pState.setString(4, post.getDisplayName());
+            pState.setString(5, post.getCategory().toString());
+            pState.setInt(6, post.getLikes());
+            pState.setDate(7, new java.sql.Date(post.getDate().getTime()));
+            pState.setString(8, post.getUserID().toString());
             pState.execute();
             return true;
         } catch (SQLException e)
@@ -189,12 +196,13 @@ public class PostTable extends SQLDatabase {
      */
     public boolean updatePost(Post post) {
         try {
-            String query = "UPDATE Post SET PostContent = ?, Category = ?, Likes = ? WHERE IDNum = ?";
+            String query = "UPDATE Post SET Title = ?, PostContent = ?, Category = ?, Likes = ? WHERE IDNum = ?";
             PreparedStatement pState = connection.prepareStatement(query);
-            pState.setString(1, post.getContent());
-            pState.setString(2, post.getCategory().toString());
-            pState.setInt(3, post.getLikes());
-            pState.setString(4, post.getPostID().toString());
+            pState.setString(1, post.getTitle());
+            pState.setString(2, post.getContent());
+            pState.setString(3, post.getCategory().toString());
+            pState.setInt(4, post.getLikes());
+            pState.setString(5, post.getPostID().toString());
             pState.execute();
             return true;
         } catch (SQLException e) {

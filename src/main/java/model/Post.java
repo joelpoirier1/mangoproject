@@ -11,12 +11,14 @@ public class Post
     private UUID postID;
     private UUID userID;
     private String content;
+    private String title;
     private String displayName;
     private int likes;
     private PostCategory category;
 
-    public Post(String content, PostCategory category, UUID userID)
+    public Post(String content, String title, PostCategory category, UUID userID)
     {
+        this.title = title;
         likes = INITIAL_LIKES;
         date = new Date();
         postID = UUID.randomUUID();
@@ -26,10 +28,11 @@ public class Post
         this.userID = userID;
     }
 
-    public Post(UUID postID, Date date, String content, String displayName, UUID userID, int likes, PostCategory category)
+    public Post(UUID postID, Date date, String title, String content, String displayName, UUID userID, int likes, PostCategory category)
     {
         this.date = date;
         this.postID = postID;
+        this.title = title;
         this.content = content;
         this.displayName = displayName;
         this.userID = userID;
@@ -109,6 +112,14 @@ public class Post
     public String toString()
     {
         return "Post " + postID.toString() + ": " + content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
 
