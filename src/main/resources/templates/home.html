@@ -66,15 +66,14 @@
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
             th:text="${post.getMessage()}"></h1>
 
-<!--        <tr th:each=""nested : ${post.getNested()}}">-->
+<!--        <tr th:each="nested : ${post.getNested()}}">-->
 <!--    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;-->
 <!--    margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: "-->
 <!--        th:text="${post.getMessage()}"></h1>-->
 <!--    </tr>-->
 
-
         <form th:action="@{/addComment}" th:object="${commentForm}" method="post">
-<!--            <p id="parentID" th:text="${post.getCommentID()}" th:data="${post.getCommentID()}"></p>-->
+            <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
             <p align="center">Add a comment<input type="comment" id="comment"></p>
             <p align="center"><input type="submit" value="Submit comment"></p>
         </form>

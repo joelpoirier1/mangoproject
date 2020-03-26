@@ -20,12 +20,12 @@ public class HomeController {
     }
 
     @RequestMapping(value="/addComment", method = RequestMethod.POST)
-    public String addComment(@ModelAttribute("homeForm") CommentForm commentForm, Model model) {
+    public String addComment(@ModelAttribute("commentForm") CommentForm commentForm, Model model) {
 
         //Add nested comment - will uncomment once functions are implemented
 
-//        Comment newComment = new Comment(commentForm.getComment());
-//        model.addAttribute("posts", request.getAllComments().getComments());
+//        Comment newComment = new Comment(commentForm.getComment(), commentForm.getParentID());
+        model.addAttribute("posts", request.getAllComments().getComments());
         return "home";
     }
 
@@ -35,7 +35,7 @@ public class HomeController {
         //Add comment - will uncomment once functions are implemented
 
 //        Comment newComment = new Comment(postForm.getComment());
-//        model.addAttribute("posts", request.getAllComments().getComments());
+        model.addAttribute("posts", request.getAllComments().getComments());
 
         return "home";
     }

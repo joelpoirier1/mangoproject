@@ -8,7 +8,7 @@ import java.util.UUID;
 public class CommentRequest {
 
     private static RestTemplate restAPI = new RestTemplate();
-    private static String commentServiceURL = "http://10.13.177.36:11712/comments/";
+    private static String commentServiceURL = "http://70.65.105.239:55555/comments/";
 
 
     public CommentRequest(){};

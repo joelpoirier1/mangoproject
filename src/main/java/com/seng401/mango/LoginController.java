@@ -38,8 +38,8 @@ public class LoginController
         }
         else {
             model = myModel;
-            model.addAttribute("posts", getComments());
-           // model.addAttribute("posts", request.getAllComments().getComments());
+//            model.addAttribute("posts", getComments());
+            model.addAttribute("posts", request.getAllComments().getComments());
             return "home";
         }
     }
