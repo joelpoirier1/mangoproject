@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Comment {
     private UUID commentID;
     private UUID parentID;
-    private UUID userID;
+    private UUID postID; /*TODO: Add this stuff*/
     private String message;
 
     //Empty constructor
@@ -15,7 +15,6 @@ public class Comment {
     public Comment(UUID commentID, UUID parentID, String message) {
         this.commentID = commentID;
         this.parentID = parentID;
-        this.userID = null;  /*TODO: Change this later*/
         this.message = message;
 
     }
@@ -30,15 +29,11 @@ public class Comment {
     public String getMessage()  { return message; }
     public void setMessage(String message)  { this.message = message; }
 
-    public UUID getUserID() { return userID;  }
-    public void setUserID(UUID userID) { this.userID = userID; }
-
     @Override
     public String toString() {
         return "Comment{" +
                 ", commentID=" + commentID +
                 ", postID=" + parentID +
-                ", userID=" + userID +
                 ", comment='" + message + '\'' +
                 '}';
     }

@@ -2,8 +2,18 @@ Currently:
 -Utilize Kacper's microservice
 -Merge Farrukh's and Annelyse's code
 -Function that retrieves all the comments in the model
+-Remove getAllComments in event sorucing
+-Add postID
 
 After event sourcing merged and comments can be created on mango:
 -Add ArrayList of childComments to implement nested comments
--Add userID into comment
+
 -Take care of the parentID stuff in CommentCreateDTO
+
+After:
+-Search function will be using category to search
+-Search and create post functions will be on the same page as status
+
+Extra features (After fulfilling all requirements):
+-Add feature for user to see their past posts (Add userID into comment)
+
