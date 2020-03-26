@@ -1,10 +1,14 @@
 package API;
 
-import EventSourcing.BasicClasses.CommentCreatedEvent;
+import EventSourcing.BasicClasses.CreateCommentCommand;
 
-public class SubscriberEventStore implements Observer {
+public class SubscriberEventStore implements Observer
+{
+
+
     @Override
-    public void update(CommentCreatedEvent event) {
+    public void update(CreateCommentCommand event)
+    {
 
     }
 }

@@ -1,8 +1,8 @@
 package API;
 
-import EventSourcing.BasicClasses.CommentCreatedEvent;
+import EventSourcing.BasicClasses.CreateCommentCommand;
 
 public interface Observer
 {
-    public void update(CommentCreatedEvent event);
+    public void update(CreateCommentCommand event);
 }

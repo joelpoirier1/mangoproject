@@ -1,6 +1,8 @@
 package API;
 
+import EventSourcing.BasicClasses.CreateCommentCommand;
+
 public interface Subject
 {
-    void notifyObserver();
+    public void notifyObserver(CreateCommentCommand newComment);
 }
