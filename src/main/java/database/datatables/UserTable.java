@@ -96,7 +96,7 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
             String query = "INSERT INTO MangoUser (IDNum, Username, Password)" +
                     "VALUES (?, ?, ?);";
             PreparedStatement pState = connection.prepareStatement(query);
-            pState.setString(1, UUID.randomUUID().toString());
+            pState.setString(1, user.getId().toString());
             pState.setString(2, user.getUsername());
             pState.setString(3, user.getPassword());
             pState.execute();
