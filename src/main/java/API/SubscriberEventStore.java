@@ -1,14 +1,10 @@
 package API;
 
-import org.axonframework.messaging.MessageDispatchInterceptor;
+import EventSourcing.BasicClasses.CommentCreatedEvent;
 
-import java.util.List;
-import java.util.function.BiFunction;
-
-public class SubscriberEventStore implements MessageDispatchInterceptor {
-
+public class SubscriberEventStore implements Observer {
     @Override
-    public BiFunction handle(List list) {
-        return null;
+    public void update(CommentCreatedEvent event) {
+
     }
 }
