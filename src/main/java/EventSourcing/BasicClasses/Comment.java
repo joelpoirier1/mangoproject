@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Comment {
     private UUID commentID;
-    private UUID parentID;
+    private UUID parentID;      //parent comment id for nested comment
     private UUID postID; /*TODO: Add this stuff*/
     private String message;
 
