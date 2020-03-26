@@ -33,9 +33,10 @@ public class CommentCommandServiceImpl implements CommentCommandService {
         UUID localCommentID = UUID.randomUUID();
         String localCommentIDString = localCommentID.toString();
 
-        boolean bool = false;
-        while(!bool) {
-            bool = localComment.addComment(localCommentIDString);
+        boolean bool = localComment.addComment(localCommentIDString);
+
+        if(!bool) {
+            System.out.println("Could not store comment UUID");
         }
 
         System.out.println("Comment UUID store success");

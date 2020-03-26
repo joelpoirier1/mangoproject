@@ -14,10 +14,6 @@ public class CommentCreateDTO { //DTO = Data Transfer Object
     private String parentID;
     private String message;
 
-    public CommentCreateDTO(){
-        System.out.println("Inside Constructor CommentCreateDTO()");
-    }
-
     //Getters and setters
     public String getParentID()  { return parentID; }
     public void getParentID(String parentID)  { this.parentID = parentID; }
