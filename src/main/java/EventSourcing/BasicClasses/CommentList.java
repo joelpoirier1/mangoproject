@@ -1,4 +1,4 @@
-package com.seng401.mango.model;
+package EventSourcing.BasicClasses;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.seng401.mango.model;
+package EventSourcing.BasicClasses;
 
 import java.util.UUID;
 
@@ -12,10 +12,12 @@ public class Comment {
     public Comment(){};
 
     //Constructor
-    public Comment(String message/*, UUID parentID*/) {
-        commentID = UUID.randomUUID();
-        this.parentID = null; /*TODO: Change this later*/
+    public Comment(UUID commentID, UUID parentID, String message) {
+        this.commentID = commentID;
+        this.parentID = parentID;
+        this.userID = null;  /*TODO: Change this later*/
         this.message = message;
+
     }
 
     //Getters and setters

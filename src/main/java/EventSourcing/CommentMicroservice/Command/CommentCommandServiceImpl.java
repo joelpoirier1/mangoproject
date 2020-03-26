@@ -27,7 +27,8 @@ public class CommentCommandServiceImpl implements CommentCommandService {
     public CompletableFuture<String> createComment(CommentCreateDTO commentCreateDTO) {
         System.out.println("Inside createComment(CommentCreateDTO commentCreateDTO)");
         /*TODO create local UUID variable*/
-        return commandGateway.send(new CreateCommentCommand(UUID.randomUUID(), commentCreateDTO.getParentID(), commentCreateDTO.getMessage()));
+        return commandGateway.send(new CreateCommentCommand(UUID.randomUUID(), UUID.fromString("82525212-6f16-11ea-bc55-0242ac130003"), commentCreateDTO.getMessage()));
     }
+    /*TODO: Take care of passing the parentID in the above code*/
 }
 

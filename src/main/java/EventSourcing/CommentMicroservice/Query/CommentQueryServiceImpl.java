@@ -1,6 +1,7 @@
 package EventSourcing.CommentMicroservice.Query;
 
 import EventSourcing.BasicClasses.CommentCreatedEvent;
+import EventSourcing.BasicClasses.CommentList;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +32,19 @@ public class CommentQueryServiceImpl implements CommentQueryService {
     }
 
     //Returns the message of a comment.
-    public String getCommentMessageFromEventStore(UUID commentID) {
+    public CommentCreatedEvent getCommentCreatedEventClassFromEventStore(UUID commentID) {
         System.out.println("Inside getCommentMessageFromEventStore(UUID commentID)");
         CommentCreatedEvent commentCreatedEvent = (CommentCreatedEvent) getCommentBytesFromEventStore(commentID).get(0);
-        String CommentMessage = commentCreatedEvent.getMessage();
-        return CommentMessage;
+        return commentCreatedEvent;
+    }
+
+    public CommentList getAllCommentsFromEventStore(){
+        CommentList commentList = new CommentList();
+//        for (int i = 0; i < numberOfCommentsInCommentIDDataBase ; i++){
+//            UUID commentID = UUID.fromString(getCommentIDFromDataBase(i));
+//            CommentCreatedEvent commentCreatedEvent = getCommentCreatedEventClassFromEventStore(commentID);
+//            Comment comment = new Comment(commentCreatedEvent.getCommentID(), commentCreatedEvent.getParentD(), commentCreatedEvent.getMessage());
+//        }
+        return commentList;
     }
 }

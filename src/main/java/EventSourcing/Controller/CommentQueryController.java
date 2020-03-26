@@ -1,13 +1,10 @@
 package EventSourcing.Controller;
 
+import EventSourcing.BasicClasses.CommentList;
 import EventSourcing.CommentMicroservice.Query.CommentQueryService;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 /*Controller class to expose one end-point to list the events on an Aggregate*/
 @RestController
@@ -24,16 +21,15 @@ public class CommentQueryController {
 
 //    Returns the serialized version of the comment. Meaning, turns a sequence of bytes that holds comment info
 //    @GetMapping("/{commentID}/events")/*See note below*/
-//     public List<Object> getCommentBytesFromEventStore(@PathVariable UUID commentID){
+//     public List<Object> getCommentBytesFromEventStore(@PathVariable (value = "commentID") UUID commentID){
 //         System.out.println("Inside listEventsForComment(@PathVariable(value = \"commentID\") String commentID)");
-//         return commentQueryService.getCommentBytesFromEventStore(commentID);
+//         return  commentQueryService.getCommentBytesFromEventStore(commentID);
 //    }
 
-    //Returns the message of a comment. Can send it to Joel's GUI to display the comments
-    @GetMapping("/{commentID}/events")/*See note below*/
-    public String getCommentMessageFromEventStore(@PathVariable UUID commentID){
+    //Retrieves all comments from the event store
+    public CommentList getAllCommentsFromEventStore(){
         System.out.println("Inside listEventsForComment(@PathVariable(value = \"commentID\") UUID commentID)");
-        return commentQueryService.getCommentMessageFromEventStore(commentID);
+        return commentQueryService.getAllCommentsFromEventStore();
     }
 
     /*Note: @RequestMapping(value = "/comments") specifies the first path. @GetMapping("/{commentID}/events") specifies the second path.

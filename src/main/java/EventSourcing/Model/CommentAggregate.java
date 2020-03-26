@@ -13,7 +13,7 @@ import java.util.UUID;
 public class CommentAggregate {
     @AggregateIdentifier
     private UUID commentID;
-    private String parentID;
+    private UUID parentID;
     private String message;
     private String status;
 

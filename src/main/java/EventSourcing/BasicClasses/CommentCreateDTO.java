@@ -11,16 +11,12 @@ package EventSourcing.BasicClasses;
 
 public class CommentCreateDTO { //DTO = Data Transfer Object
     /*The data members here will be displayed in the fields of the GUI*/
-    private String parentID;
+//    private UUID parentID; /*TODO take care of this alter*/
     private String message;
 
-    public CommentCreateDTO(){
-        System.out.println("Inside Constructor CommentCreateDTO()");
-    }
-
     //Getters and setters
-    public String getParentID()  { return parentID; }
-    public void getParentID(String parentID)  { this.parentID = parentID; }
+//    public UUID getParentID()  { return parentID; }
+//    public void getParentID(UUID parentID)  { this.parentID = parentID; }
 
     public String getMessage()  { return message; }
     public void setMessage(String message)  { this.message = message; }
