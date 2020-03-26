@@ -85,6 +85,32 @@ public class UserTable extends SQLDatabase implements InterfaceUserDatabase
         return Optional.ofNullable(user);
     }
 
+    @Override
+    public Optional<User> getUserByID(UUID userID)
+    {
+        User user = null;
+        try
+        {
+            String query = "SELECT * FROM MangoUser WHERE IDNum = ?";
+            PreparedStatement pState = connection.prepareStatement(query);
+            pState.setString(1, userID.toString());
+            resultSet = pState.executeQuery();
+
+            if(resultSet.next())
+            {
+                String password = resultSet.getString("Password");
+                String username = resultSet.getString("Username");
+
+                user = new User(username, password, userID);
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return Optional.ofNullable(user);    }
+
     /**
      * Adds a user to the database.
      * Returns true if user is successfully added, false if otherwise.
