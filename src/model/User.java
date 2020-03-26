@@ -3,21 +3,18 @@ package com.seng401.mango.model;
 import java.util.UUID;
 
 public class User {
-    private UUID userID;
     private String username; 
     private String password; 
     
-    //Constructor. Generates a random userID
+    //Constructor.
     public User(String username,String password) {
     	this.username = username;
     	this.password = password;
-    	userID = UUID.randomUUID();
     }
 
-    public User(String username,String password, UUID id) {
+    public User(String username,String password) {
         this.username = username;
         this.password = password;
-        userID = id;
     }
 
     //Getters and setters
@@ -33,11 +30,4 @@ public class User {
         this.password = password; 
     }
 
-    public UUID getId()
-    {
-        return userID;
-    }
-    public void setUserID(UUID userID)  {
-        this.userID = userID;
-    }
 }
