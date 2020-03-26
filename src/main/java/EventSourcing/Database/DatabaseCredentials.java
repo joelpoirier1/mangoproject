@@ -1,4 +1,4 @@
-package Database;
+package EventSourcing.Database;
 
 public interface DatabaseCredentials
 {

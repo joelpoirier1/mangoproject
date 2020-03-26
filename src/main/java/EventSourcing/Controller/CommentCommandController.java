@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 * and to handle the commands*/
 @RestController
 @RequestMapping(value = "/comments")
-@Api(value = "Command API value goes here", description = "Command Api Description goes here", tags = "Command Api tags goes here")
+@Api(value = "Command EventSourcing.API value goes here", description = "Command Api Description goes here", tags = "Command Api tags goes here")
 public class CommentCommandController {
     private final CommentCommandService commentCommandService;
 

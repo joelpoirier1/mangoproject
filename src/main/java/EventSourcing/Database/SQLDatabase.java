@@ -1,4 +1,4 @@
-package Database;
+package EventSourcing.Database;
 
 import java.sql.*;
 import java.util.Properties;

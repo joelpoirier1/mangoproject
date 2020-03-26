@@ -1,7 +1,7 @@
 package EventSourcing.CommentMicroservice.Command;
 
-import API.Subject;
-import API.SubscriberEventStore;
+import EventSourcing.API.Subject;
+import EventSourcing.API.SubscriberEventStore;
 import EventSourcing.BasicClasses.CommentCreateDTO;
 import EventSourcing.BasicClasses.CreateCommentCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;

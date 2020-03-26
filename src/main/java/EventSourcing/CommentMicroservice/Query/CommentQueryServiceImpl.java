@@ -29,6 +29,7 @@ public class CommentQueryServiceImpl implements CommentQueryService {
         System.out.println("Inside getCommentBytesFromEventStore(UUID commentID)");
         String commentStringID = commentID.toString();
         List<Object> aCommentEvent = eventStore.readEvents(commentStringID).asStream().map(s -> s.getPayload()).collect(Collectors.toList());
+        //List<Object> aCommentEvent = eventStore.openStream(null).asStream().collect(Collectors.toList());
         return aCommentEvent;
     }
 

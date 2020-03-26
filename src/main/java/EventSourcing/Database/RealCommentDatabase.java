@@ -1,8 +1,8 @@
-package Database;
+package EventSourcing.Database;
 
-import Database.datatables.CommentTable;
-import Model.Comment;
-import Model.CommentList;
+import EventSourcing.Database.datatables.CommentTable;
+import EventSourcing.Model.Comment;
+import EventSourcing.Model.CommentList;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

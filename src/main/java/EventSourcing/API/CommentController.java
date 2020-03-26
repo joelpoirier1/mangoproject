@@ -1,8 +1,8 @@
-package API;
+package EventSourcing.API;
 
-import Model.Comment;
-import Model.*;
-import Service.CommentService;
+import EventSourcing.Model.Comment;
+import EventSourcing.Model.*;
+import EventSourcing.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,7 @@ public class CommentController {
 
     @GetMapping
     public CommentList getAllComments(){
+        System.out.println("INSIDE GETALLCOMMENTS!!!");
         return commentService.getAllComments();
     }
 

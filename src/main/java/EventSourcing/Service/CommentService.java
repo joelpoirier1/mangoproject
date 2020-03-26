@@ -1,8 +1,8 @@
-package Service;
+package EventSourcing.Service;
 
-import Database.CommentData;
-import Model.Comment;
-import Model.CommentList;
+import EventSourcing.Database.CommentData;
+import EventSourcing.Model.Comment;
+import EventSourcing.Model.CommentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

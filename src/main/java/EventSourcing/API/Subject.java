@@ -1,4 +1,4 @@
-package API;
+package EventSourcing.API;
 
 import EventSourcing.BasicClasses.CreateCommentCommand;
 

@@ -1,9 +1,9 @@
-package Database.datatables;
+package EventSourcing.Database.datatables;
 
-import Model.Comment;
-import Database.CommentData;
-import Model.CommentList;
-import Database.SQLDatabase;
+import EventSourcing.Model.Comment;
+import EventSourcing.Database.CommentData;
+import EventSourcing.Model.CommentList;
+import EventSourcing.Database.SQLDatabase;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;

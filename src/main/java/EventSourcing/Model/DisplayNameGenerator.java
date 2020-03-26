@@ -1,4 +1,4 @@
-package Model;
+package EventSourcing.Model;
 
 import java.util.Random;
 

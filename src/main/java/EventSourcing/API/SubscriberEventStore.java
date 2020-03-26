@@ -1,18 +1,19 @@
-package API;
+package EventSourcing.API;
 
-import Database.RealCommentDatabase;
+import EventSourcing.Database.RealCommentDatabase;
 import EventSourcing.BasicClasses.CreateCommentCommand;
-import Model.Comment;
+import EventSourcing.Model.Comment;
+import EventSourcing.Service.CommentService;
 
 import java.util.UUID;
 
 public class SubscriberEventStore implements Observer
 {
-    private final RealCommentDatabase commentDatabase;
+    private final CommentService commentDatabase;
 
     public SubscriberEventStore()
     {
-        commentDatabase = new RealCommentDatabase();
+        commentDatabase = new CommentService(new RealCommentDatabase());
     }
 
     @Override

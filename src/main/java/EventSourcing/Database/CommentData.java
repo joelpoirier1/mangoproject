@@ -1,7 +1,7 @@
-package Database;
+package EventSourcing.Database;
 
-import Model.Comment;
-import Model.CommentList;
+import EventSourcing.Model.Comment;
+import EventSourcing.Model.CommentList;
 
 import java.util.Optional;
 import java.util.UUID;
