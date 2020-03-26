@@ -16,12 +16,10 @@ public class CommentCommandServiceImpl implements CommentCommandService {
 
     /*Convenience interface provided by Axon used to dispatch commands*/
     private final CommandGateway commandGateway;
-    private CommentTable localComment;
 
     //This constructor is called immediately when the application is run
     public CommentCommandServiceImpl(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
-        localComment = new CommentTable();
         System.out.println("Inside Constructor CommentCommandServiceImpl(CommandGateway commandGateway");
     }
 
@@ -31,13 +29,6 @@ public class CommentCommandServiceImpl implements CommentCommandService {
         System.out.println("Inside createComment(CommentCreateDTO commentCreateDTO)");
 
         UUID localCommentID = UUID.randomUUID();
-        String localCommentIDString = localCommentID.toString();
-
-        boolean bool = localComment.addComment(localCommentIDString);
-
-        if(!bool) {
-            System.out.println("Could not store comment UUID");
-        }
 
         System.out.println("Comment UUID store success");
         return commandGateway.send(new CreateCommentCommand(localCommentID, commentCreateDTO.getParentID(), commentCreateDTO.getMessage()));
