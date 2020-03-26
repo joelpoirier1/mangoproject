@@ -73,7 +73,7 @@ public class PostTable extends SQLDatabase {
     }
 
     /**
-     * Retrieves a post from the database from UUID
+     * Retrieves all post from the database
      */
     public ArrayList<Post> getAllPosts() {
         ArrayList<Post> posts = new ArrayList<>();
@@ -101,7 +101,64 @@ public class PostTable extends SQLDatabase {
     }
 
     /**
-     * Adds a user to the database.
+     * Retrieves post from the database under a given category
+     */
+    public ArrayList<Post> getPostsByCategory(PostCategory category) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Post WHERE category = ?";
+            PreparedStatement pState = connection.prepareStatement(query);
+            pState.setString(1, category.toString());
+            resultSet = pState.executeQuery();
+
+            while (resultSet.next()) {
+                Date date = resultSet.getDate("date");
+                UUID postID = UUID.fromString(resultSet.getString("IDNum"));
+                UUID userID = UUID.fromString(resultSet.getString("userID"));
+                String content = resultSet.getString("PostContent");
+                String displayName = resultSet.getString("GeneratedName");
+                int likes = resultSet.getInt("likes");
+
+                posts.add(new Post(postID, date, content, displayName, userID, likes, category));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    /**
+     * Retrieves all post from the database
+     */
+    public ArrayList<Post> getPostsByUserID(UUID userID) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Post WHERE UserID = ?";
+            PreparedStatement pState = connection.prepareStatement(query);
+            pState.setString(1, userID.toString());
+            resultSet = pState.executeQuery();
+
+            while (resultSet.next()) {
+                Date date = resultSet.getDate("date");
+                UUID postID = UUID.fromString(resultSet.getString("IDNum"));
+                String content = resultSet.getString("PostContent");
+                String displayName = resultSet.getString("GeneratedName");
+                int likes = resultSet.getInt("likes");
+                PostCategory category = PostCategory.valueOf(resultSet.getString("category"));
+
+                posts.add(new Post(postID, date, content, displayName, userID, likes, category));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+
+    /**
+     * Adds a post to the database.
      * Returns true if user is successfully added, false if otherwise.
      */
     public boolean addPost(Post post)
@@ -127,6 +184,9 @@ public class PostTable extends SQLDatabase {
         }
     }
 
+    /**
+     * Updates the posts in the database
+     */
     public boolean updatePost(Post post) {
         try {
             String query = "UPDATE Post SET PostContent = ?, Category = ?, Likes = ? WHERE IDNum = ?";
