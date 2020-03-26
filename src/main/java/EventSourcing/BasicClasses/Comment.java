@@ -12,10 +12,11 @@ public class Comment {
     public Comment(){};
 
     //Constructor
-    public Comment(UUID commentID, UUID parentID, String message) {
+    public Comment(UUID commentID, UUID parentID, UUID postID, String message) {
         this.commentID = commentID;
         this.parentID = parentID;
         this.message = message;
+        this.postID = postID;
 
     }
 
@@ -29,11 +30,23 @@ public class Comment {
     public String getMessage()  { return message; }
     public void setMessage(String message)  { this.message = message; }
 
+    public void setParentID(UUID parentID) {
+        this.parentID = parentID;
+    }
+
+    public UUID getPostID() {
+        return postID;
+    }
+
+    public void setPostID(UUID postID) {
+        this.postID = postID;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 ", commentID=" + commentID +
-                ", postID=" + parentID +
+                ", postID=" + postID +
                 ", comment='" + message + '\'' +
                 '}';
     }

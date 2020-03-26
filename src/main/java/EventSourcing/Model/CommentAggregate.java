@@ -15,8 +15,10 @@ public class CommentAggregate {
     @AggregateIdentifier
     private UUID commentID;
     private UUID parentID;
+    private UUID postID;
     private String message;
     private String status;
+
 
     //Empty constructor. Never called, but needed for some reason
     public CommentAggregate() {
@@ -27,7 +29,7 @@ public class CommentAggregate {
     @CommandHandler
     public CommentAggregate(CreateCommentCommand createCommentCommand){
         System.out.println("Inside Constructor CommentAggregate(CreateCommentCommand createCommentCommand)");
-        AggregateLifecycle.apply(new Comment(createCommentCommand.commentID, createCommentCommand.parentID, createCommentCommand.message));
+        AggregateLifecycle.apply(new Comment(createCommentCommand.commentID, createCommentCommand.parentID, createCommentCommand.postID, createCommentCommand.message));
     }
 
     //Called upon the creation of a new comment
@@ -37,6 +39,7 @@ public class CommentAggregate {
         this.commentID = comment.getCommentID();
         this.parentID = comment.getParentID();
         this.message = comment.getMessage();
+        this.postID = comment.getPostID();
         this.status = "CREATED";
     }
 }

@@ -2,7 +2,6 @@ package EventSourcing.CommentMicroservice.Command;
 
 import EventSourcing.BasicClasses.Comment;
 import EventSourcing.BasicClasses.CreateCommentCommand;
-import EventSourcing.Database.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class CommentCommandServiceImpl implements CommentCommandService {
         UUID localCommentID = UUID.randomUUID();
 
         System.out.println("Comment UUID store success");
-        return commandGateway.send(new CreateCommentCommand(localCommentID, comment.getParentID(), comment.getMessage()));
+        return commandGateway.send(new CreateCommentCommand(localCommentID, comment.getParentID(), comment.getPostID(), comment.getMessage()));
     }
 }
 
