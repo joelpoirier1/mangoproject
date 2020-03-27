@@ -2,14 +2,10 @@ package api;
 
 
 import model.Comment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class CommentCommand {
 
@@ -18,15 +14,15 @@ public class CommentCommand {
 
     public CommentCommand(){};
 
-    public void createComment(UUID userID , UUID parentID, String commentMessage){
-        Comment c = new Comment(userID, parentID , commentMessage);
+    public void createComment(Optional<UUID> parentID, UUID postID, String commentMessage){
+        Comment c = new Comment(parentID, postID, commentMessage);
         restAPI.postForObject(commentServiceURL, c , String.class);
     }
 
 
     public static void main(String[] args) {
         CommentCommand c = new CommentCommand();
-        c.createComment(UUID.randomUUID() , UUID.randomUUID(), "if this work we almostdfxfdx home");
+        c.createComment(Optional.ofNullable(null) , UUID.randomUUID(), "if this work we almostdfxfdx home");
     }
 
 }
