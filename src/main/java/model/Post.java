@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ public class Post
     private String displayName;
     private int likes;
     private PostCategory category;
+    private ArrayList<Comment> commentList;
 
     public Post(String content, String title, PostCategory category, UUID userID)
     {
@@ -26,6 +28,7 @@ public class Post
         this.content = content;
         displayName = generateDisplayName();
         this.userID = userID;
+        this.commentList = new ArrayList<>();
     }
 
     public Post(UUID postID, Date date, String title, String content, String displayName, UUID userID, int likes, PostCategory category)
@@ -122,5 +125,12 @@ public class Post
         this.title = title;
     }
 
+    public ArrayList<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(ArrayList<Comment> commentList) {
+        this.commentList = commentList;
+    }
 }
 
