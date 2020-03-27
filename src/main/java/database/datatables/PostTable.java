@@ -3,15 +3,13 @@ package database.datatables;
 import database.SQLDatabase;
 import model.Post;
 import model.PostCategory;
+import org.hibernate.internal.util.ZonedDateTimeComparator;
 
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class PostTable extends SQLDatabase {
     public PostTable() {
@@ -100,6 +98,7 @@ public class PostTable extends SQLDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Collections.sort(posts);
         return posts;
     }
 
