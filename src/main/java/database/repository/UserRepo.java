@@ -1,9 +1,13 @@
 package database.repository;
+
 import database.InterfaceUserDatabase;
-import database.datatables.*;
+import database.datatables.UserTable;
+import model.Post;
+import model.PostCategory;
 import model.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserRepo implements InterfaceUserDatabase
 {
@@ -18,6 +22,11 @@ public class UserRepo implements InterfaceUserDatabase
     public Optional<User> getUser(String username)
     {
         return userTable.getUser(username);
+    }
+
+    @Override
+    public Optional<User> getUserByID(UUID userID) {
+        return userTable.getUserByID(userID);
     }
 
     @Override
@@ -62,12 +71,30 @@ public class UserRepo implements InterfaceUserDatabase
     public static void main(String args[])
     {
         UserRepo db = new UserRepo();
+        PostRepo pt = new PostRepo();
 
         //populate DB upon startup... comment out after db is created and delete when db is running on a server...
-        /*db.addUser(new User("alyssa", "lee"));
-        db.addUser(new User("admin", "admin"));
-        db.addUser(new User("username", "password"));
+        User user = new User("alyssa", "lee");
+        User user1 = new User("admin", "admin");
+        db.addUser(user);
+        db.addUser(user1);
+        System.out.println(" WHOOOO" + db.getUserByID(user.getId()));
 
-        System.out.println(db.validateUsernameExistence("alyssa"));*/
+        Post post = new Post("YO", "TITLE", PostCategory.Miscellaneous, user.getId());
+        System.out.println(pt.addPost(post));
+        System.out.println(pt.addPost(new Post("Hello", "TITLE", PostCategory.Lifestyle, user1.getId())));
+        System.out.println(pt.getPostByUUID(post.getPostID()));
+        System.out.println(pt.getAllPosts());
+        post.incrementLikes();
+        System.out.println(pt.updatePost(post));
+        System.out.println(pt.getPostsByUserID(user.getId()));
+        System.out.println(pt.getPostsByCategory(PostCategory.Lifestyle));
+
+
+
+        //db.addUser(new User("admin", "admin"));
+        //db.addUser(new User("username", "password"));
+
+        //System.out.println(db.validateUsernameExistence("alyssa"));
     }
 }
