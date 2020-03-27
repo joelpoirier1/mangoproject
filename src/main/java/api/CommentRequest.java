@@ -30,6 +30,11 @@ public class CommentRequest {
         return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
     }
 
+    public CommentList getCommentForPostID(UUID post){
+        return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
+
+    }
+
 
 
     public static void main(String[] args) {
@@ -37,7 +42,7 @@ public class CommentRequest {
 //        System.out.println(r.getCommentsForUserID(UUID.fromString("90b9ce7f-93d7-4623-98c4-a961c20bac7c")));
 //        System.out.println(r.getAllComments());
 //        System.out.println(r.getCommentByCommentID(UUID.fromString("cf72de3a-1645-4999-8f3c-01f854c3271b")));
-        System.out.println(r.getCommentForParentID(UUID.fromString("07edb597-7f5a-4ac2-a629-23e9fb754daf")));
+        System.out.println(r.getCommentForPostID(UUID.fromString("94d5e585-fdc6-4f84-816d-0d87c9767fa3")));
     }
 
 
