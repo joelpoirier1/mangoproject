@@ -1,98 +1,145 @@
 package model;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
-import java.text.SimpleDateFormat;
 
 public class Comment {
-    final int MESSAGE_FONT_SIZE = 12;
-    final int DISPLAY_NAME_FONT_SIZE = 15;
-    final int INITIAL_LIKES = 0;
 
-    private int messageFontSize;
-    private int displayNameFontSize;
     private int likes;
-    private String date;
+    private Date date;
     private UUID commentID;
-    private UUID postID;
-    private UUID userID;
-    private String comment;
+    private String message;
     private String displayName;
+    private UUID userID;
+    private UUID postID;
 
-
-    public Comment(){};
+    ArrayList<Comment> replyComments;
 
     //Constructor
-    public Comment(String message) {
-        messageFontSize = MESSAGE_FONT_SIZE;
-        displayNameFontSize = DISPLAY_NAME_FONT_SIZE;
-        likes = INITIAL_LIKES;
-        date = getCurrentDate();
+    public Comment() {
+
+    }
+
+    public Comment(UUID userID, UUID postID, String message) {
+        date = new Date();
         commentID = UUID.randomUUID();
-        comment = message;
+        System.out.println(commentID);
+        this.userID = userID;
+        this.postID = postID;
+        this.message = message;
         displayName = generateDisplayName();
+        ArrayList<Comment> replyComments = new ArrayList<>();
+    }
+
+    public Comment(UUID commentID, UUID userID, UUID postID, String message) {
+        date = new Date();
+        this.commentID = commentID;
+        this.userID = userID;
+        this.postID = postID;
+        this.message = message;
+        displayName = generateDisplayName();
+        ArrayList<Comment> replyComments = new ArrayList<>();
+    }
+
+    public Comment(UUID commentID, UUID userID, UUID postID, String message, Date date, String displayName) {
+        this.date = date;
+        this.commentID = commentID;
+        this.userID = userID;
+        this.postID = postID;
+        this.message = message;
+        this.displayName = displayName;
+        ArrayList<Comment> replyComments = new ArrayList<>();
     }
 
     //Returns the current date as a string
-    public String getCurrentDate(){
+    public String getCurrentDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
         String currentDate = formatter.format(date);
         return currentDate;
     }
 
     //Increases likes by 1
-    public void incrementLikes(){ likes++; }
+    public void incrementLikes() {
+        likes++;
+    }
 
     //Decreases likes by 1
-    public void decrementLikes(){ likes--; }
+    public void decrementLikes() {
+        likes--;
+    }
 
     //Generates a random display name and returns it. For example "Red_Apple"
-    public String generateDisplayName (){
+    public String generateDisplayName() {
         DisplayNameGenerator aDisplayNameGenerator = new DisplayNameGenerator();
         return aDisplayNameGenerator.generateDisplayName();
     }
 
-    //Getters and setters
-    public int getMessageFontSize()  { return messageFontSize; }
-    public void setMessageFontSize(int messageFontSize)  { this.messageFontSize = messageFontSize; }
+    public int getLikes() {
+        return likes;
+    }
 
-    public int getDisplayNameFontSize()  { return displayNameFontSize; }
-    public void setDisplayNameFontSize(int displayNameFontSize)  { this.displayNameFontSize = displayNameFontSize; }
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 
-    public int getLikes()  { return likes; }
-    public void setLikes(int likes)  { this.likes = likes; }
+    public UUID getCommentID() {
+        return commentID;
+    }
+    public void setCommentID(UUID commentID) {
+        this.commentID = commentID;
+    }
 
-    public UUID getCommentID()  { return commentID; }
-    public void setCommentID(UUID commentID)  { this.commentID = commentID; }
+    public String getMessage() {
+        return message;
+    }
 
-    public String getMessage()  { return comment; }
-    public void setMessage(String message)  { this.comment = message; }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-    public String getDisplayName()  { return displayName; }
-    public void setDisplayName(String displayName)  { this.displayName= displayName; }
+    public String getDisplayName() {
+        return displayName;
+    }
 
-    public UUID getUserID() { return userID;  }
-    public void setUserID(UUID userID) {        this.userID = userID;     }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
-    public UUID getPostID() {        return postID;     }
-    public void setPostID(UUID postID) {        this.postID = postID;    }
+    public UUID getUserID() {
+        return userID;
+    }
 
-    public String getComment() {         return comment;     }
-    public void setComment(String comment) {        this.comment = comment;    }
+    public UUID getPostID() {
+        return postID;
+    }
 
-    public String getDate() {         return date;     }
-    public void setDate(String date) {         this.date = date;     }
+    public Date getDate() {
+        return date;
+    }
+
+    public void setReplyComments(ArrayList<Comment> replyComments) {
+        this.replyComments = replyComments;
+    }
+
+    public ArrayList<Comment> getReplyComments() {
+        return replyComments;
+    }
 
     @Override
     public String toString() {
         return "Comment{" +
                 "likes=" + likes +
-                ", date='" + date + '\'' +
+                ", date=" + date +
                 ", commentID=" + commentID +
-                ", postID=" + postID +
-                ", userID=" + userID +
-                ", comment='" + comment + '\'' +
+                ", message='" + message + '\'' +
                 ", displayName='" + displayName + '\'' +
+                ", userID=" + userID +
+                ", postID=" + postID +
+                ", replyComments=" + replyComments +
                 '}';
     }
 }
+
+

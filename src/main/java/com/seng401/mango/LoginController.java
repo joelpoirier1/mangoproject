@@ -63,15 +63,6 @@ public class LoginController
         return "register";
     }
 
-    /*
-This function is temporary
- */
-    public ArrayList<Comment> getComments(){
-        ArrayList<Comment> comments = new ArrayList<>();
-        Comment comment = new Comment("hey man. Im doing so great");
-        Comment comm = new Comment("bro Im awesome");
-        comments.add(comment);
-        comments.add(comm);
-        return comments;
-    }
+
+
 }
