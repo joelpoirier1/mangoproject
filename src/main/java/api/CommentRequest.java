@@ -8,7 +8,7 @@ import java.util.UUID;
 public class CommentRequest {
 
     private static RestTemplate restAPI = new RestTemplate();
-    private static String commentServiceURL = "http://70.65.105.239:55555/comments/";
+    private static String commentServiceURL = "http://localhost:55555/comments/";
 
 
     public CommentRequest(){};
@@ -34,9 +34,10 @@ public class CommentRequest {
 
     public static void main(String[] args) {
         CommentRequest r = new CommentRequest();
-        System.out.println(r.getCommentsForUserID(UUID.fromString("90b9ce7f-93d7-4623-98c4-a961c20bac7c")));
-        System.out.println(r.getAllComments());
-        System.out.println(r.getCommentByCommentID(UUID.fromString("cf72de3a-1645-4999-8f3c-01f854c3271b")));
+//        System.out.println(r.getCommentsForUserID(UUID.fromString("90b9ce7f-93d7-4623-98c4-a961c20bac7c")));
+//        System.out.println(r.getAllComments());
+//        System.out.println(r.getCommentByCommentID(UUID.fromString("cf72de3a-1645-4999-8f3c-01f854c3271b")));
+        System.out.println(r.getCommentForParentID(UUID.fromString("07edb597-7f5a-4ac2-a629-23e9fb754daf")));
     }
 
 

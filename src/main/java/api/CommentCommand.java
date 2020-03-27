@@ -26,7 +26,7 @@ public class CommentCommand {
 
     public static void main(String[] args) {
         CommentCommand c = new CommentCommand();
-        c.createComment(UUID.randomUUID() , UUID.randomUUID(), "if this work we almost home");
+        c.createComment(UUID.randomUUID() , UUID.randomUUID(), "if this work we almostdfxfdx home");
     }
 
 }
