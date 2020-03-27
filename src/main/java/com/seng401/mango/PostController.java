@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -55,23 +56,28 @@ public class PostController {
         myRedirect = redirectAttributes;
 
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(commentForm.getuID()));
-        redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(commentForm.getParentID()));
+        redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(commentForm.getParentID()).get());
 
         if(validateCommentForm(commentForm)){
             redirectAttributes = myRedirect;
             return "redirect:/post";
         }
 
-        command.createComment(commentForm.getuID(), commentForm.getParentID(), commentForm.getComment());
+        command.createComment(Optional.ofNullable(null), commentForm.getParentID(), commentForm.getComment());
 
         for(Post p: postRepo.getAllPosts()){
             if(p.getPostID().compareTo(commentForm.getParentID()) == 0) {
                 p.setCommentList(request.getCommentForPostID(commentForm.getParentID()).getComments());
+
+                System.out.println(request.getCommentForPostID(commentForm.getParentID()).getComments());
                 redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
             }
         }
 
         redirectAttributes.addFlashAttribute("commentList", postRepo.getPostByUUID(commentForm.getParentID()).get().getCommentList());
+
+        System.out.println("List" + postRepo.getPostByUUID(commentForm.getParentID()).get().getCommentList());
+
 
         return "redirect:/post";
     }
