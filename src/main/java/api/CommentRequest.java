@@ -26,6 +26,11 @@ public class CommentRequest {
 
     }
 
+    public CommentList getCommentForParentID(UUID parent){
+        return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
+    }
+
+
 
     public static void main(String[] args) {
         CommentRequest r = new CommentRequest();
