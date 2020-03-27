@@ -32,7 +32,7 @@ public class PostTable extends SQLDatabase {
                         "GeneratedName VARCHAR(255) NOT NULL," +
                         "Category VARCHAR(255) NOT NULL," +
                         "Likes INT NOT NULL," +
-                        "Date DATE NOT NULL," +
+                        "Date DATETIME NOT NULL," +
                         "PRIMARY KEY (IDNum)," +
                         "UserID VARCHAR(255) REFERENCES MangoUser(IDNum)" +
                         "ON DELETE SET NULL ON UPDATE CASCADE);";
