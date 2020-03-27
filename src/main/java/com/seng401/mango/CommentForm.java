@@ -5,6 +5,7 @@ import java.util.UUID;
 public class CommentForm {
         private String comment;
         private UUID parentID;
+        private UUID uID;
 
         public CommentForm() {
             super();
@@ -24,5 +25,13 @@ public class CommentForm {
 
     public void setParentID(UUID parentID) {
         this.parentID = parentID;
+    }
+
+    public UUID getuID() {
+        return uID;
+    }
+
+    public void setuID(UUID uID) {
+        this.uID = uID;
     }
 }

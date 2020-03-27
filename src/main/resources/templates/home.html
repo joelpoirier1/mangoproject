@@ -50,8 +50,13 @@
 
             <div class="col-md-6">
                 <form th:action="@{/addPost}" th:object="${postForm}" method="post">
-                    <p align="center">Add a post<input type="post" id="post"></p>
-                    <p align="center"><input type="submit" value="Add a Post"></p>
+                    <p align="center">Add a post<p>
+                    <p align="center">Title<input type="text" id="title" name="title" autofocus="autofocus" />
+                    <p align="center">Message<input type="text" id="message" name="message" />
+
+                    <p align="center"> <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+
+                    <p align="center"> <input type="submit" value="Submit post">
                 </form>
             </div>
 
@@ -62,9 +67,11 @@
 
        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
                             th:text="${post.getDisplayName()}"></h1>
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+            th:text="${post.getTitle()}"></h1>
         <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
-            th:text="${post.getMessage()}"></h1>
+            th:text="${post.getContent()}"></h1>
 
 <!--        <tr th:each="nested : ${post.getNested()}}">-->
 <!--    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;-->
@@ -74,6 +81,7 @@
 
         <form th:action="@{/addComment}" th:object="${commentForm}" method="post">
             <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
+            <input type="hidden" id="uID" name="uID" th:value="${currentUser.get().getId()}"/>
             <p align="center">Add a comment<input type="comment" id="comment"></p>
             <p align="center"><input type="submit" value="Submit comment"></p>
         </form>
