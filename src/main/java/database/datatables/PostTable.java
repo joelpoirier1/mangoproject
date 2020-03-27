@@ -4,10 +4,7 @@ import database.SQLDatabase;
 import model.Post;
 import model.PostCategory;
 
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -56,7 +53,7 @@ public class PostTable extends SQLDatabase {
             resultSet = pState.executeQuery();
 
             if (resultSet.next()) {
-                Date date = resultSet.getDate("date");
+                Date date = new Date(resultSet.getTimestamp("date").getTime());
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
                 String title = resultSet.getString("Title");
                 String content = resultSet.getString("PostContent");
@@ -85,7 +82,7 @@ public class PostTable extends SQLDatabase {
             resultSet = pState.executeQuery();
 
             while (resultSet.next()) {
-                Date date = resultSet.getDate("date");
+                Date date = new Date(resultSet.getTimestamp("date").getTime());
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
                 String title = resultSet.getString("Title");
@@ -115,11 +112,10 @@ public class PostTable extends SQLDatabase {
             resultSet = pState.executeQuery();
 
             while (resultSet.next()) {
-                Date date = resultSet.getDate("date");
+                Date date = new Date(resultSet.getTimestamp("date").getTime());
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
                 UUID userID = UUID.fromString(resultSet.getString("userID"));
                 String title = resultSet.getString("Title");
-
                 String content = resultSet.getString("PostContent");
                 String displayName = resultSet.getString("GeneratedName");
                 int likes = resultSet.getInt("likes");
@@ -145,7 +141,7 @@ public class PostTable extends SQLDatabase {
             resultSet = pState.executeQuery();
 
             while (resultSet.next()) {
-                Date date = resultSet.getDate("date");
+                Date date = new Date(resultSet.getTimestamp("date").getTime());
                 UUID postID = UUID.fromString(resultSet.getString("IDNum"));
                 String title = resultSet.getString("Title");
                 String content = resultSet.getString("PostContent");
@@ -180,7 +176,7 @@ public class PostTable extends SQLDatabase {
             pState.setString(4, post.getDisplayName());
             pState.setString(5, post.getCategory().toString());
             pState.setInt(6, post.getLikes());
-            pState.setDate(7, new java.sql.Date(post.getDate().getTime()));
+            pState.setTimestamp(7, new Timestamp((post.getDate().getTime())));
             pState.setString(8, post.getUserID().toString());
             pState.execute();
             return true;
