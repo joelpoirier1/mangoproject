@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 import java.util.UUID;
 
-public class Post implements Comparable<Post>
+public class Post
 {
     final int INITIAL_LIKES = 0;
 
@@ -122,9 +122,5 @@ public class Post implements Comparable<Post>
         this.title = title;
     }
 
-    @Override
-    public int compareTo(Post o) {
-        return getDate().compareTo(o.getDate());
-    }
 }
 

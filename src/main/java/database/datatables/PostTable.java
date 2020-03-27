@@ -98,7 +98,7 @@ public class PostTable extends SQLDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Collections.sort(posts);
+        posts.sort(Comparator.comparing(Post::getDate));
         return posts;
     }
 
