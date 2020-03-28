@@ -69,15 +69,9 @@ public class PostController {
             if(p.getPostID().compareTo(commentForm.getParentID()) == 0) {
                 p.setCommentList(request.getCommentForPostID(commentForm.getParentID()).getComments());
 
-                System.out.println(request.getCommentForPostID(commentForm.getParentID()).getComments());
                 redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
             }
         }
-
-        redirectAttributes.addFlashAttribute("commentList", postRepo.getPostByUUID(commentForm.getParentID()).get().getCommentList());
-
-        System.out.println("List" + postRepo.getPostByUUID(commentForm.getParentID()).get().getCommentList());
-
 
         return "redirect:/post";
     }
