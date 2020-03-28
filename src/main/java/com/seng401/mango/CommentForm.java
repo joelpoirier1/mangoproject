@@ -3,19 +3,19 @@ package com.seng401.mango;
 import java.util.UUID;
 
 public class CommentForm {
-        private String comment;
-        private UUID parentID;
-        private UUID uID;
+    private String comment;
+    private UUID parentID;
+    private UUID uID;
 
-        public CommentForm() {
+    public CommentForm() {
             super();
         }
 
-        public String getComment() {
+    public String getComment() {
             return comment;
         }
 
-        public void setComment(String comment) {
+    public void setComment(String comment) {
             this.comment = comment;
         }
 
