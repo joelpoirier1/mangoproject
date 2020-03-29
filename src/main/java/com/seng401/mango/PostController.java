@@ -54,8 +54,6 @@ public class PostController {
         //makes sure commentList is not null
         if(!model.containsAttribute("commentList")){
             postRepo.getPostByUUID(currentPost).get().setCommentList(request.getCommentForPostID(currentPost).getComments());
-
-            System.out.println(postRepo.getPostByUUID(currentPost).get().getCommentList());
             model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
         }
 
