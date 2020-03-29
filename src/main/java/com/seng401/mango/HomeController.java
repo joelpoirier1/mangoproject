@@ -71,7 +71,7 @@ public class HomeController {
         if(model.containsAttribute("validate"))
             currentUser = (UUID) model.getAttribute("validate");
 
-        if(!model.containsAttribute("validate") && !model.containsAttribute("currentUser"))
+        if(!model.containsAttribute("validate") && currentUser == null)
             return "redirect:";
 
 
