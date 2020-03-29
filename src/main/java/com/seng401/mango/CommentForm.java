@@ -2,6 +2,7 @@ package com.seng401.mango;
 
 import java.util.UUID;
 
+//Form that receives information to create a new comment on a post
 public class CommentForm {
     private String comment;
     private UUID parentID;

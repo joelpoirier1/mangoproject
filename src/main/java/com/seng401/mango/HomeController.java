@@ -1,11 +1,8 @@
 package com.seng401.mango;
 
-
-import api.CommentCommand;
 import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
-import model.Comment;
 import model.Post;
 import model.PostCategory;
 import org.springframework.stereotype.Controller;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Controller
@@ -25,7 +20,6 @@ public class HomeController {
     private UserRepo userRepo = new UserRepo();
     private PostRepo postRepo = new PostRepo();
     private UUID currentUser;
-    private Model myModel;
     private RedirectAttributes myRedirect;
 
     @RequestMapping(value="/logout", method = RequestMethod.POST)
@@ -52,8 +46,7 @@ public class HomeController {
 
 
     @RequestMapping(value="/addPost", method = RequestMethod.POST)
-    public String addPost(@ModelAttribute("postForm") PostForm postForm, Model model, RedirectAttributes redirectAttributes) {
-        myModel = model;
+    public String addPost(@ModelAttribute("postForm") PostForm postForm, RedirectAttributes redirectAttributes) {
         myRedirect = redirectAttributes;
 
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(postForm.getUserID()));
@@ -78,7 +71,7 @@ public class HomeController {
         if(model.containsAttribute("validate"))
             currentUser = (UUID) model.getAttribute("validate");
 
-        if(!model.containsAttribute("validate") && !model.containsAttribute("currentUser"))
+        if(!model.containsAttribute("validate") && currentUser == null)
             return "redirect:";
 
 

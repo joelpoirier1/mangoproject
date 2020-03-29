@@ -1,5 +1,6 @@
 package com.seng401.mango;
 
+//Form that receives information to create a new user
 public class RegisterForm {
 
     private String username;

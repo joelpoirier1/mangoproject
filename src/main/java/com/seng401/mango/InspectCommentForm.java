@@ -2,12 +2,11 @@ package com.seng401.mango;
 
 import java.util.UUID;
 
-//Form that sends the user and post information to the post page
-public class InspectionForm {
+public class InspectCommentForm {
     private UUID postID;
     private UUID userID;
 
-    public InspectionForm() {
+    public InspectCommentForm() {
         super();
     }
 

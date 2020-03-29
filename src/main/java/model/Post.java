@@ -1,7 +1,11 @@
 package model;
 
+import org.springframework.expression.spel.ast.NullLiteral;
+
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 public class Post
@@ -126,11 +130,17 @@ public class Post
     }
 
     public ArrayList<Comment> getCommentList() {
-        return commentList;
+        return this.commentList;
     }
 
     public void setCommentList(ArrayList<Comment> commentList) {
-        this.commentList = commentList;
+        ArrayList<Comment> temp = new ArrayList<>();
+        for(Comment com:commentList){
+            if(!com.getParentID().isPresent()){
+                temp.add(com);
+            }
+        }
+        this.commentList = temp;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.seng401.mango;
 
+//Form used to receive login credentials
 public class LoginForm {
 
     private String username;

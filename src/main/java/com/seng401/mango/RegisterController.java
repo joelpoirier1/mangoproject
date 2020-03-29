@@ -2,76 +2,71 @@ package com.seng401.mango;
 
 import database.repository.UserRepo;
 import model.User;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegisterController {
         private UserRepo userRepo;
-        private Model myModel;
+        private RedirectAttributes myRedirect;
 
-        //to get register page
-        @RequestMapping(value = "/register", method = RequestMethod.GET)
-        public String getRegisterForm() {
-            return "register";
-        }
+        //creates an account for a new user
+        @RequestMapping(value="/createAccount", method = RequestMethod.POST)
+        public String register(@ModelAttribute("registerForm") RegisterForm registerForm, RedirectAttributes redirectAttributes) {
 
-        //registering user
-        @RequestMapping(value="/register", method = RequestMethod.POST)
-        public String register(@ModelAttribute("registerForm") RegisterForm registerForm, Model model)
-        {
-            myModel = model;
+            myRedirect = redirectAttributes;
             userRepo = new UserRepo();
 
             //Checks if username and password are valid
             if(validate(registerForm)){
-                model = myModel;
-                return "register";
+                redirectAttributes = myRedirect;
+                return "redirect:/register";
             }
 
             //Check if username already exists
             if (userRepo.validateUsernameExistence(registerForm.getUsername())) {
-                model.addAttribute("alreadyExists", true);
-                return "register";
+                redirectAttributes.addFlashAttribute("alreadyExists", true);
+                return "redirect:/register";
             }
 
             //Add user to database
             User user = new User(registerForm.getUsername(), registerForm.getPassword());
             userRepo.addUser(user);
 
-            model = myModel;
-
             //return html to login
             return "index";
         }
 
-    //valid username and password
+    //validates the information entered by the user
     public boolean validate(RegisterForm registerForm) {
         if(registerForm.getUsername().equals("") || registerForm.getPassword().equals("")) {
-            myModel.addAttribute("invalidInput", true);
+            myRedirect.addFlashAttribute("invalidInput", true);             //checks is username or password were left empty
             return true;
         }else if(!(registerForm.getPassword().equals(registerForm.getVerifyPassword()))){
-            System.out.println(registerForm.getPassword() + " " + registerForm.getVerifyPassword());
-            myModel.addAttribute("passwordMatch", true);
+            myRedirect.addFlashAttribute("passwordMatch", true);            //checks if password and verify password are the same
             return true;
         }else if(registerForm.getUsername().length() > 10 || registerForm.getPassword().length() > 10){
-            myModel.addAttribute("invalidLength", true);
+            myRedirect.addFlashAttribute("invalidLength", true);            //checks that username and password are of correct length
             return true;
         }else if(registerForm.getUsername().contains(" ") || registerForm.getPassword().contains(" ")){
-            myModel.addAttribute("containsSpace", true);
+            myRedirect.addFlashAttribute("containsSpace", true);            //checks if username of password includes a space
             return true;
         } else return false;
     }
 
-
-    //return to login
+    //returns the user to the login page
     @RequestMapping(value="/return", method = RequestMethod.POST)
     public String submit() {
         return "index";
     }
 
+    //displays the register page
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public String postPage(Model model) {
+            return "register";
+    }
 }

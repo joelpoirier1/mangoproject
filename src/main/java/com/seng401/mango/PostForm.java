@@ -2,6 +2,7 @@ package com.seng401.mango;
 
 import java.util.UUID;
 
+//Form that receives information to add a new post to the database
 public class PostForm {
     private String title;
     private String message;
