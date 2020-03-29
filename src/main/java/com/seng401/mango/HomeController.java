@@ -21,11 +21,8 @@ public class HomeController {
     private PostRepo postRepo = new PostRepo();
     private UUID currentUser;
     private RedirectAttributes myRedirect;
-
-    @RequestMapping(value="/logout", method = RequestMethod.POST)
-    public String logout() {
-        return "redirect:";
-    }
+    private PostCategory search;
+    private String searchKeyword;
 
     @RequestMapping(value="/inspectPost", method = RequestMethod.POST)
     public String inspect(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
@@ -48,7 +45,7 @@ public class HomeController {
     @RequestMapping(value="/addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostForm postForm, RedirectAttributes redirectAttributes) {
         myRedirect = redirectAttributes;
-
+        System.out.println(postForm.getCategory());
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(postForm.getUserID()));
 
         if(validatePostForm(postForm)) {
@@ -56,16 +53,58 @@ public class HomeController {
             return "redirect:/home";
         }
 
-        Post post = new Post(postForm.getMessage(), postForm.getTitle(), PostCategory.Lifestyle, postForm.getUserID());
+        Post post = new Post(postForm.getMessage(), postForm.getTitle(), postForm.getCategory(), postForm.getUserID());
         postRepo.addPost(post);
 
-
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
         redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
+        search = null;
+        searchKeyword = null;
 
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/home", method = RequestMethod.GET)
+    @RequestMapping(value="/search", method = RequestMethod.POST)
+    public String search(@ModelAttribute("searchForm") SearchForm searchForm, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+        redirectAttributes.addFlashAttribute("posts", postRepo.getPostsByCategory(searchForm.getCategory()));
+        search = searchForm.getCategory();
+
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value="/searchKeyword", method = RequestMethod.POST)
+    public String searchKeyword(@ModelAttribute("searchKeywordForm") SearchKeywordForm searchKeywordForm, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+
+        if(searchKeywordForm.getKeyword().isEmpty()){
+            redirectAttributes.addFlashAttribute("invalidSearch", true);
+            return "redirect:/home";
+        }
+
+        redirectAttributes.addFlashAttribute("posts", postRepo.getPostsByKeyword(searchKeywordForm.getKeyword()));
+        searchKeyword = searchKeywordForm.getKeyword();
+
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value="/cancelSearch", method = RequestMethod.POST)
+    public String cancelSearch( RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+        redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
+        search = null;
+        searchKeyword = null;
+
+        return "redirect:/home";
+    }
+
+
+        @RequestMapping(value="/home", method = RequestMethod.GET)
     public String homepage(Model model){
 
         if(model.containsAttribute("validate"))
@@ -74,6 +113,12 @@ public class HomeController {
         if(!model.containsAttribute("validate") && currentUser == null)
             return "redirect:";
 
+        if(search != null && !model.containsAttribute("posts")){
+            model.addAttribute("posts", postRepo.getPostsByCategory(search));
+        }
+        if(searchKeyword != null && !model.containsAttribute("posts")){
+                model.addAttribute("posts", postRepo.getPostsByKeyword(searchKeyword));
+        }
 
         if(!model.containsAttribute("currentUser")){
             model.addAttribute("currentUser", userRepo.getUserByID(currentUser));
@@ -81,6 +126,10 @@ public class HomeController {
 
         if (!model.containsAttribute("posts")){
             model.addAttribute("posts", postRepo.getAllPosts());
+        }
+
+        if(!model.containsAttribute("categories")){
+            model.addAttribute("categories", PostCategory.values());
         }
 
         return "home";

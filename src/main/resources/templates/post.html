@@ -33,6 +33,12 @@
 
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <p align="right"><input type="submit" value="Logout"></p>
+</form>
+
+<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+    th:text="${post.getCategory()}"></h1>
 <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
     th:text="${post.getTitle()}"></h1>
 <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
@@ -62,5 +68,8 @@
     <p align="center"><input type="submit" value="Submit comment"></p>
 </form>
 
+<form th:action="@{/returnHome}" method="post">
+    <p align="center"><input type="submit" value="Return home"></p>
+</form>
 </body>
 </html>

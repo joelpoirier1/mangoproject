@@ -4,6 +4,7 @@ package com.seng401.mango;
 import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
+import model.PostCategory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,13 @@ public class LoginController {
     private UserRepo userRepo;
     private PostRepo postRepo;
     private Model myModel;
+
+
+    @RequestMapping(value="/logout", method = RequestMethod.POST)
+    public String logout() {
+        return "redirect:";
+    }
+
 
     //to get login page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -40,6 +48,7 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("currentUser", userRepo.getUser(loginForm.getUsername()));
             redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
             redirectAttributes.addFlashAttribute("validate", userRepo.getUser(loginForm.getUsername()).get().getId());
+            redirectAttributes.addFlashAttribute("categories", PostCategory.values());
 
             return "redirect:/home";        //logs user in to the main homepage
         }
