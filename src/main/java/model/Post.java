@@ -1,14 +1,10 @@
 package model;
 
-import org.springframework.expression.spel.ast.NullLiteral;
-
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
-public class Post
+public class Post implements Comparable<Post>
 {
     final int INITIAL_LIKES = 0;
 
@@ -141,6 +137,11 @@ public class Post
             }
         }
         this.commentList = temp;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        return this.date.compareTo(post.getDate());
     }
 }
 
