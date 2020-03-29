@@ -135,6 +135,14 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping(value="/goToDiary", method = RequestMethod.POST)
+    public String diary(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("posts", postRepo.getPostsByUserID(currentUser));
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("validate", currentUser);
+        return "redirect:/diary";
+    }
+
 
     public boolean validatePostForm(PostForm postForm){
         if(postForm.getTitle().isEmpty() && postForm.getMessage().isEmpty()) {

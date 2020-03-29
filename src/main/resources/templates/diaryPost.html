@@ -46,38 +46,30 @@
     th:text="${post.getContent()}"></h1>
 
 <h1 th:if="!${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
-    >Comments:</h1>
+>Comments:</h1>
 
 <h1 th:if="${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
 >Comment Microservice is currently disabled.</h1>
 
-        <tr  th:if="!${disabled}" th:each="comment : ${commentList}">
+<tr  th:if="!${disabled}" th:each="comment : ${commentList}">
     <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
         th:text="${comment.getMessage()}"></h1>
 
-            <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
+    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
-                th:text="${comment.getDate()}"></h1>
+        th:text="${comment.getDate()}"></h1>
 
 
-            <form th:action="@{/replyComment}" th:object="${inspectCommentForm}" method="post">
-                <input type="hidden" id="postID" name="postID" th:value="${comment.getCommentID()}"/>
-                <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                <p align="center"><input type="submit" value="Reply">
-            </form>
-    </tr>
+    <form th:action="@{/goToComment}" th:object="${inspectCommentForm}" method="post">
+        <input type="hidden" id="postID" name="postID" th:value="${comment.getCommentID()}"/>
+        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+        <p align="center"><input type="submit" value="Reply">
+    </form>
+</tr>
 
-<form th:if="!${disabled}" th:action="@{/addComment}" th:object="${commentForm}" method="post">
-    <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
-    <input type="hidden" id="uID" name="uID" th:value="${currentUser.get().getId()}"/>
-    <p align="center">Add a comment<input type="text" name="comment" id="comment"></p>
-    <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>
-    <p align="center"><input type="submit" value="Submit comment"></p>
-</form>
-
-<form th:action="@{/returnHome}" method="post">
-    <p align="center"><input type="submit" value="Return home"></p>
+<form th:action="@{/returnToDiary}" method="post">
+    <p align="center"><input type="submit" value="Return to diary"></p>
 </form>
 </body>
 </html>

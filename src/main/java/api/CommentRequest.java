@@ -2,7 +2,11 @@ package api;
 
 import model.Comment;
 import model.CommentList;
+import org.apache.coyote.Request;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 import java.util.UUID;
 
 public class CommentRequest {
@@ -31,10 +35,29 @@ public class CommentRequest {
     }
 
     public CommentList getCommentForPostID(UUID post){
+        getAPIStatus();
         return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
 
     }
 
+    public boolean getAPIStatus(){
+
+        //and do I need this JSON media type for my use case?
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        //set my entity
+        HttpEntity<Object> entity = new HttpEntity<Object>(headers);
+        ResponseEntity<String> out;
+        try {
+            out = restAPI.exchange(commentServiceURL, HttpMethod.GET, entity, String.class);
+
+        } catch (Exception e){
+            return true;
+        }
+
+        return Objects.equals(out.getBody(), "{" + '"' + "comments" + '"' + ":[]}") || !out.getStatusCode().is2xxSuccessful();
+    }
 
 
     public static void main(String[] args) {

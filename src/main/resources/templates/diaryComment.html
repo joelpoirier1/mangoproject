@@ -53,14 +53,6 @@
         th:text="${comment.getMessage()}"></h1>
 </tr>
 
-<form th:if="!${disabled}" th:action="@{/addReply}" th:object="${replyForm}" method="post">
-    <input type="hidden" name="parentID" th:value="${parent.getCommentID()}"/>
-    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-    <p align="center">Add a reply<input type="text" name="reply" id="reply"></p>
-    <p align="center" th:if="${invalidReply}" class="error">Reply must not be blank</p>
-    <p align="center"><input type="submit" value="Reply to Comment"></p>
-</form>
-
 <form th:action="@{/returnPost}" method="post">
     <p align="center"><input type="submit" value="Return to post"></p>
 </form>

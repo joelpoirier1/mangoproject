@@ -5,8 +5,6 @@ import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
 import model.Comment;
-import model.Post;
-import model.PostCategory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-public class PostController {
-
+public class DiaryPostController {
     private CommentRequest request = new CommentRequest();
-    private CommentCommand command = new CommentCommand();
     private UserRepo userRepo = new UserRepo();
     private PostRepo postRepo = new PostRepo();
     private UUID currentUser = null;
@@ -30,7 +25,7 @@ public class PostController {
     private RedirectAttributes myRedirect;
 
     //returns the post page
-    @RequestMapping(value="/post", method = RequestMethod.GET)
+    @RequestMapping(value="/diaryPost", method = RequestMethod.GET)
     public String postPage(Model model){
         //sets the current user and post if the user just got on the post page
         if(model.containsAttribute("validate") && model.containsAttribute("postValidate")) {
@@ -64,63 +59,26 @@ public class PostController {
             model.addAttribute("disabled", false);
         }
 
-        return "post";
+        return "diaryPost";
     }
 
-    //Adds a comment to the post the user is currently viewing
-    @RequestMapping(value="/addComment", method = RequestMethod.POST)
-    public String addComment(@ModelAttribute("commentForm") CommentForm commentForm, RedirectAttributes redirectAttributes) {
-        myRedirect = redirectAttributes;
-
-        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(commentForm.getuID()));
-        redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(commentForm.getParentID()).get());
-
-        //validates the comment
-        if(validateCommentForm(commentForm)){
-            redirectAttributes = myRedirect;
-            return "redirect:/post";
-        }
-
-        //creates comment in database
-        command.createComment(Optional.ofNullable(null), commentForm.getParentID(), commentForm.getComment());
-
-        //regenerates the list of comments related to the post being viewed
-        for(Post p: postRepo.getAllPosts()){
-            if(p.getPostID().compareTo(commentForm.getParentID()) == 0) {
-                p.setCommentList(request.getCommentForPostID(commentForm.getParentID()).getComments());
-                redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
-            }
-        }
-
-        return "redirect:/post";
-    }
-
-    @RequestMapping(value="/replyComment", method = RequestMethod.POST)
-    public String replyComment(@ModelAttribute("inspectCommentForm") InspectCommentForm inspectCommentForm, RedirectAttributes redirectAttributes) {
-
+    @RequestMapping(value="/goToComment", method = RequestMethod.POST)
+    public String goToComment(@ModelAttribute("inspectCommentForm") InspectCommentForm inspectCommentForm, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("validate", currentUser);
         redirectAttributes.addFlashAttribute("commentValidate", inspectCommentForm.getPostID());
 
         redirectAttributes.addFlashAttribute("parent", request.getCommentByCommentID(inspectCommentForm.getPostID()));
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(inspectCommentForm.getUserID()));
         redirectAttributes.addFlashAttribute("parentList", request.getCommentForParentID(inspectCommentForm.getPostID()).getComments());
-        return "redirect:/comment";
+        return "redirect:/diaryComment";
     }
 
-    @RequestMapping(value="/returnHome", method = RequestMethod.POST)
+    @RequestMapping(value="/returnToDiary", method = RequestMethod.POST)
     public String returnHome(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
-        redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
-        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+        redirectAttributes.addFlashAttribute("posts", postRepo.getPostsByUserID(currentUser));
 
-        return "redirect:/home";
-    }
-        //validates that the comment message is not empty
-    public boolean validateCommentForm(CommentForm commentForm){
-        if(commentForm.getComment().isEmpty()) {
-            myRedirect.addFlashAttribute("invalidComment", true);
-            return true;
-        } else return false;
+        return "redirect:/diary";
     }
 
     public ArrayList<Comment> filterComments(ArrayList<Comment> oldArray){
