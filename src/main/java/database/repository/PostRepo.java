@@ -47,4 +47,17 @@ public class PostRepo implements InterfacePostDatabase
     public boolean updatePost(Post post) {
         return postTable.updatePost(post);
     }
+
+    //Searches the
+    public ArrayList<Post> getPostsByKeyword(String keyword)
+    {
+        ArrayList<Post> searchResults = new ArrayList<>();
+        ArrayList<Post> allPosts = getAllPosts();
+        for(Post p : allPosts)
+        {
+            if(p.getTitle().toLowerCase().contains(keyword.toLowerCase()) || p.getContent().toLowerCase().contains(keyword.toLowerCase()))
+                searchResults.add(p);
+        }
+        return searchResults;
+    }
 }

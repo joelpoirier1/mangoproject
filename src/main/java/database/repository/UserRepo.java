@@ -90,6 +90,13 @@ public class UserRepo implements InterfaceUserDatabase
         System.out.println(pt.getPostsByUserID(user.getId()));
         System.out.println(pt.getPostsByCategory(PostCategory.Lifestyle));
 
+        pt.addPost( new Post("Apple post", "I like apples", PostCategory.Miscellaneous, user.getId()) );
+        pt.addPost( new Post("Banana post", " I like the Apples IT", PostCategory.Miscellaneous, user.getId()) );
+        pt.addPost( new Post("Not a fruit post", "This is not about fruits", PostCategory.Miscellaneous, user.getId()) );
+
+        System.out.println("Printing search by \"Apple\"");
+
+        System.out.println(pt.getPostsByKeyword("Apple"));
 
 
         //db.addUser(new User("admin", "admin"));
