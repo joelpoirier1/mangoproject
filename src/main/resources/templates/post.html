@@ -2,45 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Post View</title>
+    <title>Post</title>
     <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-<style>
-    body {
-        background-color: #ffe361;
-        background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    label{
-        color: #a80000;
-    }
+        body {
+            background-color: #ffe361;
+            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-    input[type="submit"]{
-        background-color: #a80000;
-        color: white;
-        width: 150px;
-        text-align: center;
-        display: inline-block;
-    }
+        input[type="submit"]{
+            background-color: #a80000;
+            color: white;
+            width: 150px;
+            text-align: center;
+            display: inline-block;
+        }
 
-    input[type="submit"]:hover, input[type="submit"]:active {
-        background-color: #c2350a;
-    }
-</style>
+        input[type="submit"]:hover, input[type="submit"]:active {
+            background-color: #c2350a;
+        }
+    </style>
+
 </head>
 <body>
-<br><br><br>
-<!--/*@thymesVar id="postForm" type=""*/-->
-<form th:action="@{/post}" th:object="${postForm}" method="post">
-    <label for="message">Post</label>
-    <input type="text" id="message" name="message" placeholder="Post" autofocus="autofocus" /><br><br>
-    <input type="submit" value="Submit">
-</form>
-<form th:action="@{/post/cancel}" method="post"><br>
-    <input type="submit" value="Cancel">
-</form>
+<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+    th:text="${post.getTitle()}"></h1>
+<h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
+    margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
+    th:text="${post.getContent()}"></h1>
 
+<h1 style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
+    >Comments:</h1>
+
+        <tr th:each="comment : ${commentList}">
+    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
+    margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
+        th:text="${comment.getMessage()}"></h1>
+    </tr>
+
+<form th:action="@{/addComment}" th:object="${commentForm}" method="post">
+    <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
+    <input type="hidden" id="uID" name="uID" th:value="${currentUser.get().getId()}"/>
+    <p align="center">Add a comment<input type="text" name="comment" id="comment"></p>
+
+
+    <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>
+
+    <p align="center"><input type="submit" value="Submit comment"></p>
+</form>
 
 </body>
 </html>

@@ -44,24 +44,45 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <form th:action="@{/logout}" method="post">
+                <p align="right"><input type="submit" value="Logout"></p>
+            </form>
 
             <div class="col-md-6">
-                <form th:action="@{/add}" method="post">
-                    <p align="right"><input type="submit" value="Add a Post"></p>
+                <form th:action="@{/addPost}" th:object="${postForm}" method="post">
+                    <p align="center">Add a post<p>
+                    <p align="center">Title<input type="text" id="title" name="title" autofocus="autofocus" />
+                    <p align="center">Message<input type="text" id="message" name="message" />
+
+                   <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+
+
+                    <p align="center" th:if="${invalidTitle}" class="error">Title must not be blank</p>
+                    <p align="center" th:if="${invalidMessage}" class="error">Message must not be blank</p>
+
+                    <p align="center"> <input type="submit" value="Submit post">
                 </form>
             </div>
 
+<hr>
 <table>
     <tbody>
     <tr th:each="post : ${posts}">
+
        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
                             th:text="${post.getDisplayName()}"></h1>
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+            th:text="${post.getTitle()}"></h1>
         <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
-            th:text="${post.getMessage()}"></h1>
-        <form th:action="@{/addComment}" method="post">
-            <p align="right"><input type="submit" value="Add a Comment"></p>
+            th:text="${post.getContent()}"></h1>
+
+        <form th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
+            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+            <p align="center"> <input type="submit"  value="Open post">
         </form>
+
     </tr>
     </tbody>
 

@@ -5,10 +5,8 @@ import model.Post;
 import model.PostCategory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class PostTable extends SQLDatabase {
     public PostTable() {
@@ -97,6 +95,7 @@ public class PostTable extends SQLDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        posts.sort(Comparator.comparing(Post::getDate));
         return posts;
     }
 
