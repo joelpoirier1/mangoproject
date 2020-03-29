@@ -1,5 +1,7 @@
 package com.seng401.mango;
 
+import model.PostCategory;
+
 import java.util.UUID;
 
 //Form that receives information to add a new post to the database
@@ -7,6 +9,7 @@ public class PostForm {
     private String title;
     private String message;
     private UUID userID;
+    private PostCategory category;
 
     public PostForm() {
         super();
@@ -34,5 +37,13 @@ public class PostForm {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public PostCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(PostCategory category) {
+        this.category = category;
     }
 }

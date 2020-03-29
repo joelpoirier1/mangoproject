@@ -33,6 +33,9 @@
 
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <p align="right"><input type="submit" value="Logout"></p>
+</form>
 <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
     th:text="${parent.getMessage()}"></h1>
@@ -50,8 +53,12 @@
     <input type="hidden" name="parentID" th:value="${parent.getCommentID()}"/>
     <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
     <p align="center">Add a reply<input type="text" name="reply" id="reply"></p>
-<!--    <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>-->
+    <p align="center" th:if="${invalidReply}" class="error">Reply must not be blank</p>
     <p align="center"><input type="submit" value="Reply to Comment"></p>
+</form>
+
+<form th:action="@{/returnPost}" method="post">
+    <p align="center"><input type="submit" value="Return to post"></p>
 </form>
 
 </body>

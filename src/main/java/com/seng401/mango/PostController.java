@@ -6,6 +6,7 @@ import database.repository.PostRepo;
 import database.repository.UserRepo;
 import model.Comment;
 import model.Post;
+import model.PostCategory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -100,6 +101,14 @@ public class PostController {
         return "redirect:/comment";
     }
 
+    @RequestMapping(value="/returnHome", method = RequestMethod.POST)
+    public String returnHome(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+
+        return "redirect:/home";
+    }
         //validates that the comment message is not empty
     public boolean validateCommentForm(CommentForm commentForm){
         if(commentForm.getComment().isEmpty()) {
