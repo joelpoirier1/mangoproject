@@ -95,7 +95,7 @@ public class PostTable extends SQLDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Collections.sort(posts);
+        Collections.sort(posts, Collections.reverseOrder());
         return posts;
     }
 
