@@ -6,6 +6,7 @@ import model.Post;
 import model.PostCategory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,18 +25,26 @@ public class PostRepo implements InterfacePostDatabase
     }
 
     @Override
-    public ArrayList<Post> getAllPosts() {
-        return postTable.getAllPosts();
+    public ArrayList<Post> getAllPosts()
+    {
+        ArrayList<Post> posts = postTable.getAllPosts();
+        Collections.sort(posts, Collections.reverseOrder());
+        return posts;
     }
 
     @Override
     public ArrayList<Post> getPostsByCategory(PostCategory category) {
-        return postTable.getPostsByCategory(category);
+        ArrayList<Post> posts = postTable.getPostsByCategory(category);
+        Collections.sort(posts, Collections.reverseOrder());
+
+        return posts;
     }
 
     @Override
     public ArrayList<Post> getPostsByUserID(UUID userID) {
-        return postTable.getPostsByUserID(userID);
+        ArrayList<Post> posts = postTable.getPostsByUserID(userID);
+        Collections.sort(posts, Collections.reverseOrder());
+        return posts;
     }
 
     @Override
@@ -58,6 +67,7 @@ public class PostRepo implements InterfacePostDatabase
             if(p.getTitle().toLowerCase().contains(keyword.toLowerCase()) || p.getContent().toLowerCase().contains(keyword.toLowerCase()))
                 searchResults.add(p);
         }
+        Collections.sort(searchResults, Collections.reverseOrder());
         return searchResults;
     }
 }
