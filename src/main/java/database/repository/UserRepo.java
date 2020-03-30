@@ -3,7 +3,6 @@ package database.repository;
 import database.InterfaceUserDatabase;
 import database.datatables.UserTable;
 import model.Post;
-import model.PostCategory;
 import model.User;
 
 import java.util.Optional;
@@ -73,35 +72,13 @@ public class UserRepo implements InterfaceUserDatabase
         UserRepo db = new UserRepo();
         PostRepo pt = new PostRepo();
 
-        //populate DB upon startup... comment out after db is created and delete when db is running on a server...
-        User user = new User("alyssa", "lee");
-        User user1 = new User("admin", "admin");
-        db.addUser(user);
-        db.addUser(user1);
-        System.out.println(" WHOOOO" + db.getUserByID(user.getId()));
-
-        Post post = new Post("YO", "TITLE", PostCategory.Miscellaneous, user.getId());
-        System.out.println(pt.addPost(post));
-        System.out.println(pt.addPost(new Post("Hello", "TITLE", PostCategory.Lifestyle, user1.getId())));
-        System.out.println(pt.getPostByUUID(post.getPostID()));
-        System.out.println(pt.getAllPosts());
-        post.incrementLikes();
-        System.out.println(pt.updatePost(post));
-        System.out.println(pt.getPostsByUserID(user.getId()));
-        System.out.println(pt.getPostsByCategory(PostCategory.Lifestyle));
-
-        pt.addPost( new Post("Apple post", "I like apples", PostCategory.Miscellaneous, user.getId()) );
-        pt.addPost( new Post("Banana post", " I like the Apples IT", PostCategory.Miscellaneous, user.getId()) );
-        pt.addPost( new Post("Not a fruit post", "This is not about fruits", PostCategory.Miscellaneous, user.getId()) );
-
-        System.out.println("Printing search by \"Apple\"");
-
-        System.out.println(pt.getPostsByKeyword("Apple"));
+        User user = db.getUser("admin").get();
+        Post post = pt.getAllPosts().get(3);
+        System.out.println(post.getPostID());
 
 
-        //db.addUser(new User("admin", "admin"));
-        //db.addUser(new User("username", "password"));
-
-        //System.out.println(db.validateUsernameExistence("alyssa"));
+        //System.out.println(pt.addLikedPost(post.getPostID(), user.getId(), LikeStatus.like));
+        System.out.println(pt.getPostStatusByUser(post.getPostID(), user.getId()).get());
+        System.out.println(pt.removeLikedPost(post.getPostID(), user.getId()));
     }
 }

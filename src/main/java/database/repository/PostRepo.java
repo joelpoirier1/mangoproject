@@ -1,7 +1,10 @@
 package database.repository;
 
+import database.InterfaceLikedPostsTable;
 import database.InterfacePostDatabase;
+import database.datatables.LikedPostsTable;
 import database.datatables.PostTable;
+import model.LikeStatus;
 import model.Post;
 import model.PostCategory;
 
@@ -10,13 +13,15 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-public class PostRepo implements InterfacePostDatabase
+public class PostRepo implements InterfacePostDatabase, InterfaceLikedPostsTable
 {
     PostTable postTable;
+    LikedPostsTable likedPostsTable;
 
     public PostRepo()
     {
         postTable = new PostTable();
+        likedPostsTable = new LikedPostsTable();
     }
 
     @Override
@@ -69,5 +74,25 @@ public class PostRepo implements InterfacePostDatabase
         }
         Collections.sort(searchResults, Collections.reverseOrder());
         return searchResults;
+    }
+
+    @Override
+    public Optional<LikeStatus> getPostStatusByUser(UUID postID, UUID userID) {
+        return likedPostsTable.getPostStatusByUser(postID, userID);
+    }
+
+    @Override
+    public boolean addLikedPost(UUID postID, UUID userID, LikeStatus status) {
+        return likedPostsTable.addLikedPost(postID, userID, status);
+    }
+
+    @Override
+    public boolean removeLikedPost(UUID postID, UUID userID) {
+        return likedPostsTable.removeLikedPost(postID, userID);
+    }
+
+    @Override
+    public boolean updateLikedPostStatus(UUID postID, UUID userID, LikeStatus status) {
+        return likedPostsTable.updateLikedPostStatus(postID, userID, status);
     }
 }
