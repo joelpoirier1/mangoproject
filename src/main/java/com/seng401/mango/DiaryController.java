@@ -37,6 +37,10 @@ public class DiaryController {
             model.addAttribute("posts", postRepo.getPostsByUserID(currentUser));
         }
 
+        if(postRepo.getPostsByUserID(currentUser).isEmpty()){
+            model.addAttribute("empty", true);
+        }
+
         return "diary";
     }
 

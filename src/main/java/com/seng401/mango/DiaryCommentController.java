@@ -5,6 +5,7 @@ import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
 import model.Comment;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Controller
 public class DiaryCommentController {
 
     private CommentRequest request = new CommentRequest();
@@ -25,7 +27,8 @@ public class DiaryCommentController {
     private RedirectAttributes myRedirect;
 
     @RequestMapping(value="/diaryComment", method = RequestMethod.GET)
-    public String commentPage(Model model){
+    public String dairyCommentPage(Model model){
+
         if(model.containsAttribute("validate") && model.containsAttribute("commentValidate")) {
             currentUser = (UUID) model.getAttribute("validate");
             currentComment = (UUID) model.getAttribute("commentValidate");
@@ -59,12 +62,10 @@ public class DiaryCommentController {
         return "diaryComment";
     }
 
-    @RequestMapping(value="/returnPost", method = RequestMethod.POST)
-    public String returnPost(@ModelAttribute("replyForm") ReplyForm replyForm, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value="/returnToPost", method = RequestMethod.POST)
+    public String returnToPost(@ModelAttribute("replyForm") ReplyForm replyForm, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(request.getCommentByCommentID(currentComment).getPostID()).get());
-
         redirectAttributes.addFlashAttribute("commentList", filterComments(request.getCommentForPostID(request.getCommentByCommentID(currentComment).getPostID()).getComments()));
-
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
 
         return "redirect:/diaryPost";

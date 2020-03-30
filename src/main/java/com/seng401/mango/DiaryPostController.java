@@ -26,7 +26,7 @@ public class DiaryPostController {
 
     //returns the post page
     @RequestMapping(value="/diaryPost", method = RequestMethod.GET)
-    public String postPage(Model model){
+    public String diaryPostPage(Model model){
         //sets the current user and post if the user just got on the post page
         if(model.containsAttribute("validate") && model.containsAttribute("postValidate")) {
             currentUser = (UUID) model.getAttribute("validate");

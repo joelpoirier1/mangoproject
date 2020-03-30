@@ -52,13 +52,11 @@
 >Comment Microservice is currently disabled.</h1>
 
         <tr  th:if="!${disabled}" th:each="comment : ${commentList}">
+            <h1 style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 400px"
+                th:text="${comment.getDate()}"></h1>
     <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
         th:text="${comment.getMessage()}"></h1>
-
-            <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
-                th:text="${comment.getDate()}"></h1>
 
 
             <form th:action="@{/replyComment}" th:object="${inspectCommentForm}" method="post">
