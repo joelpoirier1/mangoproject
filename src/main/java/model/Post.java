@@ -56,6 +56,7 @@ public class Post implements Comparable<Post>
     //Decreases likes by 1
     public void decrementLikes(){ likes--; }
 
+
     public Date getDate() {
         return date;
     }

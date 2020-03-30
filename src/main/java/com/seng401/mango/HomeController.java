@@ -3,6 +3,7 @@ package com.seng401.mango;
 import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
+import model.LikeStatus;
 import model.Post;
 import model.PostCategory;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -41,6 +44,25 @@ public class HomeController {
         return "redirect:/post";
     }
 
+    @RequestMapping(value="/likePost", method = RequestMethod.POST)
+    public String like(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
+        Post currentPost = postRepo.getPostByUUID(inspectionForm.getPostID()).get();
+
+        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser).isPresent()){
+            currentPost.decrementLikes();
+            postRepo.removeLikedPost(currentPost.getPostID(), currentUser);
+        } else{
+            currentPost.incrementLikes();
+            postRepo.addLikedPost(currentPost.getPostID(), currentUser, LikeStatus.like);
+        }
+        postRepo.updatePost(currentPost);
+
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
+        redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
+
+        return "redirect:/home";
+    }
 
     @RequestMapping(value="/addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostForm postForm, RedirectAttributes redirectAttributes) {

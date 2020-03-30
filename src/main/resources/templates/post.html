@@ -41,6 +41,10 @@
     th:text="${post.getCategory()}"></h1>
 <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
     th:text="${post.getTitle()}"></h1>
+<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+    th:text="${post.getDate()}"></h1>
+<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+    th:text="${post.getLikes()}"></h1>
 <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
     th:text="${post.getContent()}"></h1>
@@ -72,6 +76,12 @@
     <p align="center">Add a comment<input type="text" name="comment" id="comment"></p>
     <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>
     <p align="center"><input type="submit" value="Submit comment"></p>
+</form>
+
+<form th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
+    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+    <p align="center"> <input type="submit"  value="Like/Unlike post">
 </form>
 
 <form th:action="@{/returnHome}" method="post">
