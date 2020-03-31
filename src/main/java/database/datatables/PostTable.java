@@ -23,7 +23,7 @@ public class PostTable extends SQLDatabase {
                 String query = "CREATE TABLE Post " +
                         "(IDNum VARCHAR(255) NOT NULL," +
                         "Title VARCHAR(255) NOT NULL," +
-                        "PostContent VARCHAR(255) NOT NULL," +
+                        "PostContent TEXT NOT NULL," +
                         "GeneratedName VARCHAR(255) NOT NULL," +
                         "Category VARCHAR(255) NOT NULL," +
                         "Likes INT NOT NULL," +
