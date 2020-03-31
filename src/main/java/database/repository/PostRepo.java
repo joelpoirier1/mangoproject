@@ -77,7 +77,7 @@ public class PostRepo implements InterfacePostDatabase, InterfaceLikedPostsTable
     }
 
     @Override
-    public Optional<LikeStatus> getPostStatusByUser(UUID postID, UUID userID) {
+    public boolean getPostStatusByUser(UUID postID, UUID userID) {
         return likedPostsTable.getPostStatusByUser(postID, userID);
     }
 

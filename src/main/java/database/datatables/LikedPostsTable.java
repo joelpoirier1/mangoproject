@@ -8,7 +8,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.UUID;
 
 public class LikedPostsTable extends SQLDatabase implements InterfaceLikedPostsTable
@@ -47,9 +46,8 @@ public class LikedPostsTable extends SQLDatabase implements InterfaceLikedPostsT
     /**
      * Gets the like status of a post given the postID and userID
      */
-    public Optional<LikeStatus> getPostStatusByUser(UUID postID, UUID userID)
+    public boolean getPostStatusByUser(UUID postID, UUID userID)
     {
-        LikeStatus status = null;
         try {
             String query = "SELECT * FROM LikedPosts WHERE PostID = ? AND UserID = ?";
             PreparedStatement pState = connection.prepareStatement(query);
@@ -58,12 +56,12 @@ public class LikedPostsTable extends SQLDatabase implements InterfaceLikedPostsT
 
             ResultSet resultSet = pState.executeQuery();
             if (resultSet.next()) {
-                status = LikeStatus.valueOf(resultSet.getString("Status"));
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.ofNullable(status);
+        return false;
     }
 
 
