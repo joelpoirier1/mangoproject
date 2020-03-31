@@ -59,13 +59,13 @@
                         th:text="${category}" />
             </select>
 
-                <input type="submit" value="Search">
+                <input type="submit" value="Search by Category">
             </form>
 
             <form th:action="@{/searchKeyword}" th:object="${searchKeywordForm}" method="post">
                 <input type="text" id="keyword" name="keyword" autofocus="autofocus" />
                 <p align="center" th:if="${invalidSearch}" class="error">Please enter a keyword first</p>
-                <input type="submit" value="Search">
+                <input type="submit" value="Search by Keyword">
             </form>
 
             <form th:action="@{/cancelSearch}" method="post">
