@@ -48,7 +48,7 @@ public class HomeController {
     public String like(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
         Post currentPost = postRepo.getPostByUUID(inspectionForm.getPostID()).get();
 
-        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser).isPresent()){
+        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser)){
             currentPost.decrementLikes();
             postRepo.removeLikedPost(currentPost.getPostID(), currentUser);
         } else{
@@ -152,6 +152,10 @@ public class HomeController {
 
         if(!model.containsAttribute("categories")){
             model.addAttribute("categories", PostCategory.values());
+        }
+
+        if(!model.containsAttribute("postRepo")){
+            model.addAttribute("postRepo", postRepo);
         }
 
         return "home";

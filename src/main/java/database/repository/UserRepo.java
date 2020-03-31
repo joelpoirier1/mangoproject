@@ -78,7 +78,7 @@ public class UserRepo implements InterfaceUserDatabase
 
 
         //System.out.println(pt.addLikedPost(post.getPostID(), user.getId(), LikeStatus.like));
-        System.out.println(pt.getPostStatusByUser(post.getPostID(), user.getId()).get());
-        System.out.println(pt.removeLikedPost(post.getPostID(), user.getId()));
+//        System.out.println(pt.getPostStatusByUser(post.getPostID(), user.getId()).get());
+//        System.out.println(pt.removeLikedPost(post.getPostID(), user.getId()));
     }
 }

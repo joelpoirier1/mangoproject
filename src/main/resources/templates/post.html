@@ -45,6 +45,10 @@
     th:text="${post.getDate()}"></h1>
 <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
     th:text="${post.getLikes()}"></h1>
+<img th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" src="https://p7.hiclipart.com/preview/770/348/15/heart-symbol-computer-icons-clip-art-point-line-symbol.jpg" width="50"
+     height="50">
+<img th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" src="https://www.pinclipart.com/picdir/middle/375-3750028_download-png-heart-icon-transparent-background-clipart.png" width="50"
+     height="50">
 <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
     th:text="${post.getContent()}"></h1>
@@ -78,10 +82,16 @@
     <p align="center"><input type="submit" value="Submit comment"></p>
 </form>
 
-<form th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
+<form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
     <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
     <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-    <p align="center"> <input type="submit"  value="Like/Unlike post">
+    <p align="center"> <input type="submit"  value="Like post">
+</form>
+
+<form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
+    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+    <p align="center"> <input type="submit"  value="Unlike post">
 </form>
 
 <form th:action="@{/returnHome}" method="post">

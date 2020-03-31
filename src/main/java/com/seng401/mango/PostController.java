@@ -65,6 +65,10 @@ public class PostController {
             model.addAttribute("disabled", false);
         }
 
+        if(!model.containsAttribute("postRepo")){
+            model.addAttribute("postRepo", postRepo);
+        }
+
         return "post";
     }
 
@@ -72,7 +76,7 @@ public class PostController {
     public String like(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
         Post currentPost = postRepo.getPostByUUID(inspectionForm.getPostID()).get();
 
-        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser).isPresent()){
+        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser)){
             currentPost.decrementLikes();
             postRepo.removeLikedPost(currentPost.getPostID(), currentUser);
         } else{
