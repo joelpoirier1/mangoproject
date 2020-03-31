@@ -5,6 +5,7 @@ import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
 import model.Comment;
+import model.LikeStatus;
 import model.Post;
 import model.PostCategory;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,33 @@ public class PostController {
         }
 
         return "post";
+    }
+
+    @RequestMapping(value="/likeThisPost", method = RequestMethod.POST)
+    public String like(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
+        Post currentPost = postRepo.getPostByUUID(inspectionForm.getPostID()).get();
+
+        if(postRepo.getPostStatusByUser(currentPost.getPostID(), currentUser).isPresent()){
+            currentPost.decrementLikes();
+            postRepo.removeLikedPost(currentPost.getPostID(), currentUser);
+        } else{
+            currentPost.incrementLikes();
+            postRepo.addLikedPost(currentPost.getPostID(), currentUser, LikeStatus.like);
+        }
+        postRepo.updatePost(currentPost);
+
+        redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(inspectionForm.getPostID()).get());
+
+        for(Post p: postRepo.getAllPosts()){
+            if(p.getPostID().compareTo(inspectionForm.getPostID()) == 0) {
+                p.setCommentList(request.getCommentForPostID(inspectionForm.getPostID()).getComments());
+                redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
+            }
+        }
+
+        redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(inspectionForm.getUserID()));
+
+        return "redirect:/post";
     }
 
     //Adds a comment to the post the user is currently viewing
