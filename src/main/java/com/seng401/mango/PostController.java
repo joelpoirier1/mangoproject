@@ -59,12 +59,14 @@ public class PostController {
             model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
         }
 
+        //checks if the microservice is enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
         }else{
             model.addAttribute("disabled", false);
         }
 
+        //makes sure postRepo is not null
         if(!model.containsAttribute("postRepo")){
             model.addAttribute("postRepo", postRepo);
         }
@@ -72,6 +74,7 @@ public class PostController {
         return "post";
     }
 
+    //Allows user to like a post in the post page
     @RequestMapping(value="/likeThisPost", method = RequestMethod.POST)
     public String like(@ModelAttribute("inspectionForm") InspectionForm inspectionForm, RedirectAttributes redirectAttributes){
         Post currentPost = postRepo.getPostByUUID(inspectionForm.getPostID()).get();
@@ -127,6 +130,7 @@ public class PostController {
         return "redirect:/post";
     }
 
+    //Allows user to go see the replies on the specified comment
     @RequestMapping(value="/replyComment", method = RequestMethod.POST)
     public String replyComment(@ModelAttribute("inspectCommentForm") InspectCommentForm inspectCommentForm, RedirectAttributes redirectAttributes) {
 
@@ -139,6 +143,7 @@ public class PostController {
         return "redirect:/comment";
     }
 
+    //Returns user to the homepage
     @RequestMapping(value="/returnHome", method = RequestMethod.POST)
     public String returnHome(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
@@ -147,7 +152,8 @@ public class PostController {
 
         return "redirect:/home";
     }
-        //validates that the comment message is not empty
+
+    //validates that the comment message is not empty
     public boolean validateCommentForm(CommentForm commentForm){
         if(commentForm.getComment().isEmpty()) {
             myRedirect.addFlashAttribute("invalidComment", true);
@@ -155,6 +161,7 @@ public class PostController {
         } else return false;
     }
 
+    //Filters comments to show only the ones pertaining to the post
     public ArrayList<Comment> filterComments(ArrayList<Comment> oldArray){
         ArrayList<Comment> newArray = new ArrayList<>();
         for(Comment com: oldArray){

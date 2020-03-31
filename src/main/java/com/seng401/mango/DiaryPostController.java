@@ -1,6 +1,5 @@
 package com.seng401.mango;
 
-import api.CommentCommand;
 import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
@@ -22,9 +21,8 @@ public class DiaryPostController {
     private PostRepo postRepo = new PostRepo();
     private UUID currentUser = null;
     private UUID currentPost = null;
-    private RedirectAttributes myRedirect;
 
-    //returns the post page
+    //returns the post page of the users diary
     @RequestMapping(value="/diaryPost", method = RequestMethod.GET)
     public String diaryPostPage(Model model){
         //sets the current user and post if the user just got on the post page
@@ -53,6 +51,7 @@ public class DiaryPostController {
             model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
         }
 
+        //checks if the microservice is enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
         }else{
@@ -62,6 +61,7 @@ public class DiaryPostController {
         return "diaryPost";
     }
 
+    //Allows user to inspect a comment and see the replies on that comment
     @RequestMapping(value="/goToComment", method = RequestMethod.POST)
     public String goToComment(@ModelAttribute("inspectCommentForm") InspectCommentForm inspectCommentForm, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("validate", currentUser);
@@ -73,6 +73,7 @@ public class DiaryPostController {
         return "redirect:/diaryComment";
     }
 
+    //Returns the user to the main diary page
     @RequestMapping(value="/returnToDiary", method = RequestMethod.POST)
     public String returnHome(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(currentUser));
@@ -81,6 +82,7 @@ public class DiaryPostController {
         return "redirect:/diary";
     }
 
+    //Filters the comments to ensure the comments of the specific post are shown
     public ArrayList<Comment> filterComments(ArrayList<Comment> oldArray){
         ArrayList<Comment> newArray = new ArrayList<>();
         for(Comment com: oldArray){

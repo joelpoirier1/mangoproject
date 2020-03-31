@@ -2,6 +2,7 @@ package com.seng401.mango;
 
 import java.util.UUID;
 
+//Form used to obtain post and user information when going to a specific comment
 public class InspectCommentForm {
     private UUID postID;
     private UUID userID;

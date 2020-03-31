@@ -1,5 +1,6 @@
 package com.seng401.mango;
 
+//Receives keyword being searched
 public class SearchKeywordForm {
 private String keyword;
 

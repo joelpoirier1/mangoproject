@@ -1,7 +1,5 @@
 package com.seng401.mango;
 
-
-import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
 import model.PostCategory;
@@ -19,20 +17,19 @@ public class LoginController {
     private PostRepo postRepo;
     private Model myModel;
 
-
-    @RequestMapping(value="/logout", method = RequestMethod.POST)
-    public String logout() {
-        return "redirect:";
-    }
-
-
-    //to get login page
+    //Shows the login page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginForm() {
         return "index";
     }
 
-    //checking for login credentials
+    //Allows the user to logout
+    @RequestMapping(value="/logout", method = RequestMethod.POST)
+    public String logout() {
+        return "redirect:";
+    }
+
+    //checks users login credentials
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model, RedirectAttributes redirectAttributes)
     {

@@ -2,6 +2,7 @@ package com.seng401.mango;
 
 import java.util.UUID;
 
+//Receives reply information on a specific comment
 public class ReplyForm {
     private String reply;
     private UUID parentID;

@@ -29,6 +29,7 @@ public class CommentController {
     private UUID currentComment;
     private RedirectAttributes myRedirect;
 
+    //Shows the comment page to the user. This allows users to see replies (nested comments) on a comment to a post
     @RequestMapping(value="/comment", method = RequestMethod.GET)
     public String commentPage(Model model){
         if(model.containsAttribute("validate") && model.containsAttribute("commentValidate")) {
@@ -55,6 +56,7 @@ public class CommentController {
             model.addAttribute("parentList", request.getCommentForParentID(currentComment).getComments());
         }
 
+        //checks if microservice is enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
         }else{
@@ -64,6 +66,7 @@ public class CommentController {
         return "comment";
     }
 
+    //Allows users to add a reply to a comment
     @RequestMapping(value="/addReply", method = RequestMethod.POST)
     public String reply(@ModelAttribute("replyForm") ReplyForm replyForm, RedirectAttributes redirectAttributes) {
         myRedirect = redirectAttributes;
@@ -80,6 +83,7 @@ public class CommentController {
         return "redirect:/comment";
     }
 
+    //Allows users to return to the main post
     @RequestMapping(value="/returnPost", method = RequestMethod.POST)
     public String returnPost(@ModelAttribute("replyForm") ReplyForm replyForm, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(request.getCommentByCommentID(currentComment).getPostID()).get());
@@ -99,6 +103,7 @@ public class CommentController {
         } else return false;
     }
 
+    //Filters comments to receive the ones pertaining to the post
     public ArrayList<Comment> filterComments(ArrayList<Comment> oldArray){
         ArrayList<Comment> newArray = new ArrayList<>();
         for(Comment com: oldArray){

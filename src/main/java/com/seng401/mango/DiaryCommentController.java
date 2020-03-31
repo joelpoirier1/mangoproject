@@ -1,6 +1,5 @@
 package com.seng401.mango;
 
-import api.CommentCommand;
 import api.CommentRequest;
 import database.repository.PostRepo;
 import database.repository.UserRepo;
@@ -21,11 +20,10 @@ public class DiaryCommentController {
     private CommentRequest request = new CommentRequest();
     private UserRepo userRepo = new UserRepo();
     private PostRepo postRepo = new PostRepo();
-    private CommentCommand command = new CommentCommand();
     private UUID currentUser;
     private UUID currentComment;
-    private RedirectAttributes myRedirect;
 
+    //Shows the diary comment page to the user. This shows the replies to comments of a post the user created
     @RequestMapping(value="/diaryComment", method = RequestMethod.GET)
     public String dairyCommentPage(Model model){
 
@@ -53,6 +51,7 @@ public class DiaryCommentController {
             model.addAttribute("parentList", request.getCommentForParentID(currentComment).getComments());
         }
 
+        //check if microservice in enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
         }else{

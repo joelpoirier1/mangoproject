@@ -1,10 +1,8 @@
 package com.seng401.mango;
 
-import model.Post;
 import model.PostCategory;
 
-import java.util.UUID;
-
+//Receives category being searched
 public class SearchForm {
     private PostCategory category;
 
