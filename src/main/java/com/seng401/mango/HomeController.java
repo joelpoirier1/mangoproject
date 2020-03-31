@@ -112,7 +112,6 @@ public class HomeController {
     @RequestMapping(value="/addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostForm postForm, RedirectAttributes redirectAttributes) {
         myRedirect = redirectAttributes;
-        System.out.println(postForm.getCategory());
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(postForm.getUserID()));
 
         if(validatePostForm(postForm)) {
