@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Mango</title>
+    <title>Mango Homepage</title>
     <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
     <style>
         img {
@@ -56,7 +56,7 @@
             <select id="category" name="category">
                 <option th:each="category : ${categories}"
                         th:value="${category}"
-                        th:text="${category}" />
+                        th:text="${category}"></option>
             </select>
 
                 <input type="submit" value="Search by Category">
@@ -81,12 +81,12 @@
                     <select id="category" name="category">
                         <option th:each="category : ${categories}"
                                 th:value="${category}"
-                                th:text="${category}" />
+                                th:text="${category}"></option>
                     </select>
 
                    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
 
-
+                    <p align="center" th:if="${tooLong}" class="error">Title must not be longer than 100 characters</p>
                     <p align="center" th:if="${invalidTitle}" class="error">Title must not be blank</p>
                     <p align="center" th:if="${invalidMessage}" class="error">Message must not be blank</p>
 
@@ -102,9 +102,9 @@
        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
                             th:text="${post.getDisplayName()}"></h1>
         <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-            th:text="${post.getCategory()}"></h1>
-        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
             th:text="${post.getTitle()}"></h1>
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+            th:text="${post.getCategory()}"></h1>
         <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
             th:text="${post.getDate()}"></h1>
         <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
