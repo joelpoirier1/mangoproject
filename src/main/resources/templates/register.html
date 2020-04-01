@@ -29,9 +29,11 @@
         input[type=submit]{
             background-color: #a80000;
             color: white;
-            padding: 10px 100px;
             text-align: center;
             display: inline-block;
+            border-radius: 12px;
+            height: 30px;
+            width: 250px;
         }
 
         input[type=submit]:hover, input[type=submit]:active {
@@ -61,7 +63,7 @@
     <input type="submit" value="Submit!">
 </form>
 <form th:action="@{/return}" method="post"><br>
-    <input type="submit" value="Back to login">
+    <input type="submit" value="Back to Login">
 </form>
 </body>
 </html>

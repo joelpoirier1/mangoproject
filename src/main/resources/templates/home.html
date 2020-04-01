@@ -11,6 +11,10 @@
             margin-right: auto;
         }
 
+        h2{
+            color: #a80000;
+        }
+
         body {
             background-color: #ffe361;
             background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
@@ -21,9 +25,11 @@
         input[type="submit"]{
             background-color: #a80000;
             color: white;
-            width: 150px;
             text-align: center;
             display: inline-block;
+            border-radius: 12px;
+            height: 25px;
+            width: 150px;
         }
 
         input[type="submit"]:hover, input[type="submit"]:active {
@@ -49,8 +55,10 @@
             </form>
 
             <form th:action="@{/goToDiary}" method="post">
-                <p align="right"><input type="submit" value="Go to Diary"></p>
+                <p align="right"><input type="submit" value="My Diary"></p>
             </form>
+
+            <h2> Search Posts</h2>
 
             <form th:action="@{/search}" th:object="${searchForm}" method="post">
             <select id="category" name="category">
@@ -63,20 +71,16 @@
             </form>
 
             <form th:action="@{/searchKeyword}" th:object="${searchKeywordForm}" method="post">
-                <input type="text" id="keyword" name="keyword" autofocus="autofocus" />
+                <input type="text" id="keyword" name="keyword" autofocus="autofocus" size="12" />
                 <p align="center" th:if="${invalidSearch}" class="error">Please enter a keyword first</p>
                 <input type="submit" value="Search by Keyword">
             </form>
 
-            <form th:action="@{/cancelSearch}" method="post">
-                <input type="submit" value="Cancel Search">
-            </form>
-
             <div class="col-md-6">
                 <form th:action="@{/addPost}" th:object="${postForm}" method="post">
-                    <p align="center">Add a post<p>
-                    <p align="center">Title<input type="text" id="title" name="title" autofocus="autofocus" />
-                    <p align="center">Message<input type="text" id="message" name="message" />
+                    <p align="center" style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content">Add a post<p>
+                    <p align="center" style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content">Title  <input type="text" id="title" name="title" autofocus="autofocus" />
+                    <p align="center" style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content">Message  <input type="text" id="message" name="message" />
 
                     <select id="category" name="category">
                         <option th:each="category : ${categories}"
@@ -90,52 +94,54 @@
                     <p align="center" th:if="${invalidTitle}" class="error">Title must not be blank</p>
                     <p align="center" th:if="${invalidMessage}" class="error">Message must not be blank</p>
 
-                    <p align="center"> <input type="submit" value="Submit post">
+                    <p align="center"> <input type="submit" value="Submit">
                 </form>
             </div>
 
 <hr>
 <table>
     <tbody>
-    <tr th:each="post : ${posts}">
+    <div th:each="post : ${posts}">
 
-       <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
-                            th:text="${post.getDisplayName()}"></h1>
-        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content; text-decoration: underline"
             th:text="${post.getTitle()}"></h1>
-        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-            th:text="${post.getCategory()}"></h1>
-        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-            th:text="${post.getDate()}"></h1>
-        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-            th:text="${post.getLikes()}"></h1>
-        <img th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" src="https://p7.hiclipart.com/preview/770/348/15/heart-symbol-computer-icons-clip-art-point-line-symbol.jpg" width="50"
-             height="50">
-        <img th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" src="https://www.pinclipart.com/picdir/middle/375-3750028_download-png-heart-icon-transparent-background-clipart.png" width="50"
-             height="50">
-        <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
-            th:text="${post.getContent()}"></h1>
 
-        <form th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
-            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p align="center"> <input type="submit"  value="Open post">
-        </form>
+       <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:10px; font-weight: bold;width: fit-content"
+           th:text="${post.getDisplayName()}"></h1>
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:10px; font-weight: bold;width: fit-content"
+            th:text="${post.getCategory()}"></h1>
+        <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:10px; font-weight: bold;width: fit-content"
+            th:text="${post.getDate()}"></h1>
+
+
 
         <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
             <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
             <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p align="center"> <input type="submit"  value="Like post">
+            <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/ah42ru7.png" width="60px" height="60px" value="Like post">
         </form>
 
         <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
             <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
             <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p align="center"> <input type="submit"  value="Unlike post">
+            <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" width="60px" height="60px"  value="Unlike post">
         </form>
 
-    </tr>
+        <h1 style="text-align:center; color: #a80000; font-size:20px; font-weight: bold; display: inline-block"
+            th:text="${post.getLikes()}"></h1>
+
+        <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
+    margin-right:auto; margin-left: auto; font-size:12px; width: 500px; background: white"
+            th:text="${post.getContent()}"></h1>
+
+        <form th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
+            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+            <p align="center"> <input type="submit"  value="View">
+        </form>
+
+    <br><br><br>
+    </div>
     </tbody>
 
 </table>
