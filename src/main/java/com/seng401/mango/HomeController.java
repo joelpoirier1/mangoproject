@@ -113,16 +113,17 @@ public class HomeController {
     public String addPost(@ModelAttribute("postForm") PostForm postForm, RedirectAttributes redirectAttributes) {
         myRedirect = redirectAttributes;
         redirectAttributes.addFlashAttribute("currentUser", userRepo.getUserByID(postForm.getUserID()));
+        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
 
         if(validatePostForm(postForm)) {
             redirectAttributes = myRedirect;
+            redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
             return "redirect:/home";
         }
 
         Post post = new Post(postForm.getMessage(), postForm.getTitle(), postForm.getCategory(), postForm.getUserID());
         postRepo.addPost(post);
 
-        redirectAttributes.addFlashAttribute("categories", PostCategory.values());
         redirectAttributes.addFlashAttribute("posts", postRepo.getAllPosts());
         search = null;
         searchKeyword = null;
