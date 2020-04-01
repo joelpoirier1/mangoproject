@@ -190,9 +190,17 @@ public class HomeController {
         } else if(postForm.getTitle().isEmpty()){
             myRedirect.addFlashAttribute("invalidTitle", true);
             return true;
+        }  else if(postForm.getTitle().length() > 100 && postForm.getMessage().isEmpty()) {
+            myRedirect.addFlashAttribute("tooLong", true);
+            myRedirect.addFlashAttribute("invalidMessage", true);
+            return true;
+        }else if(postForm.getTitle().length() > 100) {
+            myRedirect.addFlashAttribute("tooLong", true);
+            return true;
         } else if(postForm.getMessage().isEmpty()) {
             myRedirect.addFlashAttribute("invalidMessage", true);
             return true;
-        } return false;
+        }return false;
+
     }
 }

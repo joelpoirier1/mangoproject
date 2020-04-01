@@ -21,9 +21,11 @@
         input[type="submit"]{
             background-color: #a80000;
             color: white;
-            width: 150px;
             text-align: center;
             display: inline-block;
+            border-radius: 12px;
+            height: 25px;
+            width: 150px;
         }
 
         input[type="submit"]:hover, input[type="submit"]:active {
@@ -38,7 +40,7 @@
 </form>
 
 <h1 th:if="${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
->Comment Microservice is currently disabled.</h1>
+>Commenting is currently not available.</h1>
 
 <h1 th:if="!${disabled}" style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
     margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
