@@ -52,15 +52,16 @@ public class CommentRequest {
             connection.setRequestMethod("GET");
             connection.connect();
             int code = connection.getResponseCode();
+            System.out.println(code);
 
-            if(code >= 300)
-            {
+            if(code >= 300) {
                 return true;
             }
 
             long elapsedTime = System.nanoTime() - startTime;
             return false;
         }catch(Exception e) {
+            System.out.println("TIMEOUT");
             return true;
         }
     }

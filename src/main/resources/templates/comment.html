@@ -61,7 +61,7 @@
         margin-right:auto; margin-left: auto; font-size:13px; margin-bottom: 5px; width: 1100px; height: 50px; background: white"
                 th:text="${parent.getMessage()}"></h1>
 
-            <h1 th:if="!${parentList.isEmpty()}" style="text-align:left; margin-left: 200px; font-size:15px; color: #5b0000; width: 500px">
+            <h1 th:if="!${disabled}" style="text-align:left; margin-left: 200px; font-size:15px; color: #5b0000; width: 500px">
                         Replies:</h1>
 
             <tr  th:if="!${disabled}" th:each="comment : ${parentList}">
