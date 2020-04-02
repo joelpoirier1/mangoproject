@@ -59,11 +59,8 @@ public class CommentRequest {
             }
 
             long elapsedTime = System.nanoTime() - startTime;
-            System.out.println("Elapsed Time (ms): " + elapsedTime/1000000);
             return false;
-        }catch(Exception e)
-        {
-            System.out.println("Timeout!!!!");
+        }catch(Exception e) {
             return true;
         }
     }

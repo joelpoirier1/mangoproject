@@ -88,7 +88,7 @@
         <h1 th:if="!${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
             >Comments:</h1>
 
-        <h1 th:if="${disabled}" align="center" style="color: #a80000; font-size:15px"
+        <h1 th:if="${disabled}" align="center" style="color: #a80000; font-size:12px"
         >Commenting is currently unavailable.</h1>
 
         <tr  th:if="!${disabled}" th:each="comment : ${commentList}">
