@@ -23,6 +23,19 @@
             width: 150px;
         }
 
+        h1{
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        h2{
+            color: #a80000;
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        p{
+            font-family: Verdana, Arial, sans-serif;
+        }
+
         input[type="submit"]:hover, input[type="submit"]:active {
             background-color: #c2350a;
         }
@@ -44,13 +57,13 @@
 <table>
     <tbody>
 
-<form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+<form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
     <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
     <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
     <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="60px" height="60px" value="Like post">
 </form>
 
-<form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+<form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
     <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
     <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
     <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="60px" height="60px"  value="Unlike post">
