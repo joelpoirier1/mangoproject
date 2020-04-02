@@ -1,76 +1,78 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Registration</title>
-    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <style>
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    <head>
+        <title>Registration</title>
+        <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+        <style>
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-        h1 {
-            font-size: 55px;
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h1 {
+                font-size: 55px;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
 
-        h2{
-            color: #a80000;
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h2{
+                color: #a80000;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        p{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            p{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        body {
-            background-color: #ffe361;
-            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            body {
+                background-color: #ffe361;
+                background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        input[type=submit]{
-            background-color: #a80000;
-            color: white;
-            text-align: center;
-            display: inline-block;
-            border-radius: 12px;
-            height: 30px;
-            width: 250px;
-        }
+            input[type=submit]{
+                background-color: #a80000;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                border-radius: 12px;
+                height: 30px;
+                width: 250px;
+            }
 
-        input[type=submit]:hover, input[type=submit]:active {
-            background-color: #c2350a;
-        }
-    </style>
-</head>
-<body  text="white">
+            input[type=submit]:hover, input[type=submit]:active {
+                background-color: #c2350a;
+            }
+        </style>
+    </head>
+    <body  text="white">
 
-<h2> Register </h2>
+        <h2> Register </h2><br>
 
-<i><p> Please enter your desired <b>username</b> and <b>password:</b></i></p>
+        <p style="font-size: 15px"> Please enter your desired username and password</p>
 
-<p th:if="${alreadyExists}" class="error">Username already exists</p>
-<p th:if="${passwordMatch}" class="error">Password and re-typed password must match</p>
-<p th:if="${invalidInput}" class="error">Username and password must not be blank</p>
-<p th:if="${invalidLength}" class="error">Username and password must be less than 11 characters</p>
-<p th:if="${containsSpace}" class="error">Username and password must not contain spaces</p>
+        <form action="/createAccount" method="post" name="register">
+            <p style="font-size: 13px">Username <input type="text" id="username" name="username"></p>
+            <p th:if="${alreadyExists}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username already exists *</p>
 
-<form action="/createAccount" method="post" name="register">
-    <label for="username">Username: </label><br>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="password">Password: </label><br>
-    <input type="password" id="password" name="password"><br><br>
-    <label for="verifyPassword">Re-enter Password: </label><br>
-    <input type="password" id="verifyPassword" name="verifyPassword"><br><br><br>
-    <input type="submit" value="Register">
-</form>
-<form th:action="@{/return}" method="post"><br>
-    <input type="submit" value="Back to Login">
-</form>
-</body>
+            <p style="font-size: 13px">Password <input type="password" id="password" name="password"></p>
+
+            <p style="font-size: 13px">Re-enter Password <input type="password" id="verifyPassword" name="verifyPassword"></p>
+
+            <p th:if="${passwordMatch}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Password and re-typed password must match *</p>
+            <p th:if="${invalidInput}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username and password must not be blank *</p>
+            <p th:if="${invalidLength}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username and password must be less than 11 characters *</p>
+            <p th:if="${containsSpace}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username and password must not contain spaces *</p>
+
+            <br>
+            <input type="submit" value="Register">
+        </form>
+
+        <form th:action="@{/return}" method="post"><br>
+            <input type="submit" value="Back to Login">
+        </form>
+    </body>
 </html>

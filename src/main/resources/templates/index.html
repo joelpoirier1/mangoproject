@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Mango Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <style>
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    <head>
+        <title>Mango Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+        <style>
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-        h1 {
-            font-size: 55px;
-            font-family: Verdana, Arial, sans-serif;
-        }
-
-
-        h2{
-            color: #a80000;
-            font-family: Verdana, Arial, sans-serif;
-        }
-
-        p{
-            font-family: Verdana, Arial, sans-serif;
-        }
-
-        body {
-            background-color: #ffe361;
-            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        input[type=submit]{
-            background-color: #a80000;
-            color: white;
-            text-align: center;
-            display: inline-block;
-            border-radius: 12px;
-            height: 30px;
-            width: 250px;
-        }
-
-        input[type=submit]:hover, input[type=submit]:active {
-            background-color: #c2350a;
-        }
-    </style>
-
-</head>
-<body text="white">
-
-<h3 style="text-align:center;border-color:white;width: available;border-style: ridge;background: #a80000;"
-    th:text="'WELCOME TO...'"></h3>
-<p>
-<h1 style="text-align:center;border-color:white;border-radius: 25px;border-style: ridge;
-    margin-right:auto; margin-left: auto; width:300px; background: #c2350a"
-    th:text="'MANGO'"></h1>
-</p>
-
-<h2> Login</h2>
-<i><p> Please enter your <b>username</b> and <b>password:</b></i></p>
+            h1 {
+                font-size: 55px;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
 
-<p th:if="${invalidInput}" class="error">Username and password must not be blank</p>
-<p th:if="${usernameExistence}" class="error">Username does not exist</p>
-<p th:if="${incorrectPassword}" class="error">Incorrect password</p>
+            h2{
+                color: #a80000;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-<form th:action="@{/login}" th:object="${loginForm}" method="post">
-    <label style="margin-left: 30px" for="username"> Username: </label>
-    <input type="text" id="username" name="username" autofocus="autofocus" /><br><br>
-    <label style="margin-left: 30px" for="password"> Password: </label>
-    <input type="password" id="password" name="password" /><br><br><br>
-    <input type="submit" value="Login">
-</form>
-<form th:action="@{/submit}" method="post"><br>
-<input type="submit" value="Register">
-</form>
+            p{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-</body>
+            body {
+                background-color: #ffe361;
+                background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            input[type=submit]{
+                background-color: #a80000;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                border-radius: 12px;
+                height: 30px;
+                width: 250px;
+            }
+
+            input[type=submit]:hover, input[type=submit]:active {
+                background-color: #c2350a;
+            }
+        </style>
+
+    </head>
+
+    <body text="white">
+
+        <h3 style="text-align:center;border-color:white;width: available;border-style: ridge;background: #a80000;"
+            th:text="'WELCOME TO...'"></h3>
+        <p>
+        <h1 style="text-align:center;border-color:white;border-radius: 25px;border-style: ridge;
+            margin-right:auto; margin-left: auto; width:300px; background: #c2350a"
+            th:text="'MANGO'"></h1>
+        </p>
+
+        <h2> Login</h2>
+        <p style="font-size: 15px"> Please enter your username and password</b></p>
+
+        <form th:action="@{/login}" th:object="${loginForm}" method="post">
+            <p style="font-size: 15px">Username <input type="text" id="username" name="username" autofocus="autofocus" /></p>
+            <p th:if="${invalidUsername}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username must not be blank *</p>
+            <p th:if="${usernameExistence}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Username does not exist *</p>
+
+            <p style="font-size: 15px">Password <input type="password" id="password" name="password" /></p>
+            <p th:if="${invalidPassword}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Password must not be blank *</p>
+            <p th:if="${incorrectPassword}" style="color: #5b0000; font-size: 12px; font-weight: bold" class="error">* Incorrect password *</p>
+
+
+            <input type="submit" value="Login">
+        </form>
+
+        <form th:action="@{/submit}" method="post"><br>
+            <input type="submit" value="Register">
+        </form>
+
+    </body>
 </html>

@@ -94,14 +94,14 @@
                 </form>
             </div>
 
-            <div style="margin-left:150px;display:inline-block; width:45%;text-align:center;">
+            <div align="center" style="margin-left:200px;display:inline-block; width:45%;text-align:center">
                 <h2>Add a Post</h2>
                 <form th:action="@{/addPost}" th:object="${postForm}" method="post">
-                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold;">Title  <input type="text" id="title" name="title" autofocus="autofocus" />
+                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold;">Title  <input style="width: 300px" type="text" id="title" name="title" autofocus="autofocus" />
                     <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${tooLong}" class="error">* Title must not be longer than 100 characters *</p>
                     <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${invalidTitle}" class="error">* Title must not be blank *</p>
 
-                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold;">Message  <input type="text" id="message" name="message" />
+                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold">Message  <input style="width: 300px" type="text" id="message" name="message" />
                     <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${invalidMessage}" class="error">* Message must not be blank *</p>
 
                     <p style="color: #a80000; font-size:12px; font-weight: bold;">Category<select id="category" name="category">
@@ -122,38 +122,42 @@
 
         <table>
             <tbody>
-                <div align="center" style="text-align:left; border-color: white; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; margin-bottom: 5px; width: 1300px; background: white" th:each="post : ${posts}">
+                <div align="center" th:each="post : ${posts}">
 
-                    <h1 style="margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
-                        th:text="${post.getTitle()}"></h1>
+                    <div style='float:left; margin-left: 10px'>
+                        <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+                            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                            <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="70px" height="70px" value="Like post">
+                            <p style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold">Grow a mango</p>
+                        </form>
 
-                    <h1 style="margin-left: 10px; color: #a80000; font-size:15px; font-weight: bold"
-                        th:text="'Category: ' + ${post.getCategory()}"></h1>
+                        <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+                            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                            <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="70px" height="70px"  value="Unlike post">
+                            <p style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold">Eat a mango</p>
+                        </form>
+                    </div>
+                    <div style="float:right; text-align:left; margin-right:50px; margin-left: 5px; font-size:15px; margin-bottom: 5px; width: 1300px; text-align:left; border-color: white; border-style: solid; font-size:15px; margin-bottom: 5px; width: 1300px; background: white">
+                        <h1 style="margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
+                            th:text="${post.getTitle()}"></h1>
 
-                    <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
-                        th:text="'Posted by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}" ></h1>
+                        <h1 style="margin-left: 10px; color: #a80000; font-size:15px; font-weight: bold"
+                            th:text="'Category: ' + ${post.getCategory()}"></h1>
 
-                    <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
-                        th:text="'Mangoes Grown: ' + ${post.getLikes()}"></h1>
+                        <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                            th:text="'Posted by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}" ></h1>
 
-                    <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
-                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-                        <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="30px" height="30px" value="Like post">
-                    </form>
+                        <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                            th:text="'Mangoes Grown: ' + ${post.getLikes()}"></h1>
 
-                    <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
-                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-                        <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="30px" height="30px"  value="Unlike post">
-                    </form>
-
-                    <form style="float: right; margin-left: 50px; position: absolute; display: inline-block" th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
-                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-                        <p> <input style="width:100px" type="submit"  value="View">
-                    </form>
+                        <form style="float: right; margin-left: 50px; position: absolute; display: inline-block" th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
+                            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                            <p> <input style="width:100px" type="submit"  value="View">
+                        </form>
+                    </div>
 
                     <div style="clear: both"></div>
                 </div>

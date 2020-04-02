@@ -15,12 +15,12 @@ public class LoginController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
-    private Model myModel;
+    private RedirectAttributes myRedirect;
 
     //Shows the login page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginForm() {
-        return "index";
+        return "redirect:";
     }
 
     //Allows the user to logout
@@ -31,15 +31,14 @@ public class LoginController {
 
     //checks users login credentials
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model, RedirectAttributes redirectAttributes)
-    {
-        myModel = model;
+    public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model, RedirectAttributes redirectAttributes) {
+        myRedirect = redirectAttributes;
         userRepo = new UserRepo();
         postRepo = new PostRepo();
 
         if(validate(loginForm)) {
-            model = myModel;
-            return "index";         //returns to login page if username or password were invalid
+            redirectAttributes = myRedirect;
+            return "redirect:";         //returns to login page if username or password were invalid
         }
         else {
             redirectAttributes.addFlashAttribute("currentUser", userRepo.getUser(loginForm.getUsername()));
@@ -53,14 +52,21 @@ public class LoginController {
 
     //Validates the username and password being entered
     public boolean validate(LoginForm loginForm){
-        if(loginForm.getUsername().equals("") || loginForm.getPassword().equals("")){       //checks if username and password are empty
-            myModel.addAttribute("invalidInput", true);
+        if(loginForm.getUsername().equals("") && loginForm.getPassword().equals("")){       //checks if username and password are empty
+            myRedirect.addFlashAttribute("invalidUsername", true);
+            myRedirect.addFlashAttribute("invalidPassword", true);
             return true;
-        } else if(!userRepo.validateUsernameExistence(loginForm.getUsername())) {       //checks if username exists
-            myModel.addAttribute("usernameExistence", true);
+        } else if(loginForm.getUsername().equals("")) {
+            myRedirect.addFlashAttribute("invalidUsername", true);
+            return true;
+        }else if(loginForm.getPassword().equals("")) {
+            myRedirect.addFlashAttribute("invalidPassword", true);
+            return true;
+        }else if(!userRepo.validateUsernameExistence(loginForm.getUsername())) {       //checks if username exists
+            myRedirect.addFlashAttribute("usernameExistence", true);
             return true;
         } else if(!userRepo.validateUser(loginForm.getUsername(), loginForm.getPassword()).isPresent()) {       //checks if the password is correct
-            myModel.addAttribute("incorrectPassword", true);
+            myRedirect.addFlashAttribute("incorrectPassword", true);
             return true;
         } else return false;
     }

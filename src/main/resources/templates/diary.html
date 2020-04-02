@@ -1,105 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Diary</title>
-    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <style>
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Diary</title>
+        <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+        <style>
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-        body {
-            background-color: #ffe361;
-            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            body {
+                background-color: #ffe361;
+                background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        input[type="submit"]{
-            background-color: #a80000;
-            color: white;
-            text-align: center;
-            display: inline-block;
-            border-radius: 12px;
-            height: 25px;
-            width: 150px;
-        }
+            input[type="submit"]{
+                background-color: #a80000;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                border-radius: 12px;
+                height: 25px;
+                width: 150px;
+            }
 
-        h1{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h1{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        h2{
-            color: #a80000;
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h2{
+                color: #a80000;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        p{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            p{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        input[type="submit"]:hover, input[type="submit"]:active {
-            background-color: #c2350a;
-        }
-    </style>
+            input[type="submit"]:hover, input[type="submit"]:active {
+                background-color: #c2350a;
+            }
+        </style>
 
-</head>
-<body>
+    </head>
+    <body>
+        <table>
+            <tbody>
+                <h1 align="center" style="text-align:center;border-color:white;color: white;border-radius: 25px;border-style: ridge; width:300px; background: #c2350a; position: absolute;" th:text="'MANGO'"></h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 style="text-align:center;border-color:white;color: white;border-radius: 25px;border-style: ridge;
-    margin-right:auto; margin-left: auto; width:300px; background: #c2350a"
-                th:text="'MANGO'"></h1>
+                <br class="col-md-6">
+
+                <form style="display: inline-block; float: right; position: absolute" th:action="@{/logout}" method="post">
+                    <p align="right" style="display: inline-block; float: right;"><input type="submit" value="Logout"></p>
+                </form>
+
+                <form style="display: inline-block; float: right; position: absolute;" th:action="@{/goHome}" method="post">
+                    <p align="right" ><input type="submit" value="Return to Homepage"></p>
+                </form>
+            </tbody>
+        </table>
+
+        <p th:if="${empty}" align="center" style="color: #a80000; font-size: 15px; font-weight: bold">You currently don't have any posts</p>
+
+        <br>
+        <h1 align="center" style="color: #a80000; font-size:23px; font-weight: bold">My Diary</h1>
+        <hr>
+
+        <div align="center" th:each="post : ${posts}">
+            <div style="text-align:left; margin-right:50px; margin-left: 5px; font-size:15px; margin-bottom: 5px; width: 1300px; border-color: white; border-style: solid; background: white">
+                <h1 style="margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
+                    th:text="${post.getTitle()}"></h1>
+
+                <h1 style="margin-left: 10px; color: #a80000; font-size:15px; font-weight: bold"
+                    th:text="'Category: ' + ${post.getCategory()}"></h1>
+
+                <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                    th:text="'Posted by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}" ></h1>
+
+                <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                    th:text="'Mangoes Grown: ' + ${post.getLikes()}"></h1>
+
+                <form th:action="@{/goToPost}" th:object="${inspectionForm}" method="post">
+                    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                    <p> <input style="width:100px" type="submit"  value="View">
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <form th:action="@{/logout}" method="post">
-                <p align="right"><input type="submit" value="Logout"></p>
-            </form>
-
-            <form th:action="@{/goHome}" method="post">
-                <p align="right"><input type="submit" value="Return to Homepage"></p>
-            </form>
-
-            <p th:if="${empty}">You currently don't have any posts</p>
-
-            <table>
-                <tbody>
-                <tr th:each="post : ${posts}">
-
-                    <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:20px; font-weight: bold;width: fit-content"
-                        th:text="${post.getDisplayName()}"></h1>
-                    <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-                        th:text="${post.getTitle()}"></h1>
-                    <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-                        th:text="${post.getCategory()}"></h1>
-                    <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-                        th:text="${post.getDate()}"></h1>
-                    <h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-                        th:text="${post.getLikes()}"></h1>
-                    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
-                        th:text="${post.getContent()}"></h1>
-
-                    <form th:action="@{/goToPost}" th:object="${inspectionForm}" method="post">
-                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-                        <p align="center"> <input type="submit"  value="View">
-                    </form>
-
-                </tr>
-                </tbody>
-
-            </table>
-        </div>
-    </div>
-</div>
-
-</body>
+    </body>
 </html>
