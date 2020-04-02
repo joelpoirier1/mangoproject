@@ -2,11 +2,10 @@ package api;
 
 import model.Comment;
 import model.CommentList;
-import org.apache.coyote.Request;
-import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Objects;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
 
 public class CommentRequest {
@@ -26,37 +25,47 @@ public class CommentRequest {
     }
 
     public Comment getCommentByCommentID(UUID id){
-        return restAPI.getForObject(commentServiceURL + "commentID/" + id.toString(), Comment.class);
-
+            return restAPI.getForObject(commentServiceURL + "commentID/" + id.toString(), Comment.class);
     }
 
     public CommentList getCommentForParentID(UUID parent){
-        return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
+            return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
     }
 
     public CommentList getCommentForPostID(UUID post){
-        getAPIStatus();
-        return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
-
+            return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
     }
 
     public boolean getAPIStatus(){
 
-        //and do I need this JSON media type for my use case?
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        //timeout
+        int timeoutTime = 3*1000;
 
-        //set my entity
-        HttpEntity<Object> entity = new HttpEntity<Object>(headers);
-        ResponseEntity<String> out;
         try {
-            out = restAPI.exchange(commentServiceURL, HttpMethod.GET, entity, String.class);
+            long startTime = System.nanoTime();
 
-        } catch (Exception e){
+            URL url = new URL(commentServiceURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection.setFollowRedirects(false);
+            connection.setConnectTimeout(timeoutTime);
+            connection.setReadTimeout(timeoutTime);
+            connection.setRequestMethod("GET");
+            connection.connect();
+            int code = connection.getResponseCode();
+
+            if(code >= 300)
+            {
+                return true;
+            }
+
+            long elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed Time (ms): " + elapsedTime/1000000);
+            return false;
+        }catch(Exception e)
+        {
+            System.out.println("Timeout!!!!");
             return true;
         }
-
-        return Objects.equals(out.getBody(), "{" + '"' + "comments" + '"' + ":[]}") || !out.getStatusCode().is2xxSuccessful();
     }
 
 

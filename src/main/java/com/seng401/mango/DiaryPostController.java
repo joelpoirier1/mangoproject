@@ -45,17 +45,22 @@ public class DiaryPostController {
             model.addAttribute("post", postRepo.getPostByUUID(currentPost).get());
         }
 
-        //makes sure commentList is not null
-        if(!model.containsAttribute("commentList")){
-            postRepo.getPostByUUID(currentPost).get().setCommentList(request.getCommentForPostID(currentPost).getComments());
-            model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
-        }
-
         //checks if the microservice is enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
+
+            //makes sure commentList is not null
+            if(!model.containsAttribute("commentList")){
+                model.addAttribute("commentList", null);
+            }
         }else{
             model.addAttribute("disabled", false);
+
+            //makes sure commentList is not null
+            if(!model.containsAttribute("commentList")){
+                postRepo.getPostByUUID(currentPost).get().setCommentList(request.getCommentForPostID(currentPost).getComments());
+                model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
+            }
         }
 
         return "diaryPost";

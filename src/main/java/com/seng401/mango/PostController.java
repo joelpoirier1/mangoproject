@@ -53,17 +53,22 @@ public class PostController {
             model.addAttribute("post", postRepo.getPostByUUID(currentPost).get());
         }
 
-        //makes sure commentList is not null
-        if(!model.containsAttribute("commentList")){
-            postRepo.getPostByUUID(currentPost).get().setCommentList(request.getCommentForPostID(currentPost).getComments());
-            model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
-        }
-
         //checks if the microservice is enabled
         if(request.getAPIStatus()){
             model.addAttribute("disabled", true);
+
+            //makes sure commentList is not null
+            if(!model.containsAttribute("commentList")){
+                model.addAttribute("commentList", null);
+            }
         }else{
             model.addAttribute("disabled", false);
+
+            //makes sure commentList is not null
+            if(!model.containsAttribute("commentList")){
+                postRepo.getPostByUUID(currentPost).get().setCommentList(request.getCommentForPostID(currentPost).getComments());
+                model.addAttribute("commentList", filterComments(request.getCommentForPostID(currentPost).getComments()));
+            }
         }
 
         //makes sure postRepo is not null
@@ -91,7 +96,7 @@ public class PostController {
         redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(inspectionForm.getPostID()).get());
 
         for(Post p: postRepo.getAllPosts()){
-            if(p.getPostID().compareTo(inspectionForm.getPostID()) == 0) {
+            if(p.getPostID().compareTo(inspectionForm.getPostID()) == 0 && !request.getAPIStatus()) {
                 p.setCommentList(request.getCommentForPostID(inspectionForm.getPostID()).getComments());
                 redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
             }
@@ -121,7 +126,7 @@ public class PostController {
 
         //regenerates the list of comments related to the post being viewed
         for(Post p: postRepo.getAllPosts()){
-            if(p.getPostID().compareTo(commentForm.getParentID()) == 0) {
+            if(p.getPostID().compareTo(commentForm.getParentID()) == 0 && !request.getAPIStatus()) {
                 p.setCommentList(request.getCommentForPostID(commentForm.getParentID()).getComments());
                 redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
             }
