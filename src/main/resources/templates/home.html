@@ -158,17 +158,12 @@
 
         <h1 style="float: right; margin-left: 200px; display: inline-block; position: absolute; text-align:left; color: #a80000; font-size:20px; font-weight: bold; text-decoration: underline"
             th:text="${post.getTitle()}"></h1>
-
-
-
+        
         <h1 style="display: inline-block; float: right; position: absolute; text-align:left; margin-left: 800px; color: #a80000; font-size:10px; font-weight: bold;"
             th:text="'Posted by ' + ${post.getDisplayName()} + ' in ' + ${post.getCategory()} + ' at ' + ${post.getDate()}" ></h1>
 
         <div style="clear: both"></div>
 
-
-
-    <br><br>
     </div>
     </tbody>
 
