@@ -11,8 +11,17 @@
             margin-right: auto;
         }
 
+        h1{
+            font-family: Verdana, Arial, sans-serif;
+        }
+
         h2{
             color: #a80000;
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        p{
+            font-family: Verdana, Arial, sans-serif;
         }
 
         body {
@@ -49,7 +58,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <br class="col-md-6">
             <form th:action="@{/logout}" method="post">
                 <p align="right"><input type="submit" value="Logout"></p>
             </form>
@@ -74,6 +83,11 @@
                 <input type="text" id="keyword" name="keyword" autofocus="autofocus" size="12" />
                 <p align="center" th:if="${invalidSearch}" class="error">Please enter a keyword first</p>
                 <input type="submit" value="Search by Keyword">
+            </form>
+
+            <br>
+            <form th:action="@{/cancelSearch}" method="post">
+                <input type="submit" value="Cancel Search">
             </form>
 
             <div class="col-md-6">
