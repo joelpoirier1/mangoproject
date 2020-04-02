@@ -79,7 +79,7 @@
                 th:text="${post.getContent()}"></h1>
 
 
-            <h1 th:if="!${disabled}" style="text-align:left; margin-right:auto; margin-left: 50px; font-size:15px; color: #5b0000"
+            <h1 th:if="!${commentList.isEmpty()}" style="text-align:left; margin-right:auto; margin-left: 50px; font-size:15px; color: #5b0000"
                 >Comments:</h1>
 
             <h1 th:if="${disabled}" align="center" style="color: #5b0000; font-size:12px"
