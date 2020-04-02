@@ -26,18 +26,15 @@ public class CommentRequest {
     }
 
     public Comment getCommentByCommentID(UUID id){
-        return restAPI.getForObject(commentServiceURL + "commentID/" + id.toString(), Comment.class);
-
+            return restAPI.getForObject(commentServiceURL + "commentID/" + id.toString(), Comment.class);
     }
 
     public CommentList getCommentForParentID(UUID parent){
-        return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
+            return restAPI.getForObject(commentServiceURL + "parentID/" + parent.toString(), CommentList.class);
     }
 
     public CommentList getCommentForPostID(UUID post){
-        getAPIStatus();
-        return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
-
+            return restAPI.getForObject(commentServiceURL + "postID/" + post.toString(), CommentList.class);
     }
 
     public boolean getAPIStatus(){
@@ -51,11 +48,9 @@ public class CommentRequest {
         ResponseEntity<String> out;
         try {
             out = restAPI.exchange(commentServiceURL, HttpMethod.GET, entity, String.class);
-
         } catch (Exception e){
             return true;
         }
-
         return Objects.equals(out.getBody(), "{" + '"' + "comments" + '"' + ":[]}") || !out.getStatusCode().is2xxSuccessful();
     }
 

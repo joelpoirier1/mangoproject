@@ -128,7 +128,6 @@
             th:text="${post.getDate()}"></h1>
 
 
-
         <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
             <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
             <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>

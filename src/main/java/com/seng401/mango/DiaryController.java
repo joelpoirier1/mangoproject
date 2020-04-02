@@ -54,7 +54,7 @@ public class DiaryController {
         redirectAttributes.addFlashAttribute("post", postRepo.getPostByUUID(inspectionForm.getPostID()).get());
 
         for(Post p: postRepo.getAllPosts()){
-            if(p.getPostID().compareTo(inspectionForm.getPostID()) == 0) {
+            if(p.getPostID().compareTo(inspectionForm.getPostID()) == 0 && !request.getAPIStatus()) {
                 p.setCommentList(request.getCommentForPostID(inspectionForm.getPostID()).getComments());
                 redirectAttributes.addFlashAttribute("commentList", p.getCommentList());
             }
