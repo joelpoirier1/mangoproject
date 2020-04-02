@@ -135,7 +135,7 @@
                         th:text="'Posted by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}" ></h1>
 
                     <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
-                        th:text="'Likes: ' + ${post.getLikes()}"></h1>
+                        th:text="'Mangoes Grown: ' + ${post.getLikes()}"></h1>
 
                     <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
                         <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>

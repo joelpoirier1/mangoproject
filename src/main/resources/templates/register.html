@@ -61,11 +61,11 @@
 <p th:if="${containsSpace}" class="error">Username and password must not contain spaces</p>
 
 <form action="/createAccount" method="post" name="register">
-    <label for="username">Username:</label><br>
+    <label for="username">Username: </label><br>
     <input type="text" id="username" name="username"><br><br>
-    <label for="password">Password:</label><br>
+    <label for="password">Password: </label><br>
     <input type="password" id="password" name="password"><br><br>
-    <label for="verifyPassword">Re-enter Password:</label><br>
+    <label for="verifyPassword">Re-enter Password: </label><br>
     <input type="password" id="verifyPassword" name="verifyPassword"><br><br><br>
     <input type="submit" value="Submit!">
 </form>
