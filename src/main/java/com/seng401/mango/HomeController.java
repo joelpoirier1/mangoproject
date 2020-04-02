@@ -66,6 +66,10 @@ public class HomeController {
             model.addAttribute("postRepo", postRepo);
         }
 
+        if(search != null || searchKeyword != null){
+            model.addAttribute("searched", true);
+        }
+
         return "home";
     }
 

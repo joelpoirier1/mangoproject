@@ -1,176 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Mango Homepage</title>
-    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <style>
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Mango Homepage</title>
+        <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+        <style>
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-        h1{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h1{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        h2{
-            color: #a80000;
-            display: inline-block;
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 18px;
-        }
+            h2{
+                color: #a80000;
+                display: inline-block;
+                font-family: Verdana, Arial, sans-serif;
+                font-size: 18px;
+            }
 
-        p{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            p{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        body {
-            background-color: #ffe361;
-            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            body {
+                background-color: #ffe361;
+                background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        input[type="submit"]{
-            background-color: #a80000;
-            color: white;
-            text-align: center;
-            display: inline-block;
-            border-radius: 12px;
-            height: 30px;
-            width: 140px;
-        }
+            input[type="submit"]{
+                background-color: #a80000;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                border-radius: 12px;
+                height: 30px;
+                width: 140px;
+            }
 
-        input[type="submit"]:hover, input[type="submit"]:active {
-            background-color: #c2350a;
-        }
-    </style>
+            input[type="submit"]:hover, input[type="submit"]:active {
+                background-color: #c2350a;
+            }
+        </style>
 
-</head>
-<body>
+    </head>
 
-<table>
-    <tbody>
-
-
-
-            <h1 style="text-align:center;border-color:white;color: white;border-radius: 25px;border-style: ridge;
-              margin-left: 5px; width:300px; background: #c2350a; float: left; position: absolute"
-                th:text="'MANGO'"></h1>
-
+    <body>
+        <table>
+            <tbody>
+                <h1 style="text-align:center;border-color:white;color: white;border-radius: 25px;border-style: ridge; margin-left: 5px; width:300px; background: #c2350a; float: left; position: absolute" th:text="'MANGO'"></h1>
 
                 <br class="col-md-6">
 
-            <form style="display: inline-block; float: right; margin-left: auto; position: absolute;" th:action="@{/goToDiary}" method="post">
-            <p style="display: inline-block; float: right; margin-left: 1250px; position: absolute;"><input type="submit" value="My Diary"></p>
-             </form>
-
                 <form style="display: inline-block; float: right; position: absolute" th:action="@{/logout}" method="post">
-                    <p align="right"><input type="submit" value="Logout"></p>
+                    <p align="right" style="display: inline-block; float: right;"><input type="submit" value="Logout"></p>
                 </form>
-            <div style="clear: both;"></div>
-    </tbody>
-</table>
 
-<table>
-    <tbody>
-    <h2 style="display: inline-block; float: left; margin-left: 60px;"> Search Posts</h2>
-    <p style="float: right; text-align:left; margin-left: 700px; position: absolute; color: #a80000; font-size:18px; font-weight: bold;">Add a post<p>
-    <div style="clear: both;"></div>
+                <form style="display: inline-block; float: right; position: absolute;" th:action="@{/goToDiary}" method="post">
+                    <p align="right" ><input type="submit" value="My Diary"></p>
+                </form>
 
-    <br>
-    <form style="padding: 20px; display: inline-block; float: left; margin-left: 60px; position: absolute" th:action="@{/search}" th:object="${searchForm}" method="post">
-        <select id="category" name="category">
-            <option th:each="category : ${categories}"
-                    th:value="${category}"
-                    th:text="${category}"></option>
-        </select>
+                <div style="clear: both;"></div>
+            </tbody>
+        </table>
 
-        <input type="submit" value="Search by Category">
-    </form>
+        <table>
+            <div style='float:left'>
+                <h2>Search Posts</h2>
 
-    <p style="display: inline-block; float: right; position: absolute; text-align:left;  margin-left: 375px; color: #a80000; font-size:12px; font-weight: bold;">Title  <input type="text" id="title" name="title" autofocus="autofocus" />
+                <form th:action="@{/search}" th:object="${searchForm}" method="post">
+                    <select id="category" name="category">
+                        <option th:each="category : ${categories}"
+                                th:value="${category}"
+                                th:text="${category}"></option>
+                    </select>
+                    <input type="submit" value="Search by Category">
+                </form>
 
-    <div style="clear: both;"></div>
-    <br>
-    <form style="padding: 20px; margin-left: 60px;" th:action="@{/searchKeyword}" th:object="${searchKeywordForm}" method="post">
-        <input type="text" id="keyword" name="keyword" autofocus="autofocus" size="12" />
-        <p align="center" th:if="${invalidSearch}" class="error">Please enter a keyword first</p>
-        <input type="submit" value="Search by Keyword">
-    </form>
+                <form  th:action="@{/searchKeyword}" th:object="${searchKeywordForm}" method="post">
+                    <input type="text" id="keyword" name="keyword" autofocus="autofocus" size="12" />
+                    <input type="submit" value="Search by Keyword">
+                </form>
 
-    <p style="display: inline-block; float: right; position: absolute; text-align:left; margin-left: 300px; color: #a80000; font-size:12px; font-weight: bold;">Message  <input type="text" id="message" name="message" />
+                <h1 style="color: #5b0000; font-size:10px; font-weight: bold" th:if="${invalidSearch}" class="error">* Please enter a keyword first *</h1>
 
-    <form style="display: inline-block;" th:action="@{/addPost}" th:object="${postForm}" method="post">
+                <form  th:if="${searched}" th:action="@{/cancelSearch}" method="post">
+                    <input  type="submit" value="Cancel Search">
+                </form>
+            </div>
 
+            <div style="margin-left:150px;display:inline-block; width:45%;text-align:center;">
+                <h2>Add a Post</h2>
+                <form th:action="@{/addPost}" th:object="${postForm}" method="post">
+                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold;">Title  <input type="text" id="title" name="title" autofocus="autofocus" />
+                    <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${tooLong}" class="error">* Title must not be longer than 100 characters *</p>
+                    <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${invalidTitle}" class="error">* Title must not be blank *</p>
 
-            <select id="category" name="category">
-                <option th:each="category : ${categories}"
-                        th:value="${category}"
-                        th:text="${category}"></option>
-            </select>
+                    <p align="center" style="color: #a80000; font-size:12px; font-weight: bold;">Message  <input type="text" id="message" name="message" />
+                    <p style="color: #5b0000; font-size:10px; font-weight: bold" align="center" th:if="${invalidMessage}" class="error">* Message must not be blank *</p>
+
+                    <p style="color: #a80000; font-size:12px; font-weight: bold;">Category<select id="category" name="category">
+                        <option th:each="category : ${categories}"
+                                th:value="${category}"
+                                th:text="${category}"></option>
+                    </select></p>
+
+                    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+
+                    <p align="center"> <input type="submit" value="Submit"></p>
+                </form>
+            </div>
+        </table>
         <br>
 
-            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+        <hr>
 
-            <p align="center" th:if="${tooLong}" class="error">Title must not be longer than 100 characters</p>
-            <p align="center" th:if="${invalidTitle}" class="error">Title must not be blank</p>
-            <p align="center" th:if="${invalidMessage}" class="error">Message must not be blank</p>
-    <div style="clear: both"></div>
-         <form style="display: inline-block; float: left; position: absolute;" th:action="@{/cancelSearch}" method="post">
-        <br><input type="submit" value="Cancel Search">
-         </form>
-    <p style="float: right; display: inline-block; position: absolute; margin-left: 540px"> <input type="submit" value="Submit"></p>
-    </form>
-    <div style="clear: both"></div>
+        <table>
+            <tbody>
+                <div align="center" style="text-align:left; border-color: white; border-style: solid;
+    margin-right:auto; margin-left: auto; font-size:15px; margin-bottom: 5px; width: 1300px; background: white" th:each="post : ${posts}">
 
-    <br>
-    </tbody>
-</table>
+                    <h1 style="margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
+                        th:text="${post.getTitle()}"></h1>
 
-<hr>
-<table>
-    <tbody>
-    <div th:each="post : ${posts}">
+                    <h1 style="margin-left: 10px; color: #a80000; font-size:15px; font-weight: bold"
+                        th:text="'Category: ' + ${post.getCategory()}"></h1>
 
-        <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
-            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p style="display: inline-block; margin-left: 20px;"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="30px" height="30px" value="Like post">
-        </form>
+                    <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                        th:text="'Posted by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}" ></h1>
 
-        <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
-            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p style="display: inline-block; margin-left: 20px;"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="30px" height="30px"  value="Unlike post">
-        </form>
+                    <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
+                        th:text="'Likes: ' + ${post.getLikes()}"></h1>
 
-        <h1 style="position: absolute; text-align:center; float: right; margin-left: 5px; color: #a80000; font-size:20px; font-weight: bold; display: inline-block"
-            th:text="${post.getLikes()}"></h1>
+                    <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                        <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="30px" height="30px" value="Like post">
+                    </form>
 
-        <form style="float: right; margin-left: 50px; position: absolute; display: inline-block" th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
-            <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-            <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-            <p style="float: right; margin-left: 50px; position: absolute; display: inline-block"> <input style="width:100px" type="submit"  value="View">
-        </form>
+                    <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likePost}" th:object="${inspectionForm}" method="post">
+                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                        <p style="margin-left: 10px"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="30px" height="30px"  value="Unlike post">
+                    </form>
 
-        <h1 style="float: right; margin-left: 200px; display: inline-block; position: absolute; text-align:left; color: #a80000; font-size:20px; font-weight: bold; text-decoration: underline"
-            th:text="${post.getTitle()}"></h1>
-        
-        <h1 style="display: inline-block; float: right; position: absolute; text-align:left; margin-left: 800px; color: #a80000; font-size:10px; font-weight: bold;"
-            th:text="'Posted by ' + ${post.getDisplayName()} + ' in ' + ${post.getCategory()} + ' at ' + ${post.getDate()}" ></h1>
+                    <form style="float: right; margin-left: 50px; position: absolute; display: inline-block" th:action="@{/inspectPost}" th:object="${inspectionForm}" method="post">
+                        <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                        <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                        <p> <input style="width:100px" type="submit"  value="View">
+                    </form>
 
-        <div style="clear: both"></div>
-
-    </div>
-    </tbody>
-
-</table>
-        </div>
-    </div>
-</div>
-
-</body>
+                    <div style="clear: both"></div>
+                </div>
+            </tbody>
+        </table>
+    </body>
 </html>

@@ -39,7 +39,7 @@ public class CommentRequest {
     public boolean getAPIStatus(){
 
         //timeout
-        int timeoutTime = 3*1000;
+        int timeoutTime = 1000;
 
         try {
             long startTime = System.nanoTime();

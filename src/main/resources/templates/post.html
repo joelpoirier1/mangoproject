@@ -1,115 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Post</title>
-    <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <style>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Post</title>
+        <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
+        <style>
 
-        body {
-            background-color: #ffe361;
-            background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            body {
+                background-color: #ffe361;
+                background-image: url('http://www.photoplato.com/photoplato/24349-orange-and-yellow-wallpaper.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        input[type="submit"]{
-            background-color: #a80000;
-            color: white;
-            text-align: center;
-            display: inline-block;
-            border-radius: 12px;
-            height: 25px;
-            width: 150px;
-        }
+            input[type="submit"]{
+                background-color: #a80000;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                border-radius: 12px;
+                height: 25px;
+                width: 150px;
+            }
 
-        h1{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h1{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        h2{
-            color: #a80000;
-            font-family: Verdana, Arial, sans-serif;
-        }
+            h2{
+                color: #a80000;
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        p{
-            font-family: Verdana, Arial, sans-serif;
-        }
+            p{
+                font-family: Verdana, Arial, sans-serif;
+            }
 
-        input[type="submit"]:hover, input[type="submit"]:active {
-            background-color: #c2350a;
-        }
-    </style>
+            input[type="submit"]:hover, input[type="submit"]:active {
+                background-color: #c2350a;
+            }
+        </style>
 
-</head>
-<body>
-<form th:action="@{/logout}" method="post">
-    <p align="right"><input type="submit" value="Logout"></p>
-</form>
+    </head>
+    <body>
+        <form th:action="@{/logout}" method="post">
+            <p align="right"><input type="submit" value="Logout"></p>
+        </form>
 
-<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-    th:text="${post.getTitle()}"></h1>
-<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-    th:text="${post.getCategory()}"></h1>
-<h1 style="text-align:left; margin-right:auto; margin-left: auto; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
-    th:text="${post.getDate()}"></h1>
+        <div style='float:left; margin-left: 10px'>
+            <form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
+                <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                <p style="margin-left: 30px"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="60px" height="60px" value="Like post">
+                <p style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold">Grow a mango</p>
+            </form>
 
-<table>
-    <tbody>
+            <form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
+                <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                <p style="margin-left: 30px"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="60px" height="60px"  value="Unlike post">
+                <p style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold">Eat a mango</p>
+            </form>
+        </div>
 
-<form th:if="!${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
-    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-    <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/ah42ru7.png" alt="Like" width="60px" height="60px" value="Like post">
-</form>
+        <div style="float:right; text-align:left; margin-right:75px; margin-left: 5px; font-size:15px; margin-bottom: 5px; width: 1300px">
 
-<form th:if="${postRepo.getPostStatusByUser(post.getPostID(), currentUser.get().getId())}" th:action="@{/likeThisPost}" th:object="${inspectionForm}" method="post">
-    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-    <p style="display: inline-block; justify-content: center; margin-left: 750px;"> <input type="image" src="https://i.imgur.com/9DCDRzH.png" alt="Unlike" width="60px" height="60px"  value="Unlike post">
-</form>
+            <h1 align="left" style="text-align:left; color: #a80000; font-size:30px; font-weight: bold;width: fit-content"
+                th:text="${post.getTitle()}"></h1>
+            <h1 align="left" style="text-align:left; color: #a80000; font-size:15px; font-weight: bold;width: fit-content"
+                th:text="${post.getCategory()}"></h1>
+            <h1 align="left" style="text-align:left;color: #a80000; font-size:12px; font-weight: bold;width: fit-content"
+                th:text="'Created by ' + ${post.getDisplayName()} + ' on ' + ${post.getDate()}"></h1>
 
-<h1 style="text-align:center; color: #a80000; font-size:20px; font-weight: bold; display: inline-block"
-    th:text="${post.getLikes()}"></h1>
+        <table>
+            <tbody>
 
-    </tbody>
-</table>
+                <h1 style="text-align:center; color: #a80000; font-size:12px; font-weight: bold; display: inline-block"
+                    th:text="'Likes: ' + ${post.getLikes()}"></h1>
+            </tbody>
+        </table>
 
-<h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; width: 500px; background: white"
-    th:text="${post.getContent()}"></h1>
+        <h1 style="text-align:left; color: #a80000; border-color: #a80000; border-style: solid;
+        margin-right:auto; margin-left: auto; font-size:13px; margin-bottom: 5px; width: 1300px; height: 100px; background: white"
+            th:text="${post.getContent()}"></h1>
 
-<h1 th:if="!${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
-    >Comments:</h1>
 
-<h1 th:if="${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
->Commenting is currently unavailable.</h1>
+        <h1 th:if="!${disabled}" style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 500px"
+            >Comments:</h1>
+
+        <h1 th:if="${disabled}" align="center" style="color: #a80000; font-size:15px"
+        >Commenting is currently unavailable.</h1>
 
         <tr  th:if="!${disabled}" th:each="comment : ${commentList}">
-            <h1 style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 400px"
-                th:text="${comment.getDate()}"></h1>
-    <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
-    margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
-        th:text="${comment.getMessage()}"></h1>
 
+            <h1 style="text-align:left; margin-right:auto; margin-left: auto; font-size:15px; width: 400px"
+                        th:text="${comment.getDate()}"></h1>
+            <h1 style="text-align:left;border-color:#c2350a;border-radius: 0px; border-style: solid;
+            margin-right:auto; margin-left: auto; font-size:15px; width: 400px; background: #fbdbc6"
+                th:text="${comment.getMessage()}"></h1>
 
             <form th:action="@{/replyComment}" th:object="${inspectCommentForm}" method="post">
                 <input type="hidden" id="postID" name="postID" th:value="${comment.getCommentID()}"/>
                 <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
                 <p align="center"><input type="submit" value="Reply">
             </form>
-    </tr>
+        </tr>
 
-<form th:if="!${disabled}" th:action="@{/addComment}" th:object="${commentForm}" method="post">
-    <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
-    <input type="hidden" id="uID" name="uID" th:value="${currentUser.get().getId()}"/>
-    <p align="center">Add a comment<input type="text" name="comment" id="comment"></p>
-    <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>
-    <p align="center"><input type="submit" value="Submit comment"></p>
-</form>
+        <form th:if="!${disabled}" th:action="@{/addComment}" th:object="${commentForm}" method="post">
+            <input type="hidden" name="parentID" th:value="${post.getPostID()}"/>
+            <input type="hidden" id="uID" name="uID" th:value="${currentUser.get().getId()}"/>
+            <p align="center">Add a comment<input type="text" name="comment" id="comment"></p>
+            <p align="center" th:if="${invalidComment}" class="error">Comment must not be blank</p>
+            <p align="center"><input type="submit" value="Submit comment"></p>
+        </form>
 
-<form th:action="@{/returnHome}" method="post">
-    <p align="center"><input type="submit" value="Return home"></p>
-</form>
-</body>
+        <form th:action="@{/returnHome}" method="post">
+            <p align="center"><input type="submit" value="Return home"></p>
+        </form>
+        </div>
+        </div>
+    </body>
 </html>
