@@ -72,8 +72,17 @@
 
         <div align="center" th:each="post : ${posts}">
             <div style="text-align:left; margin-right:50px; margin-left: 5px; font-size:15px; margin-bottom: 5px; width: 1300px; border-color: white; border-style: solid; background: white">
-                <h1 style="margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
+                <h1 style="float:right; display: inline-block; position: absolute; margin-left: 10px; color: #a80000; font-size:23px; font-weight: bold"
                     th:text="${post.getTitle()}"></h1>
+
+                <form th:action="@{/goToPost}" th:object="${inspectionForm}" method="post">
+                    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
+                    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
+                    <p> <input style="float: right; display: inline-block; position: absolute; width:100px; margin-left: 1200px" type="submit"  value="View">
+                </form>
+
+                <div style="clear: both"></div>
+                <br><br>
 
                 <h1 style="margin-left: 10px; color: #a80000; font-size:15px; font-weight: bold"
                     th:text="'Category: ' + ${post.getCategory()}"></h1>
@@ -84,11 +93,8 @@
                 <h1 style="margin-left: 10px; color: #a80000; font-size:12px; font-weight: bold"
                     th:text="'Mangoes Grown: ' + ${post.getLikes()}"></h1>
 
-                <form th:action="@{/goToPost}" th:object="${inspectionForm}" method="post">
-                    <input type="hidden" id="userID" name="userID" th:value="${currentUser.get().getId()}"/>
-                    <input type="hidden" id="postID" name="postID" th:value="${post.getPostID()}"/>
-                    <p> <input style="width:100px" type="submit"  value="View">
-                </form>
+
+
             </div>
         </div>
     </body>
