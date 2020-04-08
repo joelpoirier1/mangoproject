@@ -58,6 +58,7 @@ public class CommentRequest {
             }
 
             long elapsedTime = System.nanoTime() - startTime;
+
             return false;
         }catch(Exception e) {
             return true;
